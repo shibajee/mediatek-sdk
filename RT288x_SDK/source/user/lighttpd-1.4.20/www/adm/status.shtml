@@ -1,0 +1,167 @@
+<!-- Copyright 2004, Ralink Technology Corporation All Rights Reserved. -->
+<html>
+<head>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="/style/normal_ws.css" type="text/css">
+<title>Access Point Status</title>
+</head>
+
+<script type="text/javascript" src="/shareFun.js"></script>
+<script language="JavaScript" type="text/javascript">
+function showOpMode()
+{
+	var opmode = 1* <!--#exec cmd="web 2860 nvram OperationMode"-->;
+	if (opmode == 0)
+		document.write("Bridge Mode");
+	else if (opmode == 1)
+		document.write("Gateway Mode");
+	else if (opmode == 2)
+		document.write("Ethernet Converter Mode");
+	else if (opmode == 3)
+		document.write("AP Client Mode");
+	else
+		document.write("Unknown");
+}
+
+function showPortStatus()
+{
+	var str = "<!--#exec cmd="web 2860 sys portStatus"-->";
+	var all = new Array();
+
+	if(str == "-1"){
+		document.write("not support");
+		return ;
+	}
+
+	all = str.split(",");
+	for(i=0; i< all.length-1; i+=3){
+		document.write("<td>");
+		if(all[i] == "1"){
+			if(all[i+1] == "10")
+				document.write("<img src=/graphics/10.gif> ");
+			else if(all[i+1] == "100")
+				document.write("<img src=/graphics/100.gif> ");
+
+//			if(all[i+2] == "F")
+//				document.write("Full ");
+//			else(all[i+2] == "H")
+//				document.write("Half ");
+		}else if(all[i] == "0"){
+				document.write("<img src=/graphics/empty.gif> ");
+		}
+		document.write("</td>");
+	}
+}
+
+function PageInit()
+{
+	var ethtoolb = "<!--#exec cmd="web 2860 build ethtool"-->";
+
+	if (ethtoolb == "1")
+	{
+		//display("block", "statusEthPortStatus");
+		display("table", "div_ethtool");
+	}
+	else
+	{
+		//display("none", "statusEthPortStatus");
+		display("none", "div_ethtool");
+	}
+}
+</script>
+
+<body onload="PageInit()">
+<table class="body"><tr><td>
+<H1 id="statusTitle">Access Point Status</H1>
+<P id="statusIntroduction">Let's take a look at the status of Ralink SoC Platform. </P>
+
+<table width="95%" border="1" cellpadding="2" cellspacing="1">
+<!-- ================= System Info ================= -->
+<tr>
+  <td class="title" colspan="2" id="statusSysInfo">System Info</td>
+</tr>
+<tr>
+  <td class="head" id="statusSDKVersion">SDK Version</td>
+  <td><!--#exec cmd="web 2860 sys sdkVersion"--> (<!--#exec cmd="web 2860 sys buildTime"-->)</td>
+</tr>
+<tr>
+  <td class="head" id="statusSysUpTime">System Up Time</td>
+  <td><!--#exec cmd="web 2860 sys uptime"--></td>
+</tr>
+<tr>
+  <td class="head" id="statusSysPlatform">System Platform</td>
+  <td><!--#exec cmd="web 2860 sys platform"--></td>
+</tr>
+<tr>
+  <td class="head" id="statusOPMode">Operation Mode</td>
+  <td><script type="text/javascript">showOpMode();</script></td>
+</tr>
+<!-- ================= Internet Configurations ================= -->
+<tr>
+  <td class="title" colspan="2" id="statusInternetConfig">Internet Configurations</td>
+</tr>
+<tr>
+  <td class="head" id="statusConnectedType">Connected Type</td>
+  <td><!--#exec cmd="web 2860 nvram wanConnectionMode"--> </td>
+</tr>
+<tr>
+  <td class="head" id="statusWANIPAddr">WAN IP Address</td>
+  <td><!--#exec cmd="web 2860 sys wanIpAddr"--></td>
+</tr>
+<tr>
+  <td class="head" id="statusSubnetMask">Subnet Mask</td>
+  <td><!--#exec cmd="web 2860 sys wanNetmask"--></td>
+</tr>
+<tr>
+  <td class="head" id="statusDefaultGW">Default Gateway</td>
+  <td><!--#exec cmd="web 2860 sys wanGateway"--></td>
+</tr>
+<tr>
+  <td class="head" id="statusPrimaryDNS">Primary Domain Name Server</td>
+  <td><!--#exec cmd="web 2860 sys dns1"--></td>
+</tr>
+<tr>
+  <td class="head" id="statusSecondaryDNS">Secondary Domain Name Server</td>
+  <td><!--#exec cmd="web 2860 sys dns2"--></td>
+</tr>
+<tr>
+  <td class="head" id="statusWANMAC">MAC Address</td>
+  <td><!--#exec cmd="web 2860 sys wanMacAddr"--></td>
+</tr>
+<!-- ================= Local Network ================= -->
+<tr>
+  <td class="title" colspan="2" id="statusLocalNet">Local Network</td>
+</tr>
+<tr>
+  <td class="head" id="statusLANIPAddr">Local IP Address</td>
+  <td><!--#exec cmd="web 2860 sys lanIpAddr"--></td>
+</tr>
+<tr>
+  <td class="head" id="statusLocalNetmask">Local Netmask</td>
+  <td><!--#exec cmd="web 2860 sys lanNetmask"--></td>
+</tr>
+<tr>
+  <td class="head" id="statusLANMAC">MAC Address</td>
+  <td><!--#exec cmd="web 2860 sys lanMacAddr"--></td>
+</tr>
+<!-- ================= Other Information ================= -->
+</table>
+
+
+<table border="0" id="div_ethtool">
+<tr>
+  <td>
+    <H1 id="statusEthPortStatus">Ethernet Port Status</H1>
+  </td>
+</tr>
+<tr>
+  <td>
+    <script type="text/javascript">showPortStatus();</script>
+  </td>
+</tr>
+</table>
+
+</td></tr></table>
+</body>
+</html>

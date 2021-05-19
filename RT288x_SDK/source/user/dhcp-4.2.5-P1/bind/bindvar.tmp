@@ -1,0 +1,2 @@
+binddir=$(shell pwd)
+GMAKE=make

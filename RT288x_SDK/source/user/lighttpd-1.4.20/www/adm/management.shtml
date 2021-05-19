@@ -1,0 +1,694 @@
+<!-- Copyright 2004, Ralink Technology Corporation All Rights Reserved. -->
+<html>
+<head>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="/style/normal_ws.css" type="text/css">
+<title>System Management</title>
+</head>
+
+<script type="text/javascript" src="/shareFun.js"></script>
+<script language="JavaScript" type="text/javascript">
+var greenapb = "<!--#exec cmd="web 2860 build greenAP"-->";
+//var snortb = '<% getSnortBuilt(); %>';
+
+function AdmFormCheck()
+{
+	if (document.Adm.admuser.value == "") {
+		alert("Please specify the administrator account.");
+		return false;
+	}
+	if (document.Adm.admpass.value == "") {
+		alert("Please specify the administrator password.");
+		return false;
+	}
+	return true;
+}
+
+function NTPFormCheck()
+{
+	if( document.NTP.NTPServerIP.value != "" && 
+		document.NTP.NTPSync.value == ""){
+		alert("Please specify a value for the interval of synchroniztion.");
+		return false;
+	}
+	if(isNaN( document.NTP.NTPSync.value ) == true){
+		alert("Invalid NTP synchronization value.");
+		return false;
+	}
+	if( atoi(document.NTP.NTPSync.value, 1) > 300){
+		alert("The synchronization value is too big.(1~300)");
+		return false;
+	}		
+	return true;
+}
+
+function DDNSFormCheck()
+{
+	if(  document.DDNS.DDNSProvider.value != "none" && 
+		(document.DDNS.Account.value == "" ||
+		 document.DDNS.Password.value == "" ||
+		 document.DDNS.DDNS.value == "")){
+		alert("Please specify account, password, and DDNS.");
+		return false;
+	}
+
+	return true;
+}
+
+function disableTextField (field)
+{
+  if(document.all || document.getElementById){
+    field.disabled = true;
+  }else {
+    field.oldOnFocus = field.onfocus;
+    field.onfocus = skip;
+  }
+}
+
+function enableTextField (field)
+{
+  if(document.all || document.getElementById)
+    field.disabled = false;
+  else {
+    field.onfocus = field.oldOnFocus;
+  }
+}
+
+function DDNSupdateState()
+{
+	if(document.DDNS.DDNSProvider.options.selectedIndex != 0){
+		enableTextField(document.DDNS.Account);
+		enableTextField(document.DDNS.Password);
+		enableTextField(document.DDNS.DDNS);
+	}else{
+		disableTextField(document.DDNS.Account);
+		disableTextField(document.DDNS.Password);
+		disableTextField(document.DDNS.DDNS);
+	}
+}
+
+function initValue()
+{
+	var tz = "<!--#exec cmd="web 2860 nvram TZ"-->";
+	var ddns_provider = "<!--#exec cmd="web 2860 nvram DDNSProvider"-->";
+
+	var dateb = "<!--#exec cmd="web 2860 build cmd_date"-->";
+	var ddnsb = "<!--#exec cmd="web 2860 build ddns"-->";
+	var watchdogb = "<!--#exec cmd="web 2860 build wdg"-->";
+
+	if (watchdogb == "1") {
+		display("table-row", "div_watchdog");
+		document.Adm.admwatchdog.disabled = false;
+		var watchdogcap = "<!--#exec cmd="web 2860 nvram WatchDogEnable"-->";
+		if (watchdogcap == "1")
+			document.Adm.admwatchdog[0].checked = true;
+		else
+			document.Adm.admwatchdog[1].checked = true;
+	} else {
+		display("none", "div_watchdog");
+		document.Adm.admwatchdog.disabled = true;
+	}
+
+	if (dateb == "1")
+	{
+		display("table-row", "div_date");
+		document.NTP.ntpcurrenttime.disabled = false;
+	} 
+	else
+	{
+		display("none", "div_date");
+		document.NTP.ntpcurrenttime.disabled = true;
+	}
+
+	if (tz == "UCT_-11")
+		document.NTP.time_zone.options.selectedIndex = 0;
+	else if (tz == "UCT_-10")
+		document.NTP.time_zone.options.selectedIndex = 1;
+	else if (tz == "NAS_-09")
+		document.NTP.time_zone.options.selectedIndex = 2;
+	else if (tz == "PST_-08")
+		document.NTP.time_zone.options.selectedIndex = 3;
+	else if (tz == "MST_-07")
+		document.NTP.time_zone.options.selectedIndex = 4;
+	else if (tz == "MST_-07")
+		document.NTP.time_zone.options.selectedIndex = 5;
+	else if (tz == "CST_-06")
+		document.NTP.time_zone.options.selectedIndex = 6;
+	else if (tz == "UCT_-06")
+		document.NTP.time_zone.options.selectedIndex = 7;
+	else if (tz == "UCT_-05")
+		document.NTP.time_zone.options.selectedIndex = 8;
+	else if (tz == "EST_-05")
+		document.NTP.time_zone.options.selectedIndex = 9;
+	else if (tz == "AST_-04")
+		document.NTP.time_zone.options.selectedIndex = 10;
+	else if (tz == "UCT_-04")
+		document.NTP.time_zone.options.selectedIndex = 11;
+	else if (tz == "UCT_-03")
+		document.NTP.time_zone.options.selectedIndex = 12;
+	else if (tz == "EBS_-03")
+		document.NTP.time_zone.options.selectedIndex = 13;
+	else if (tz == "NOR_-02")
+		document.NTP.time_zone.options.selectedIndex = 14;
+	else if (tz == "EUT_-01")
+		document.NTP.time_zone.options.selectedIndex = 15;
+	else if (tz == "UCT_000")
+		document.NTP.time_zone.options.selectedIndex = 16;
+	else if (tz == "GMT_000")
+		document.NTP.time_zone.options.selectedIndex = 17;
+	else if (tz == "MET_001")
+		document.NTP.time_zone.options.selectedIndex = 18;
+	else if (tz == "MEZ_001")
+		document.NTP.time_zone.options.selectedIndex = 19;
+	else if (tz == "UCT_001")
+		document.NTP.time_zone.options.selectedIndex = 20;
+	else if (tz == "EET_002")
+		document.NTP.time_zone.options.selectedIndex = 21;
+	else if (tz == "SAS_002")
+		document.NTP.time_zone.options.selectedIndex = 22;
+	else if (tz == "IST_003")
+		document.NTP.time_zone.options.selectedIndex = 23;
+	else if (tz == "MSK_003")
+		document.NTP.time_zone.options.selectedIndex = 24;
+	else if (tz == "UCT_004")
+		document.NTP.time_zone.options.selectedIndex = 25;
+	else if (tz == "UCT_005")
+		document.NTP.time_zone.options.selectedIndex = 26;
+	else if (tz == "UCT_006")
+		document.NTP.time_zone.options.selectedIndex = 27;
+	else if (tz == "UCT_007")
+		document.NTP.time_zone.options.selectedIndex = 28;
+	else if (tz == "CST_008")
+		document.NTP.time_zone.options.selectedIndex = 29;
+	else if (tz == "CCT_008")
+		document.NTP.time_zone.options.selectedIndex = 30;
+	else if (tz == "SST_008")
+		document.NTP.time_zone.options.selectedIndex = 31;
+	else if (tz == "AWS_008")
+		document.NTP.time_zone.options.selectedIndex = 32;
+	else if (tz == "JST_009")
+		document.NTP.time_zone.options.selectedIndex = 33;
+	else if (tz == "KST_009")
+		document.NTP.time_zone.options.selectedIndex = 34;
+	else if (tz == "UCT_010")
+		document.NTP.time_zone.options.selectedIndex = 35;
+	else if (tz == "AES_010")
+		document.NTP.time_zone.options.selectedIndex = 36;
+	else if (tz == "UCT_011")
+		document.NTP.time_zone.options.selectedIndex = 37;
+	else if (tz == "UCT_012")
+		document.NTP.time_zone.options.selectedIndex = 38;
+	else if (tz == "NZS_012")
+		document.NTP.time_zone.options.selectedIndex = 39;
+
+	if (greenapb == "1")
+	{
+		display("table", "div_greenap");
+		display("table", "div_greenap_submit");
+	}
+	else
+	{
+		display("none", "div_greenap");
+		display("none", "div_greenap_submit");
+	}
+	set_greenap();
+
+	if (ddnsb == "1")
+	{
+		display("table", "div_ddns");
+		display("table", "div_ddns_submit");
+		document.DDNS.Account.disabled = false;
+		document.DDNS.Password.disabled = false;
+		document.DDNS.DDNS.disabled = false;
+		if (ddns_provider == "none")
+			document.DDNS.DDNSProvider.options.selectedIndex = 0;
+		else if (ddns_provider == "dyndns.org")
+			document.DDNS.DDNSProvider.options.selectedIndex = 1;
+		else if (ddns_provider == "freedns.afraid.org")
+			document.DDNS.DDNSProvider.options.selectedIndex = 2;
+		else if (ddns_provider == "zoneedit.com")
+			document.DDNS.DDNSProvider.options.selectedIndex = 3;
+		else if (ddns_provider == "no-ip.com")
+			document.DDNS.DDNSProvider.options.selectedIndex = 4;
+
+		DDNSupdateState();
+	} 
+	else
+	{
+		display("none", "div_ddns");
+		display("none", "div_ddns_submit");
+		document.DDNS.Account.disabled = true;
+		document.DDNS.Password.disabled = true;
+		document.DDNS.DDNS.disabled = true;
+	}
+/*
+	if (snortb == "1")
+	{
+		var snort_enable = "<!--#exec cmd="web 2860 nvram SnortEnable"-->";
+		display("table", "div_snort");
+		display("table", "div_snort_submit");
+
+		if(snort_enable == "1")
+			document.Snort.SnortSelect.options.selectedIndex = 1;
+		else
+			document.Snort.SnortSelect.options.selectedIndex = 0;
+	}
+	else
+	{
+		display("none", "div_snort");
+		display("none", "div_snort_submit");
+	}
+*/
+}
+
+function set_greenap()
+{
+	var ntp_server = "<!--#exec cmd="web 2860 nvram NTPServerIP"-->";
+
+	for(var j=1;j<=4;j++)
+	{
+	    var shour_e = eval("document.GreenAP.GAPSHour"+j);
+	    var sminute_e = eval("document.GreenAP.GAPSMinute"+j);
+	    var ehour_e = eval("document.GreenAP.GAPEHour"+j);
+	    var eminute_e = eval("document.GreenAP.GAPEMinute"+j);
+	    var action_e = eval("document.GreenAP.GAPAction"+j);
+
+	    shour_e.disabled = true;
+	    sminute_e.disabled = true;
+	    ehour_e.disabled = true;
+	    eminute_e.disabled = true;
+	    action_e.disabled = true;
+	    if (ntp_server != "" && greenapb == "1")
+	    {
+		action_e.disabled = false;
+		switch(j)
+		{
+		case 1:
+		    var action = "<!--#exec cmd="web 2860 nvram GreenAPAction1"-->";
+		    var time = "<!--#exec cmd="web 2860 nvram GreenAPStart1"-->";
+		    var stimeArray = time.split(" ");
+		    time = "<!--#exec cmd="web 2860 nvram GreenAPEnd1"-->";
+		    var etimeArray = time.split(" ");
+		    break;
+		case 2:
+		    var action = "<!--#exec cmd="web 2860 nvram GreenAPAction2"-->";
+		    var time = "<!--#exec cmd="web 2860 nvram GreenAPStart2"-->";
+		    var stimeArray = time.split(" ");
+		    time = "<!--#exec cmd="web 2860 nvram GreenAPEnd2"-->";
+		    var etimeArray = time.split(" ");
+		    break;
+		case 3:
+		    var action = "<!--#exec cmd="web 2860 nvram GreenAPAction3"-->";
+		    var time = "<!--#exec cmd="web 2860 nvram GreenAPStart3"-->";
+		    var stimeArray = time.split(" ");
+		    time = "<!--#exec cmd="web 2860 nvram GreenAPEnd3"-->";
+		    var etimeArray = time.split(" ");
+		    break;
+		case 4:
+		    var action = "<!--#exec cmd="web 2860 nvram GreenAPAction4"-->";
+		    var time = "<!--#exec cmd="web 2860 nvram GreenAPStart4"-->";
+		    var stimeArray = time.split(" ");
+		    time = "<!--#exec cmd="web 2860 nvram GreenAPEnd4"-->";
+		    var etimeArray = time.split(" ");
+		    break;
+		}
+		if (action == "Disable")
+		    action_e.options.selectedIndex = 0;
+		else if (action == "WiFiOFF")
+		    action_e.options.selectedIndex = 1;
+		else if (action == "TX25")
+		    action_e.options.selectedIndex = 2;
+		else if (action == "TX50")
+		    action_e.options.selectedIndex = 3;
+		else if (action == "TX75")
+		    action_e.options.selectedIndex = 4;
+		greenap_action_switch(j);
+		if (action != "" && action != "Disable")
+		{
+		    shour_e.options.selectedIndex = stimeArray[1];
+		    sminute_e.options.selectedIndex = stimeArray[0];
+		    ehour_e.options.selectedIndex = etimeArray[1];
+		    eminute_e.options.selectedIndex = etimeArray[0];
+		}
+	    }
+	}
+}
+
+function setLanguage()
+{
+	document.cookie="language="+document.Lang.langSelection.value+"; path=/";
+	parent.menu.location.reload();
+	return true;
+}
+
+function syncWithHost()
+{
+	var currentTime = new Date();
+
+	var seconds = currentTime.getSeconds();
+	var minutes = currentTime.getMinutes();
+	var hours = currentTime.getHours();
+	var month = currentTime.getMonth() + 1;
+	var day = currentTime.getDate();
+	var year = currentTime.getFullYear();
+
+	var seconds_str = " ";
+	var minutes_str = " ";
+	var hours_str = " ";
+	var month_str = " ";
+	var day_str = " ";
+	var year_str = " ";
+
+	if(seconds < 10)
+		seconds_str = "0" + seconds;
+	else
+		seconds_str = ""+seconds;
+
+	if(minutes < 10)
+		minutes_str = "0" + minutes;
+	else
+		minutes_str = ""+minutes;
+
+	if(hours < 10)
+		hours_str = "0" + hours;
+	else
+		hours_str = ""+hours;
+
+	if(month < 10)
+		month_str = "0" + month;
+	else
+		month_str = ""+month;
+
+	if(day < 10)
+		day_str = "0" + day;
+	else
+		day_str = day;
+
+	var tmp = month_str + day_str + hours_str + minutes_str + year + " ";
+	document.NTP.hostTime.value = tmp;
+	document.NTP.submit()
+}
+
+function greenap_action_switch(index)
+{
+	var shour_e = eval("document.GreenAP.GAPSHour"+index);
+	var sminute_e = eval("document.GreenAP.GAPSMinute"+index);
+	var ehour_e = eval("document.GreenAP.GAPEHour"+index);
+	var eminute_e = eval("document.GreenAP.GAPEMinute"+index);
+	var action_e = eval("document.GreenAP.GAPAction"+index);
+
+	shour_e.disabled = true;
+	sminute_e.disabled = true;
+	ehour_e.disabled = true;
+	eminute_e.disabled = true;
+
+	if (action_e.options.selectedIndex != 0)
+	{
+		shour_e.disabled = false;
+		sminute_e.disabled = false;
+		ehour_e.disabled = false;
+		eminute_e.disabled = false;
+	}
+}
+</script>
+
+<body onload="initValue()">
+<table class="body"><tr><td>
+<h1 id="manTitle">System Management</h1>
+<p id="manIntroduction">You may configure administrator account and password, NTP settings, and Dynamic NTP settings here.</p>
+<hr />
+
+<!-- ================= Adm Settings ================= -->
+<form method="post" name="Adm" action="/cgi-bin/adm.cgi">
+<input type=hidden name=page value=sysAdm>
+<table width="540" border="1" cellspacing="1" cellpadding="3" bordercolor="#9BABBD">
+  <tr>
+    <td class="title" colspan="2" id="manAdmSet">Adminstrator Settings</td>
+  </tr>
+  <tr>
+    <td class="head" id="manAdmAccount">Account</td>
+    <td><input type="text" name="admuser" size="16" maxlength="16" value="<!--#exec cmd="web 2860 nvram Login"-->"></td>
+  </tr>
+  <tr>
+    <td class="head" id="manAdmPasswd">Password</td>
+    <td><input type="password" name="admpass" size="16" maxlength="32" value="<!--#exec cmd="web 2860 nvram Password"-->"></td>
+  </tr>
+  <tr id="div_watchdog">
+    <td class="head" id="manAdmWatchDog">WatchDog</td>
+    <td>
+      <input type="radio" name="admwatchdog" value="1"><font id="manAdmwatchdogEnabled">Enable</font>
+      <input type="radio" name="admwatchdog" value="0"><font id="manAdmwatchdogDisabled">Disable</font>
+    </td>
+  </tr>
+</table>
+<table width="540" border="0" cellpadding="2" cellspacing="1">
+  <tr align="center">
+    <td>
+      <input type=submit style="{width:120px;}" value="Apply" id="manAdmApply" onClick="return AdmFormCheck()"> &nbsp; &nbsp;
+      <input type=reset  style="{width:120px;}" value="Cancel" id="manAdmCancel" onClick="window.location.reload()">
+    </td>
+  </tr>
+</table>
+</form>
+
+<!-- ================= NTP Settings ================= -->
+<form method="post" name="NTP" action="/cgi-bin/adm.cgi">
+<input type=hidden name=page value=ntp>
+<table width="540" border="1" cellspacing="1" cellpadding="3" bordercolor="#9BABBD">
+<tbody><tr>
+  <td class="title" colspan="2" id="manNTPSet">NTP Settings</td>
+</tr>
+<tr id="div_date">
+	<td class="head"  id="manNTPCurrentTime">Current Time</td>
+	<td>
+		<input size="24" name="ntpcurrenttime" value="<!--#exec cmd="web 2860 sys currentTime"-->" type="text" readonly="1">
+		<input type=hidden name="hostTime" value="">
+		<input type="button" value="Sync with host" id="manNTPSyncWithHost" name="manNTPSyncWithHost" onClick="syncWithHost()">
+	</td>
+</tr>
+<tr>
+  <td class="head" id="manNTPTimeZone">Time Zone:</td>
+  <td>
+    <select name="time_zone">
+      <option value="UCT_-11" id="manNTPMidIsland">(GMT-11:00) Midway Island, Samoa</option>
+      <option value="UCT_-10" id="manNTPHawaii">(GMT-10:00) Hawaii</option>
+      <option value="NAS_-09" id="manNTPAlaska">(GMT-09:00) Alaska</option>
+      <option value="PST_-08" id="manNTPPacific">(GMT-08:00) Pacific Time</option>
+      <option value="MST_-07" id="manNTPMountain">(GMT-07:00) Mountain Time</option>
+      <option value="MST_-07" id="manNTPArizona">(GMT-07:00) Arizona</option>
+      <option value="CST_-06" id="manNTPCentral">(GMT-06:00) Central Time</option>
+      <option value="UCT_-06" id="manNTPMidUS">(GMT-06:00) Middle America</option>
+      <option value="UCT_-05" id="manNTPIndianaEast">(GMT-05:00) Indiana East, Colombia</option>
+      <option value="EST_-05" id="manNTPEastern">(GMT-05:00) Eastern Time</option>
+      <option value="AST_-04" id="manNTPAtlantic">(GMT-04:00) Atlantic Time, Brazil West</option>
+      <option value="UCT_-04" id="manNTPBolivia">(GMT-04:00) Bolivia, Venezuela</option>
+      <option value="UCT_-03" id="manNTPGuyana">(GMT-03:00) Guyana</option>
+      <option value="EBS_-03" id="manNTPBrazilEast">(GMT-03:00) Brazil East, Greenland</option>
+      <option value="NOR_-02" id="manNTPMidAtlantic">(GMT-02:00) Mid-Atlantic</option>
+      <option value="EUT_-01" id="manNTPAzoresIslands">(GMT-01:00) Azores Islands</option>
+      <option value="UCT_000" id="manNTPGambia">(GMT) Gambia, Liberia, Morocco</option>
+      <option value="GMT_000" id="manNTPEngland">(GMT) England</option>
+      <option value="MET_001" id="manNTPCzechRepublic">(GMT+01:00) Czech Republic, N</option>
+      <option value="MEZ_001" id="manNTPGermany">(GMT+01:00) Germany</option>
+      <option value="UCT_001" id="manNTPTunisia">(GMT+01:00) Tunisia</option>
+      <option value="EET_002" id="manNTPGreece">(GMT+02:00) Greece, Ukraine, Turkey</option>
+      <option value="SAS_002" id="manNTPSouthAfrica">(GMT+02:00) South Africa</option>
+      <option value="IST_003" id="manNTPIraq">(GMT+03:00) Iraq, Jordan, Kuwait</option>
+      <option value="MSK_003" id="manNTPMoscowWinter">(GMT+03:00) Moscow Winter Time</option>
+      <option value="UCT_004" id="manNTPArmenia">(GMT+04:00) Armenia</option>
+      <option value="UCT_005" id="manNTPPakistan">(GMT+05:00) Pakistan, Russia</option>
+      <option value="UCT_006" id="manNTPBangladesh">(GMT+06:00) Bangladesh, Russia</option>
+      <option value="UCT_007" id="manNTPThailand">(GMT+07:00) Thailand, Russia</option>
+      <option value="CST_008" id="manNTPChinaCoast">(GMT+08:00) China Coast, Hong Kong</option>
+      <option value="CCT_008" id="manNTPTaipei">(GMT+08:00) Taipei</option>
+      <option value="SST_008" id="manNTPSingapore">(GMT+08:00) Singapore</option>
+      <option value="AWS_008" id="manNTPAustraliaWA">(GMT+08:00) Australia (WA)</option>
+      <option value="JST_009" id="manNTPJapan">(GMT+09:00) Japan, Korea</option>
+      <option value="KST_009" id="manNTPKorean">(GMT+09:00) Korean</option>
+      <option value="UCT_010" id="manNTPGuam">(GMT+10:00) Guam, Russia</option>
+      <option value="AES_010" id="manNTPAustraliaQLD">(GMT+10:00) Australia (QLD, TAS,NSW,ACT,VIC)</option>
+      <option value="UCT_011" id="manNTPSolomonIslands">(GMT+11:00) Solomon Islands</option>
+      <option value="UCT_012" id="manNTPFiji">(GMT+12:00) Fiji</option>
+      <option value="NZS_012" id="manNTPNewZealand">(GMT+12:00) New Zealand</option>
+    </select>
+  </td>
+</tr>
+<tr>
+  <td class="head" id="manNTPServer">NTP Server</td>
+  <td><input size="32" maxlength="64" name="NTPServerIP" value="<!--#exec cmd="web 2860 nvram NTPServerIP"-->" type="text" 
+       onChange="if(this.value == '') document.NTP.NTPSync.disabled = true; else document.NTP.NTPSync.disabled = false;">
+	<br>&nbsp;&nbsp;<font color="#808080">ex:&nbsp;time.nist.gov</font>
+	<br>&nbsp;&nbsp;<font color="#808080">&nbsp;&nbsp;&nbsp;&nbsp;ntp0.broad.mit.edu</font>
+	<br>&nbsp;&nbsp;<font color="#808080">&nbsp;&nbsp;&nbsp;&nbsp;time.stdtime.gov.tw</font>
+  </td>
+</tr>
+<tr>
+  <td class="head" id="manNTPSync">NTP synchronization</td>
+  <td><input size="4" name="NTPSync" value="<!--#exec cmd="web 2860 nvram NTPSync"-->" type="text"> </td>
+</tr>
+</tbody></table>
+
+<table width="540" border="0" cellpadding="2" cellspacing="1">
+  <tr align="center">
+    <td>
+      <input type=submit style="{width:120px;}" value="Apply" id="manNTPApply" onClick="return NTPFormCheck()"> &nbsp; &nbsp;
+      <input type=reset  style="{width:120px;}" value="Cancel"id="manNTPCancel" onClick="window.location.reload()">
+    </td>
+  </tr>
+</table>
+</form>
+
+<!-- ================= GreenAP ================= -->
+<form method="post" name="GreenAP" action="/cgi-bin/adm.cgi">
+<input type=hidden name=page value=greenap>
+<table id="div_greenap" width="540" border="1" cellspacing="1" cellpadding="3" bordercolor="#9BABBD">
+  <tr>
+    <td class="title" colspan="3" id="manGAPTitle">Green AP</td>
+  </tr>
+  <tr align="center">
+    <td class="head" id="manGAPTime">Time</td>
+    <td class="head" id="manGAPAction">Action</td>
+  </tr>
+  <script language="JavaScript" type="text/javascript">
+  for(var j=1;j<=4;j++)
+  {
+	  var item = "<tr align=\"center\"><td><select name=\"GAPSHour"+j+"\">";
+	  for(var i=0;i<24;i++)
+	  {
+		  if (i < 10)
+			  item += "<option value=\""+i+"\">0"+i+"</option>";
+		  else
+			  item += "<option value=\""+i+"\">"+i+"</option>";
+	  }
+	  item += "</select>&nbsp;:&nbsp;";
+	  document.write(item);
+
+	  var item = "<select name=\"GAPSMinute"+j+"\">";
+	  for(var i=0;i<60;i++)
+	  {
+		  if (i < 10)
+			  item += "<option value=\""+i+"\">0"+i+"</option>";
+		  else
+			  item += "<option value=\""+i+"\">"+i+"</option>";
+	  }
+	  item += "</select>&nbsp;~&nbsp;";
+	  document.write(item);
+
+	  var item = "<select name=\"GAPEHour"+j+"\">";
+	  for(var i=0;i<24;i++)
+	  {
+		  if (i < 10)
+			  item += "<option value=\""+i+"\">0"+i+"</option>";
+		  else
+			  item += "<option value=\""+i+"\">"+i+"</option>";
+	  }
+	  item += "</select>&nbsp;:&nbsp;";
+	  document.write(item);
+
+	  var item = "<select name=\"GAPEMinute"+j+"\">";
+	  for(var i=0;i<60;i++)
+	  {
+		  if (i < 10)
+			  item += "<option value=\""+i+"\">0"+i+"</option>";
+		  else
+			  item += "<option value=\""+i+"\">"+i+"</option>";
+	  }
+	  item += "</select></td>";
+	  item += "<td><select name=\"GAPAction"+j+"\" onClick=\"greenap_action_switch('"+j+"')\">";
+	  item += "<option value=\"Disable\" id=\"manGAPActionDisable"+j+"\">Disable</option>";
+	  item += "<option value=\"WiFiOFF\">WiFi TxPower OFF</option>";
+	  item += "<option value=\"TX25\">WiFi TxPower 25%</option>";
+	  item += "<option value=\"TX50\">WiFi TxPower 50%</option>";
+	  item += "<option value=\"TX75\">WiFi TxPower 75%</option";
+	  item += "</select></td></tr>";
+	  document.write(item);
+  }
+  </script> 
+</table>
+<table id="div_greenap_submit" width="540" border="0" cellpadding="2" cellspacing="1">
+  <tr align="center">
+    <td>
+      <input type="submit" style="{width:120px;}" value="Apply" id="manGreenAPApply">&nbsp;&nbsp;
+      <input type="reset" style="{width:120px;}" value="Cancle" id="manGreenAPCancle" onClick="window.location.reload()">
+    </td>
+  </tr>
+</table>
+</form>
+
+<!-- ================= DDNS  ================= -->
+<form method="post" name="DDNS" action="/cgi-bin/adm.cgi">
+<input type=hidden name=page value=ddns>
+<table id="div_ddns" width="540" border="1" cellspacing="1" cellpadding="3" bordercolor="#9BABBD">
+<tbody><tr>
+  <td class="title" colspan="2" id="manDdnsSet">DDNS Settings</td>
+</tr>
+<tr>
+  <td class="head" id="DdnsProvider">Dynamic DNS Provider</td>
+  <td>
+    <select onChange="DDNSupdateState()" name="DDNSProvider">
+      <option value="none" id="manDdnsNone"> None </option>
+      <option value="dyndns.org"> Dyndns.org </option>
+      <option value="freedns.afraid.org"> freedns.afraid.org </option>
+      <option value="zoneedit.com"> www.zoneedit.com </option>
+      <option value="no-ip.com"> www.no-ip.com </option>
+    </select>
+  </td>
+</tr>
+<tr>
+  <td class="head" id="manDdnsAccount">Account</td>
+  <td><input size="16" name="Account" value="<!--#exec cmd="web 2860 nvram DDNSAccount"-->" type="text"> </td>
+</tr>
+<tr>
+  <td class="head" id="manDdnsPasswd">Password</td>
+  <td><input size="16" name="Password" value="<!--#exec cmd="web 2860 nvram DDNSPassword"-->" type="password"> </td>
+</tr>
+<tr>
+  <td class="head" id="manDdns">DDNS</td>
+  <td><input size="32" name="DDNS" value="<!--#exec cmd="web 2860 nvram DDNS"-->" type="text"> </td>
+</tr>
+</tbody>
+</table>
+
+<table id="div_ddns_submit" width="540" border="0" cellpadding="2" cellspacing="1">
+  <tr align="center">
+    <td>
+      <input type=submit style="{width:120px;}" value="Apply" id="manDdnsApply" onClick="return DDNSFormCheck()"> &nbsp; &nbsp;
+      <input type=reset  style="{width:120px;}" value="Cancel" id="manDdnsCancel" onClick="window.location.reload()">
+    </td>
+  </tr>
+</table>
+</form>
+
+<!-- ================= Snort ================= -->
+
+<!-- 
+<form method="post" name="Snort" action="/goform/Snort">
+<table id="div_snort" width="540" border="1" cellspacing="1" cellpadding="3" bordercolor="#9BABBD">
+  <tr>
+    <td class="title" colspan="3" id="manSnortTitle">Snort</td>
+  </tr>
+  <tr align="center">
+    <td class="head" id="manSnort">Snort</td>
+	<td>
+		<select name="SnortSelect" id="SnortSelect">
+		<option value="0"> Disable </option>
+		<option value="1"> Enable </option>
+		</select>
+	</td>
+  </tr>
+</table>
+<table id="div_snort_submit" width="540" border="0" cellpadding="2" cellspacing="1">
+  <tr align="center">
+    <td>
+      <input type="submit" style="{width:120px;}" value="Apply" id="manSnortApply">&nbsp;&nbsp;
+      <input type="reset" style="{width:120px;}" value="Cancle" id="manSnortCancel" onClick="window.location.reload()">
+    </td>
+  </tr>
+</table>
+</form>
+-->
+
+</td></tr></table>
+</body>
+</html>

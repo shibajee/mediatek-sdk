@@ -1,0 +1,4 @@
+control_symbols.lo control_symbols.o: control_symbols.c \
+  ctl_symbols_list.c
+
+ctl_symbols_list.c:

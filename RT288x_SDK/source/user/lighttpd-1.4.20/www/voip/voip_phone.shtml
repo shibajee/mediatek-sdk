@@ -1,0 +1,292 @@
+<!-- Copyright 2004, Ralink Technology Corporation All Rights Reserved. -->
+<html>
+<head>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="/style/normal_ws.css" type="text/css">
+<title>Local Area Network (LAN) Settings</title>
+</head>
+
+<script type="text/javascript" src="/shareFun.js"></script>
+<script language="JavaScript" type="text/javascript">
+	
+
+var provision_enable = "<!--#exec cmd="web config2 nvram SC_AUTO_PROV_ENABLE"-->";
+
+var vogain_tx = "<!--#exec cmd="web config2 nvram SC_LINE_1_VOGAIN_TX_LV"-->";
+var vogain_rx = "<!--#exec cmd="web config2 nvram SC_LINE_1_VOGAIN_RX_LV"-->";
+var ring_impedance = "<!--#exec cmd="web config2 nvram SC_LINE_1_RING_IMPEDENCE"-->";
+var caller_id_type = "<!--#exec cmd="web config2 nvram SC_LINE_1_CALLER_ID_TYPE"-->";
+var caller_id_display = "<!--#exec cmd="web config2 nvram SC_LINE_1_CALLER_ID_DISP"-->";
+
+var caller_id_pwr = "<!--#exec cmd="web config2 nvram SC_LINE_1_CALLER_ID_PWR"-->";
+function checkValue(val)
+{
+	var f = document.forms[0];	
+
+	document.voip_status.page.value = val;
+
+	if (val == 0) // connect
+	{
+		//document.nfc_operation.NFC_Disable.disabled = false;
+		//document.nfc_operation.NFC_Enable.disabled = true;
+		document.voip_status.connect_status.value = 0;
+	}
+	else if (val == 1) // disconnect
+	{
+		//document.nfc_operation.NFC_Disable.disabled = true;
+		//document.nfc_operation.NFC_Enable.disabled = false;
+		document.voip_status.connect_status.value = 1;
+	}
+
+	//f.submit();
+
+	//setTimeout('window.close()', 1000);
+
+	return true;
+}	
+function initValue()
+{
+	var gtx = parseInt(vogain_tx,10);
+	var grx = parseInt(vogain_rx,10);
+
+	if((gtx <= 9) || (gtx >=-9))
+		document.voip_phone.voice_tx_level.options.selectedIndex = gtx+9;                            
+	
+	if((grx <= 9) || (grx >=-9))
+		document.voip_phone.voice_rx_level.options.selectedIndex = grx+9;                            
+	
+	if(ring_impedance == "1"){
+			document.voip_phone.ring_impedance.options.selectedIndex = 0;
+	}else if(ring_impedance == "2"){
+    	document.voip_phone.ring_impedance.options.selectedIndex = 1;
+    }else if(ring_impedance == "3"){
+    	document.voip_phone.ring_impedance.options.selectedIndex = 2;
+    }else if(ring_impedance == "4"){
+    	document.voip_phone.ring_impedance.options.selectedIndex = 3;
+    }else if(ring_impedance == "5"){
+    	document.voip_phone.ring_impedance.options.selectedIndex = 4;
+    }else if(ring_impedance == "6"){
+    	document.voip_phone.ring_impedance.options.selectedIndex = 5;
+    }else if(ring_impedance == "7"){
+    	document.voip_phone.ring_impedance.options.selectedIndex = 6;
+    }
+
+
+	if(caller_id_type == "1"){
+		document.voip_phone.caller_id_type.options.selectedIndex = 0;
+	}else if(caller_id_type == "2"){
+    	document.voip_phone.caller_id_type.options.selectedIndex = 1;
+    }else if(caller_id_type == "3"){
+    	document.voip_phone.caller_id_type.options.selectedIndex = 2;
+    }else if(caller_id_type == "4"){
+    	document.voip_phone.caller_id_type.options.selectedIndex = 3;
+    }
+
+	if(caller_id_display == "1"){
+		document.voip_phone.caller_id_display.options.selectedIndex = 0;
+	}else if(caller_id_display == "2"){
+    	document.voip_phone.caller_id_display.options.selectedIndex = 1;
+    }
+
+	if(caller_id_pwr == "1"){
+		document.voip_phone.caller_id_pwr.options.selectedIndex = 0;
+	}else if(caller_id_pwr == "2"){
+    	document.voip_phone.caller_id_pwr.options.selectedIndex = 1;
+    }else if(caller_id_pwr == "3"){
+    	document.voip_phone.caller_id_pwr.options.selectedIndex = 2;
+    }else if(caller_id_pwr == "4"){
+    	document.voip_phone.caller_id_pwr.options.selectedIndex = 3;
+    }
+
+
+}
+
+
+
+
+</script>
+
+<body onLoad="initValue()">
+<table class="body"><tr><td>
+
+<h1 id="lTitle">VoIP Phone</h1>
+<p id="lIntroduction"></p>
+<hr />
+
+<form method=post name="voip_phone" action="/cgi-bin/voip.cgi" onSubmit="return CheckValue()">
+<input type=hidden name=page value=voip_phone>
+<table width="95%" border="1" cellpadding="2" cellspacing="1">
+	
+
+
+
+<tr>
+  <td class="title" colspan="2" id="voip_provisionid">Phone</td>
+</tr>
+
+
+
+<tr>
+  <td class="head" id="flash_detectid">Hook Flash Detect Upper Bound</td>
+  <td><input name="flash_detect_up" maxlength=15 value="<!--#exec cmd="web config2 nvram SC_LINE_1_FLASH_DETECT_UP_LV"-->" ></td>
+</tr>
+<tr>
+  <td class="head" id="flash_detect_lvid">Hook Flash Detect Lower Bound</td>
+  <td><input name="flash_detect_lv" maxlength=15 value="<!--#exec cmd="web config2 nvram SC_LINE_1_FLASH_DETECT_DN_LV"-->" ></td>
+</tr>
+
+
+<tr>
+	<td class="head" id="voice_tx_levelid">
+		Voice Tx Level
+	</td>
+	<td>
+	<select name="voice_tx_level" size="1">
+	<option value="-9">-9</option>
+	<option value="-8">-8</option>
+	<option value="-7">-7</option>
+	<option value="-6">-6</option>
+	<option value="-5">-5</option>
+	<option value="-4">-4</option>
+	<option value="-3">-3</option>
+	<option value="-2">-2</option>
+	<option value="-1">-1</option>
+	<option value="0">0</option>
+	<option value="1">1</option>
+	<option value="2">2</option>
+	<option value="3">3</option>
+	<option value="4">4</option>
+	<option value="5">5</option>
+	<option value="6">6</option>
+	<option value="7">7</option>
+	<option value="8">8</option>	
+	<option value="9">9</option>	
+	</select>
+	</td>
+</tr>
+
+<tr>
+	<td class="head" id="voice_rx_levelid">
+		Voice Rx Level
+	</td>
+	<td>
+	<select name="voice_rx_level" size="1">
+	<option value="-9">-9</option>
+	<option value="-8">-8</option>
+	<option value="-7">-7</option>
+	<option value="-6">-6</option>
+	<option value="-5">-5</option>
+	<option value="-4">-4</option>
+	<option value="-3">-3</option>
+	<option value="-2">-2</option>
+	<option value="-1">-1</option>
+	<option value="0">0</option>
+	<option value="1">1</option>
+	<option value="2">2</option>
+	<option value="3">3</option>
+	<option value="4">4</option>
+	<option value="5">5</option>
+	<option value="6">6</option>
+	<option value="7">7</option>
+	<option value="8">8</option>	
+	<option value="9">9</option>	
+	</select>
+	</td>
+</tr>
+
+
+
+<tr>
+	<td class="head" id="ring_impedanceid">
+		Ring Impedance
+	</td>
+	<td>
+	<select name="ring_impedance" size="1">
+	<option value=1 id="600">600ohms</option>
+	<option value=2 id="900">900ohms</option>
+	<option value=3 id="japan">Japan(600ohms + 1uF)</option>
+	<option value=4 id="900ohms_216">900ohms + 2.16uF</option>
+	<option value=5 id="ctr21">CTR21 270ohms + (750ohms||150nF)</option>	
+	<option value=6 id="Australia">Australia/New Zealand220ohms+(820ohms||120nF)</option>
+	<option value=7 id="Slovakia_820">Slovakia/Slovenia/South Africa220ohms+(820ohms||115nF)</option>
+	<option value=8 id="Slovakia_680">Slovakia/Slovenia/South Africa220ohms+(680ohms||100nF)</option>		
+	</select>
+	</td>
+</tr>
+
+<tr>
+  <td class="title" colspan="2" id="voip_provisionid">Caller ID</td>
+</tr>
+
+<tr>
+	<td class="head" id="caller_id_typeid">
+		Caller ID Type
+	</td>
+	<td>
+	<select name="caller_id_type" size="1">
+	<option value=1 id="disable">Disable</option>
+	<option value=2 id="fsk_bellcore">FSK Bellcore</option>
+	<option value=3 id="japan_clip">Japan CLIP</option>
+	<option value=4 id="fsk_etsi">FSK ETSI</option>
+	</select>
+	</td>
+</tr>
+
+<tr>
+	<td class="head" id="caller_displayid">
+		Caller ID Display
+	</td>
+	<td>
+	<select name="caller_id_display" size="1">
+	<option value=1 id="before_ring">Before Ring</option>
+	<option value=2 id="after_ring">After Ring</option>
+	</select>
+	</td>
+</tr>
+
+
+<tr>
+	<td class="head" id="caller_displayid">
+		Caller ID Power Level
+	</td>
+	<td>
+	<select name="caller_id_pwr" size="1">
+	<option value=0 id="0">0</option>
+	<option value=1 id="1">1</option>
+	<option value=2 id="2">2</option>
+	<option value=3 id="3">3</option>	
+	</select>
+	</td>
+</tr>
+
+
+
+
+
+
+</table>
+
+
+<table width="95%" cellpadding="2" cellspacing="1">
+<tr align="center">
+  <td>
+    <input type=submit  name="Save" style="{width:120px;}" value="Save" id="Save" ;>&nbsp;&nbsp;
+    <input type=reset  name="Cancel" style="{width:120px;}" value="Cancel" id="Cancel" ;>
+  </td>
+
+</tr>
+
+</table>
+
+
+
+
+
+
+</form>
+
+</td></tr></table>
+</body>
+</html>
+

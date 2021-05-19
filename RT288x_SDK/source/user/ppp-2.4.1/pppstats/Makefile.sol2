@@ -1,0 +1,20 @@
+#
+# pppstats Makefile for SVR4 systems
+# $Id: //WIFI_SOC/MP/SDK_4_3_0_0/RT288x_SDK/source/user/ppp-2.4.1/pppstats/Makefile.sol2#1 $
+#
+
+include ../solaris/Makedefs
+
+CFLAGS = -DSTREAMS -I../include $(COPTS)
+
+all: pppstats
+
+pppstats: pppstats.c
+	$(CC) $(CFLAGS) -o pppstats pppstats.c
+
+install: pppstats
+	$(INSTALL) -f $(BINDIR) pppstats
+	$(INSTALL) -m 444 -f $(MANDIR)/man8 pppstats.8
+
+clean:
+	rm -f pppstats *~ core

@@ -1,0 +1,27 @@
+userfile.lo userfile.o: userfile.c ../include/config.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/string.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/features.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/uClibc_config.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/sys/cdefs.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/include/stddef.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/errno.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/errno.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/errno_values.h
+
+../include/config.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/string.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/features.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/uClibc_config.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/sys/cdefs.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/include/stddef.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/errno.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/errno.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/errno_values.h:

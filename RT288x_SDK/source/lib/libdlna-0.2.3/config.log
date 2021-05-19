@@ -1,0 +1,214 @@
+# ./configure 
+BASH=/bin/sh
+BASH_ARGC=()
+BASH_ARGV=()
+BASH_LINENO=([0]="0")
+BASH_SOURCE=([0]="./configure")
+BASH_VERSINFO=([0]="3" [1]="1" [2]="17" [3]="1" [4]="release" [5]="i486-pc-linux-gnu")
+BASH_VERSION='3.1.17(1)-release'
+CONFIGFILE=config.mak
+CVSROOT=:pserver:steven@192.168.18.20:/home/cvsroot
+DIRSTACK=()
+EUID=1002
+GROUPS=()
+HISTCONTROL=ignoredups
+HOME=/home/steven
+HOSTNAME=builder
+HOSTTYPE=i486
+IFS=' 	
+'
+INSTALL='/usr/bin/install -c'
+LANG=en_US.UTF-8
+LESSCLOSE='/usr/bin/lesspipe %s %s'
+LESSOPEN='| /usr/bin/lesspipe %s'
+LOGNAME=steven
+LS_COLORS='no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:*.bz2=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.avi=01;35:*.fli=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.flac=01;35:*.mp3=01;35:*.mpc=01;35:*.ogg=01;35:*.wav=01;35:'
+MACHTYPE=i486-pc-linux-gnu
+MAIL=/var/mail/steven
+OPTERR=1
+OPTIND=1
+OSTYPE=linux-gnu
+PATH=/usr/local/bin:/usr/bin:/bin:/usr/games:/opt/surfmilo/cross-dev/usr/bin:/opt/sde6/bin:/opt/buildroot-gcc342/bin
+PIPESTATUS=([0]="0")
+POSIXLY_CORRECT=y
+PPID=19815
+PREFIX=/usr/local
+PS4='+ '
+PWD=/home/steven/cvs/RT288x_SDK/source/lib/libdlna-0.2.3
+RANDOM=2709
+SHELL=/bin/bash
+SHELLOPTS=braceexpand:hashall:interactive-comments:posix
+SHLVL=3
+SSH_CLIENT='192.168.18.59 1566 22'
+SSH_CONNECTION='192.168.18.59 1566 192.168.18.22 22'
+SSH_TTY=/dev/pts/15
+STY=17788.pts-15.builder
+TERM=screen
+TERMCAP='SC|screen|VT 100/ANSI X3.64 virtual terminal:\
+	:DO=\E[%dB:LE=\E[%dD:RI=\E[%dC:UP=\E[%dA:bs:bt=\E[Z:\
+	:cd=\E[J:ce=\E[K:cl=\E[H\E[J:cm=\E[%i%d;%dH:ct=\E[3g:\
+	:do=^J:nd=\E[C:pt:rc=\E8:rs=\Ec:sc=\E7:st=\EH:up=\EM:\
+	:le=^H:bl=^G:cr=^M:it#8:ho=\E[H:nw=\EE:ta=^I:is=\E)0:\
+	:li#35:co#118:am:xn:xv:LP:sr=\EM:al=\E[L:AL=\E[%dL:\
+	:cs=\E[%i%d;%dr:dl=\E[M:DL=\E[%dM:dc=\E[P:DC=\E[%dP:\
+	:im=\E[4h:ei=\E[4l:mi:IC=\E[%d@:ks=\E[?1h\E=:\
+	:ke=\E[?1l\E>:vi=\E[?25l:ve=\E[34h\E[?25h:vs=\E[34l:\
+	:ti=\E[?1049h:te=\E[?1049l:us=\E[4m:ue=\E[24m:so=\E[3m:\
+	:se=\E[23m:mb=\E[5m:md=\E[1m:mr=\E[7m:me=\E[m:ms:\
+	:Co#8:pa#64:AF=\E[3%dm:AB=\E[4%dm:op=\E[39;49m:AX:\
+	:vb=\Eg:G0:as=\E(0:ae=\E(B:\
+	:ac=\140\140aaffggjjkkllmmnnooppqqrrssttuuvvwwxxyyzz{{||}}~~..--++,,hhII00:\
+	:po=\E[5i:pf=\E[4i:k0=\E[10~:k1=\EOP:k2=\EOQ:k3=\EOR:\
+	:k4=\EOS:k5=\E[15~:k6=\E[17~:k7=\E[18~:k8=\E[19~:\
+	:k9=\E[20~:k;=\E[21~:F1=\E[23~:F2=\E[24~:F3=\EO2P:\
+	:F4=\EO2Q:F5=\EO2R:F6=\EO2S:F7=\E[15;2~:F8=\E[17;2~:\
+	:F9=\E[18;2~:FA=\E[19;2~:kb=:K2=\EOE:kB=\E[Z:\
+	:*4=\E[3;2~:*7=\E[1;2F:#2=\E[1;2H:#3=\E[2;2~:#4=\E[1;2D:\
+	:%c=\E[6;2~:%e=\E[5;2~:%i=\E[1;2C:kh=\E[1~:@1=\E[1~:\
+	:kH=\E[4~:@7=\E[4~:kN=\E[6~:kP=\E[5~:kI=\E[2~:kD=\E[3~:\
+	:ku=\EOA:kd=\EOB:kr=\EOC:kl=\EOD:km:'
+TMPC=/tmp/libdlna-23141-5565-1411.c
+TMPDIR1=/tmp
+TMPE=/tmp/libdlna-27081-5565-1226
+TMPO=/tmp/libdlna-24433-5565-6276.o
+TMPS=/tmp/libdlna-21089-5565-2709.S
+UID=1002
+USER=steven
+VERSION=
+WINDOW=1
+_='# ./configure '
+ar=ar
+cc=gcc
+cpu=x86
+cross_compile=no
+debug=no
+dostrip=yes
+extralibs=
+includedir='$(PREFIX)/include'
+installstrip=-s
+libdir='$(PREFIX)/lib'
+logfile=config.log
+logging=yes
+make=make
+optimize=yes
+ranlib=ranlib
+shared=yes
+static=yes
+strip=strip
+Checking for compiler available...
+check_ld
+check_cc
+BEGIN /tmp/libdlna-23141-5565-1411.c
+     1	int main(){
+     2	    return 0;
+     3	}
+END /tmp/libdlna-23141-5565-1411.c
+gcc -c -o /tmp/libdlna-24433-5565-6276.o /tmp/libdlna-23141-5565-1411.c
+gcc -o /tmp/libdlna-27081-5565-1226 /tmp/libdlna-24433-5565-6276.o
+check_header altivec.h
+check_cpp
+BEGIN /tmp/libdlna-23141-5565-1411.c
+     1	#include <altivec.h>
+     2	int x;
+END /tmp/libdlna-23141-5565-1411.c
+gcc -E -o /tmp/libdlna-24433-5565-6276.o /tmp/libdlna-23141-5565-1411.c
+/tmp/libdlna-23141-5565-1411.c:1:21: error: altivec.h: No such file or directory
+check_cc -msse
+BEGIN /tmp/libdlna-23141-5565-1411.c
+     1	#include <xmmintrin.h>
+     2	int main(void) {
+     3	#if __GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 2)
+     4	return 0;
+     5	#else
+     6	#error no vector builtins
+     7	#endif
+     8	}
+END /tmp/libdlna-23141-5565-1411.c
+gcc -msse -c -o /tmp/libdlna-24433-5565-6276.o /tmp/libdlna-23141-5565-1411.c
+check_cc -march=athlon
+BEGIN /tmp/libdlna-23141-5565-1411.c
+     1	#include <mm3dnow.h>
+     2	int main(void) {
+     3	__m64 b1;
+     4	b1 = _m_pswapd(b1);
+     5	_m_femms();
+     6	return 0;
+     7	}
+END /tmp/libdlna-23141-5565-1411.c
+gcc -march=athlon -c -o /tmp/libdlna-24433-5565-6276.o /tmp/libdlna-23141-5565-1411.c
+check_ld
+check_cc
+BEGIN /tmp/libdlna-23141-5565-1411.c
+     1	#include <inttypes.h>
+     2	int main(int argc, char ** argv){
+     3	        volatile uint32_t i=0x01234567;
+     4	        return (*((uint8_t*)(&i))) == 0x67;
+     5	}
+END /tmp/libdlna-23141-5565-1411.c
+gcc -c -o /tmp/libdlna-24433-5565-6276.o /tmp/libdlna-23141-5565-1411.c
+gcc -o /tmp/libdlna-27081-5565-1226 /tmp/libdlna-24433-5565-6276.o
+check_cflags -W
+check_cc -W
+BEGIN /tmp/libdlna-23141-5565-1411.c
+     1	int x;
+END /tmp/libdlna-23141-5565-1411.c
+gcc -W -c -o /tmp/libdlna-24433-5565-6276.o /tmp/libdlna-23141-5565-1411.c
+check_cflags -Wall
+check_cc -Wall
+BEGIN /tmp/libdlna-23141-5565-1411.c
+     1	int x;
+END /tmp/libdlna-23141-5565-1411.c
+gcc -W -Wall -c -o /tmp/libdlna-24433-5565-6276.o /tmp/libdlna-23141-5565-1411.c
+check_cflags -D_LARGEFILE_SOURCE
+check_cc -D_LARGEFILE_SOURCE
+BEGIN /tmp/libdlna-23141-5565-1411.c
+     1	int x;
+END /tmp/libdlna-23141-5565-1411.c
+gcc -W -Wall -D_LARGEFILE_SOURCE -c -o /tmp/libdlna-24433-5565-6276.o /tmp/libdlna-23141-5565-1411.c
+check_cflags -D_FILE_OFFSET_BITS=64
+check_cc -D_FILE_OFFSET_BITS=64
+BEGIN /tmp/libdlna-23141-5565-1411.c
+     1	int x;
+END /tmp/libdlna-23141-5565-1411.c
+gcc -W -Wall -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c -o /tmp/libdlna-24433-5565-6276.o /tmp/libdlna-23141-5565-1411.c
+check_cflags -D_REENTRANT
+check_cc -D_REENTRANT
+BEGIN /tmp/libdlna-23141-5565-1411.c
+     1	int x;
+END /tmp/libdlna-23141-5565-1411.c
+gcc -W -Wall -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D_REENTRANT -c -o /tmp/libdlna-24433-5565-6276.o /tmp/libdlna-23141-5565-1411.c
+check_ld
+check_cc
+BEGIN /tmp/libdlna-23141-5565-1411.c
+     1	#include <stdio.h>
+     2	#include <dlna.h>
+     3	int main(){
+     4	  printf(DLNA_STRINGIFY(LIBDLNA_VERSION));
+     5	  printf("\n");
+     6	  return 0;
+     7	}
+END /tmp/libdlna-23141-5565-1411.c
+gcc -W -Wall -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D_REENTRANT -O3 -Isrc -c -o /tmp/libdlna-24433-5565-6276.o /tmp/libdlna-23141-5565-1411.c
+gcc -o /tmp/libdlna-27081-5565-1226 /tmp/libdlna-24433-5565-6276.o
+
+libdlna: configure is OK
+  version            0.2.3
+configuration:
+  install prefix     /usr/local
+  C compiler         gcc
+  AR                 ar
+  RANLIB             ranlib
+  STRIP              strip
+  make               make
+  CPU                x86 ()
+  debug symbols      no
+  strip symbols      yes
+  optimize           yes
+  static             yes
+  shared             yes
+
+  CFLAGS              -W -Wall -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D_REENTRANT -O3
+  LDFLAGS            
+  extralibs          
+
+Creating config.mak ...

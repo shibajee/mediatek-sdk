@@ -1,0 +1,107 @@
+<!-- Copyright 2004, Ralink Technology Corporation All Rights Reserved. -->
+<html>
+<head>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="Expires" content="-1">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="/style/normal_ws.css" type="text/css">
+<title>Wireless AP Statistics</title>
+</head>
+
+<script type="text/javascript" src="/shareFun.js"></script>
+<script language="JavaScript" type="text/javascript">
+function ResetCounter()
+{
+	<!--#exec cmd="iwpriv rai0 set ResetCounter=0"-->
+	window.location.reload();
+}
+function PageInit()
+{
+	var txbf = "<!--#exec cmd="web rtdev build txbf"-->";
+
+	if (txbf != "1")
+		dispaly("none", "div_stats_txbf");
+}
+</script>
+
+<body onload="PageInit()">
+<table class="body"><tr><td>
+
+<h1 id="apStatisticTitle">AP Wireless Statistics</h1>
+<p id="apStatisticIntroduction">Wireless TX and RX Statistics</p>
+<hr />
+
+<table width="540" border="1" cellpadding="2" cellspacing="1">
+  <tr>
+    <td class="title" colspan="2" id="statisticTx">Transmit Statistics</td>
+  </tr>
+  <tr>
+    <td width="65%" bgcolor="#E8F8FF">Tx Success</td>
+    <td><!--#exec cmd="web rtdev wifi apStats TxSucc"--></td>
+  </tr>
+  <tr>
+    <td width="65%" bgcolor="#E8F8FF">Tx Retry Count</td>
+    <td><!--#exec cmd="web rtdev wifi apStats TxRetry"--></td>
+  <tr>
+    <td width="65%" bgcolor="#E8F8FF">Tx Fail after retry</td>
+    <td><!--#exec cmd="web rtdev wifi apStats TxFail"--></td>
+  <tr>
+    <td width="65%" bgcolor="#E8F8FF">RTS Sucessfully Receive CTS</td>
+    <td><!--#exec cmd="web rtdev wifi apStats RTSSucc"--></td>
+  </tr>
+  <tr>
+    <td width="65%" bgcolor="#E8F8FF">RTS Fail To Receive CTS</td>
+    <td><!--#exec cmd="web rtdev wifi apStats RTSFail"--></td>
+  </tr>
+</table>
+
+<table width="540" border="1" cellpadding="2" cellspacing="1">
+  <tr>
+    <td class="title" colspan="2" id="statisticRx">Receive Statistics</td>
+  </tr>
+  <tr>
+    <td width="65%" bgcolor="#E8F8FF">Frames Received Successfully</td>
+    <td><!--#exec cmd="web rtdev wifi apStats RxSucc"--></td>
+  </tr>
+  <tr>
+    <td width="65%" bgcolor="#E8F8FF">Frames Received With CRC Error</td>
+    <td><!--#exec cmd="web rtdev wifi apStats FCSError"--></td>
+  </tr>
+</table>
+
+<table width="540" border="1" cellpadding="2" cellspacing="1">
+  <tr>
+    <td class="title" colspan="2">SNR</td>
+  </tr>
+  <tr>
+    <td class="head">SNR</td>
+    <td><!--#exec cmd="web rtdev wifi apSNR 0"-->, <!--#exec cmd="web rtdev wifi apSNR 1"-->, <!--#exec cmd="web rtdev wifi apSNR 2"--></td>
+  </tr>
+</table>
+
+<table id="div_stats_txbf" width="540" border="1" cellpadding="2" cellspacing="1">
+    <td><!--#exec cmd="web rtdev wifi apTxBfStats"--></td>
+</table>
+
+<form method=post name="ap_statistics" action="/cgi-bin/wireless.cgi">
+<input type=hidden name=page value=apstatistics>
+<input type=hidden name=wlan_conf value="rtdev">
+<table width="540" border="0" cellpadding="2" cellspacing="1">
+  <tr align="center">
+    <td>	
+      <input type="submit" style="{width:120px;}" value="Reset Counters" id="apStatResetCounter">
+    </td>
+  </tr>
+</table>
+<input type=hidden name=dummyData value="1">
+</form>
+
+</td></tr></table>
+</body>
+<head>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="-1">
+</head>
+</html>
+
+

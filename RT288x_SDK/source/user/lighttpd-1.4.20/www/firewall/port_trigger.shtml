@@ -1,0 +1,313 @@
+<!-- Copyright 2004, Ralink Technology Corporation All Rights Reserved. -->
+<html>
+<head>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="/style/normal_ws.css" type="text/css">
+<title>Port Trigger</title>
+</head>
+
+<script type="text/javascript" src="/shareFun.js"></script>
+<script language="JavaScript" type="text/javascript">
+
+var MAX_RULES = 32;
+var rules_num = <!--#exec cmd="web 2860 firewall portTriggerRuleNum"-->;
+function deleteClick()
+{
+    return true;
+}
+
+function checkRange(str, num, min, max)
+{
+    d = atoi(str,num);
+    if(d > max || d < min)
+        return false;
+    return true;
+}
+
+
+function atoi(str, num)
+{
+	i=1;
+	if(num != 1 ){
+		while (i != num && str.length != 0){
+			if(str.charAt(0) == '.'){
+				i++;
+			}
+			str = str.substring(1);
+		}
+	  	if(i != num )
+			return -1;
+	}
+	
+	for(i=0; i<str.length; i++){
+		if(str.charAt(i) == '.'){
+			str = str.substring(0, i);
+			break;
+		}
+	}
+	if(str.length == 0)
+		return -1;
+	return parseInt(str, 10);
+}
+
+function isAllNum(str)
+{
+	for (var i=0; i<str.length; i++){
+	    if((str.charAt(i) >= '0' && str.charAt(i) <= '9') || (str.charAt(i) == '.' ))
+			continue;
+		return 0;
+	}
+	return 1;
+}
+
+function formCheck()
+{
+	if(rules_num >= (MAX_RULES) ){
+		alert("The rule number is exceeded "+ MAX_RULES +".");
+		return false;
+	}
+               
+	if(!document.portTrigger.portTriggerEnabled.options.selectedIndex){
+		// user choose disable
+		return true;
+	}
+
+	if(	document.portTrigger.triggerPortProtocol.value == "" &&
+		document.portTrigger.triggerPortNumber.value   == "" &&
+		document.portTrigger.incomingPortProtocol.value == "" &&
+		document.portTrigger.incomingPortNumber.value   == "" &&
+		document.portTrigger.comment.value  == "")
+		alert("all empty");
+		return true;
+
+	// exam Port
+
+
+	d1 = atoi(document.portTrigger.triggerPortNumber.value, 1);
+	if(d1 > 65535 || d1 < 1){
+		alert("Invalid port number!");
+		document.portForward.fromPort.focus();
+		return false;
+	}
+	
+	d2 = atoi(document.portTrigger.incomingPortNumber.value, 1);
+	if(d2 > 65535 || d2 < 1){
+		alert("Invalid port number!");
+		document.portForward.fromPort.focus();
+		return false;
+	}
+   return true;
+}
+
+function display_on()
+{
+  if(window.XMLHttpRequest){ // Mozilla, Firefox, Safari,...
+    return "table-row";
+  } else if(window.ActiveXObject){ // IE
+    return "block";
+  }
+}
+
+function disableTextField (field)
+{
+  if(document.all || document.getElementById)
+    field.disabled = true;
+  else {
+    field.oldOnFocus = field.onfocus;
+    field.onfocus = skip;
+  }
+}
+
+function enableTextField (field)
+{
+  if(document.all || document.getElementById)
+    field.disabled = false;
+  else {
+    field.onfocus = field.oldOnFocus;
+  }
+}
+function initState()
+{
+		var port_fw = "<!--#exec cmd="web 2860 nvram PortTriggerEnable"-->";
+
+	if (port_fw == "1")
+		document.portTrigger.portTriggerEnabled.options.selectedIndex = 1;
+	else
+		document.portTrigger.portTriggerEnabled.options.selectedIndex = 0;
+
+    if(! rules_num ){
+ 		disableTextField(document.portTriggerDelete.deleteSelPortTrigger);
+ 		disableTextField(document.portTriggerDelete.reset);
+	}else{
+        enableTextField(document.portTriggerDelete.deleteSelPortTrigger);
+        enableTextField(document.portTriggerDelete.reset);
+	}
+	
+    if(document.portTrigger.portTriggerEnabled.options.selectedIndex == 1){   
+		enableTextField(document.portTrigger.triggerPortProtocol);
+		enableTextField(document.portTrigger.triggerPortNumber);
+		enableTextField(document.portTrigger.incomingPortProtocol);
+		enableTextField(document.portTrigger.incomingPortNumber);
+		enableTextField(document.portTrigger.comment);
+	}else{
+		disableTextField(document.portTrigger.triggerPortProtocol);
+		disableTextField(document.portTrigger.triggerPortNumber);
+		disableTextField(document.portTrigger.incomingPortProtocol);
+		disableTextField(document.portTrigger.incomingPortNumber);
+		disableTextField(document.portTrigger.comment);
+	}
+}
+function updateState()
+{
+
+
+    if(! rules_num ){
+ 		disableTextField(document.portTriggerDelete.deleteSelPortTrigger);
+ 		disableTextField(document.portTriggerDelete.reset);
+	}else{
+        enableTextField(document.portTriggerDelete.deleteSelPortTrigger);
+        enableTextField(document.portTriggerDelete.reset);
+	}
+	
+    if(document.portTrigger.portTriggerEnabled.options.selectedIndex == 1){   
+		enableTextField(document.portTrigger.triggerPortProtocol);
+		enableTextField(document.portTrigger.triggerPortNumber);
+		enableTextField(document.portTrigger.incomingPortProtocol);
+		enableTextField(document.portTrigger.incomingPortNumber);
+		enableTextField(document.portTrigger.comment);
+	}else{
+		disableTextField(document.portTrigger.triggerPortProtocol);
+		disableTextField(document.portTrigger.triggerPortNumber);
+		disableTextField(document.portTrigger.incomingPortProtocol);
+		disableTextField(document.portTrigger.incomingPortNumber);
+		disableTextField(document.portTrigger.comment);
+	}
+}
+
+</script>
+</head>
+
+
+  <!--     body - Port Forwarding    -->
+<body onload="initState()">
+<table class="body"><tr><td>
+<h1 id="portTriggerTitle">Port Trigger Setting</h1>
+<script language="JavaScript" type="text/javascript">
+var opmode = <!--#exec cmd="web 2860 nvram OperationMode"-->;
+if (opmode == 0)
+	document.write("<img src=\"/graphics/warning.gif\"><font color=#ff0000>&nbsp; &nbsp;Warning: The current operation mode is \"Bridge mode\" and these settings may not be functional.</font>");
+</script>
+<p id="portTriggerIntroduction"> You may setup Port Trigger to provide services on Internet.</p>
+<hr />
+
+<form method=post name="portTrigger" action="/cgi-bin/firewall.cgi">
+<input type=hidden name=firewall value=portTrigger>
+<table width="400" border="1" cellpadding="2" cellspacing="1">
+<tr>
+  <td class="title" colspan="2" id="portTriggerSettingSrv">Port Trigger</td>
+</tr>
+
+
+<tr>
+	<td class="head" id="triggerSetting">Port Trigger
+	</td>
+	<td>
+	<select onChange="updateState()" name="portTriggerEnabled" size="1">
+		<option value=0 id="portTriggerDisable">Disable</option>
+    <option value=1 id="portTrigggerEnable">Enable</option>
+    </select>
+    </td>
+</tr>
+
+
+<tr>
+	<td class="head" id="triggerPortProtocol">Trigger Port Protocol
+	</td>
+	<td>
+		<select name="triggerPortProtocol">
+			<option value="TCP">TCP</option>
+   		<option value="UDP">UDP</option>
+   		</select>&nbsp;&nbsp;
+	</td>
+</tr>
+
+<tr>
+	<td class="head" id="triggerPortNumber">
+		Trigger Port
+	</td>
+	<td>
+  		<input type="text" size="5" name="triggerPortNumber"> 
+	</td>
+</tr>
+
+<tr>
+	<td class="head" id="incomingPortProtocol">
+		Incoming Port Protocol
+	</td>
+	<td>
+		<select name="incomingPortProtocol">
+			<option  value="TCP">TCP</option>
+   		<option value="UDP">UDP</option>
+   		</select>&nbsp;&nbsp;
+	</td>
+</tr>
+
+<tr>
+	<td class="head" id="incomingPortNumber">
+		Incoming Port
+	</td>
+	<td>
+  		<input type="text" size="5" name="incomingPortNumber"> 
+	</td>
+</tr>
+<tr>
+	<td class="head" id="currentTriggerComment">
+		Comment
+	</td>
+	<td>
+		<input type="text" name="comment" size="16" maxlength="32">
+	</td>
+</tr>
+</table>
+<script>
+    document.write("(The maximum rule count is "+ MAX_RULES +".)");
+</script>
+<p>
+	<input type="submit" value="Apply" id="portTriggerApply" name="addFilterPort" onClick="return formCheck()"> &nbsp;&nbsp;
+	<input type="reset" value="Reset" id="currentPortReset" name="reset">
+</p>
+</form>
+
+<br>
+<hr />
+<!--  delete rules -->
+<form action="/cgi-bin/firewall.cgi" method=POST name="portTriggerDelete">
+<input type=hidden name=firewall value=portTriggerDelete>
+<table width="400" border="1" cellpadding="2" cellspacing="1">	
+	<tr>
+		<td class="title" colspan="6" id="currentPortTrigger">Current Port Trigger in system: </td>
+	</tr>
+
+	<tr>
+		<td id="forwardCurrentVirtualSrvNo"> No.</td>
+		<td align=center id="currentTriggerPortProtocol"> Trigger Protocol</td>
+		<td align=center id="currentTriggerPortNumber"> Trigger Port</td>
+		<td align=center id="currentIncomingPortProtocol"> Incoming Protocol</td>
+		<td align=center id="currentIncomingPortNumber"> Incoming port</td>
+		<td align=center id="currentTriggerComment"> Comment</td>
+	</tr>
+		<!--#exec cmd="web 2860 firewall portTriggerRule"-->
+</table>
+<br>
+
+<input type="submit" value="Delete Selected" id="currentPortDel" name="deleteSelPortTrigger" onClick="return deleteClick()">&nbsp;&nbsp;
+<input type="reset" value="Reset" id="currentPortReset" name="reset">
+</form>
+
+<br>
+			<!-----    end 2   ----->
+
+</td></tr></table>
+</body>
+</html>

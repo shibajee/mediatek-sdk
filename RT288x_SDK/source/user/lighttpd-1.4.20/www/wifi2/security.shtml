@@ -1,0 +1,1538 @@
+<!-- Copyright 2004, Ralink Technology Corporation All Rights Reserved. -->
+<html>
+<head>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" CONTENT="-1">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="/style/normal_ws.css" type="text/css">
+<title>Wireless Security Settings</title>
+</head>
+
+<script type="text/javascript" src="/shareFun.js"></script>
+<script language="JavaScript" type="text/javascript">
+var MBSSID_MAX = 8;
+var ACCESSPOLICYLIST_MAX = 64;
+var changed = 0;
+var old_MBSSID;
+var defaultShownMBSSID = "<!--#exec cmd="web rtdev nvram CurrentSSIDIndx"-->";
+var PhyMode = "<!--#exec cmd="web rtdev nvram WirelessMode"-->";
+var SSID = new Array();
+var PreAuth = new Array();
+var AuthMode = new Array();
+var EncrypType = new Array();
+var DefaultKeyID = new Array();
+var Key1Type = new Array();
+var Key1Str = new Array();
+var Key2Type = new Array();
+var Key2Str = new Array();
+var Key3Type = new Array();
+var Key3Str = new Array();
+var Key4Type = new Array();
+var Key4Str = new Array();
+var WPAPSK = new Array();
+var RekeyMethod = new Array();
+var RekeyInterval = new Array();
+var PMKCachePeriod = new Array();
+var IEEE8021X = new Array();
+var RADIUS_Server = new Array();
+var RADIUS_Port = new Array();
+var RADIUS_Key = new Array();
+var session_timeout_interval = new Array();
+var AccessPolicy = new Array();
+var AccessControlList = new Array();
+var WapiPskType = new Array();
+var WapiPsk = new Array();
+var WapiAsIpAddr = new Array();
+var WapiAsPort = new Array();
+var WapiAsCertPath = new Array();
+var WapiUserCertPath = new Array();
+var wapib = "<!--#exec cmd="web rtdev build wapi"-->";
+var wpsenable = "<!--#exec cmd="web rtdev nvram WscModeOption"-->";
+var ht_disallow_tkip = "<!--#exec cmd="web rtdev nvram HT_DisallowTKIP"-->";
+
+function checkHex(str){
+	var len = str.length;
+
+	for (var i=0; i<str.length; i++) {
+		if ((str.charAt(i) >= '0' && str.charAt(i) <= '9') ||
+			(str.charAt(i) >= 'a' && str.charAt(i) <= 'f') ||
+			(str.charAt(i) >= 'A' && str.charAt(i) <= 'F') ){
+				continue;
+		}else
+	        return false;
+	}
+    return true;
+}
+
+function checkInjection(str)
+{
+	var len = str.length;
+	for (var i=0; i<str.length; i++) {
+		if ( str.charAt(i) == '\r' || str.charAt(i) == '\n'){
+				return false;
+		}else
+	        continue;
+	}
+    return true;
+}
+
+function checkStrictInjection(str)
+{
+	var len = str.length;
+	for (var i=0; i<str.length; i++) {
+		if ( str.charAt(i) == ';' || str.charAt(i) == ',' ||
+			 str.charAt(i) == '\r' || str.charAt(i) == '\n'){
+				return false;
+		}else
+	        continue;
+	}
+    return true;
+}
+
+function WapiCertUpdateHTML()
+{
+	if (http_request.readyState == 4 && http_request.status == 200) {
+		var all_str = http_request.responseText;
+		var field = all_str.split('\t');
+		var cert = document.getElementById("wapicert_ascert");
+
+		if (field[0].length > 0)
+			cert.options[cert.length] = new Option(field[0], field[0]);
+		cert = document.getElementById("wapicert_usercert");
+		if (field[1].length > 0)
+			cert.options[cert.length] = new Option(field[1], field[1]);
+	}
+}
+
+function WapiCertUpdate()
+{
+	makeRequest("/cgi-bin/makeRequest.cgi", "updateWapiCert", WapiCertUpdateHTML);
+}
+
+function deleteAccessPolicyListHandler()
+{
+	setTimeout("window.location.reload(true)", 5000);
+}
+
+function initAll()
+{
+	var str;
+	
+	if (defaultShownMBSSID == "")
+		defaultShownMBSSID = 0;
+	if ((str = "<!--#exec cmd="web rtdev nvram SSID1"-->") != "")
+	{
+		SSID[0] = str;
+		Key1Str[0] = "<!--#exec cmd="web rtdev nvram Key1Str1"-->";
+		Key2Str[0] = "<!--#exec cmd="web rtdev nvram Key2Str1"-->";
+		Key3Str[0] = "<!--#exec cmd="web rtdev nvram Key3Str1"-->";
+		Key4Str[0] = "<!--#exec cmd="web rtdev nvram Key4Str1"-->";
+		WPAPSK[0] = "<!--#exec cmd="web rtdev nvram WPAPSK1"-->";
+		RADIUS_Key[0] = "<!--#exec cmd="web rtdev nvram RADIUS_Key1"-->";
+		AccessPolicy[0] = "<!--#exec cmd="web rtdev nvram AccessPolicy0"-->";
+		AccessControlList[0] = "<!--#exec cmd="web rtdev nvram AccessControlList0"-->";
+		WapiPsk[0] = "<!--#exec cmd="web rtdev nvram WapiPsk1"-->";
+	}
+	if ((str = "<!--#exec cmd="web rtdev nvram SSID2"-->") != "")
+	{
+		SSID[1] = str;
+		Key1Str[1] = "<!--#exec cmd="web rtdev nvram Key1Str2"-->";
+		Key2Str[1] = "<!--#exec cmd="web rtdev nvram Key2Str2"-->";
+		Key3Str[1] = "<!--#exec cmd="web rtdev nvram Key3Str2"-->";
+		Key4Str[1] = "<!--#exec cmd="web rtdev nvram Key4Str2"-->";
+		WPAPSK[1] = "<!--#exec cmd="web rtdev nvram WPAPSK2"-->";
+		RADIUS_Key[1] = "<!--#exec cmd="web rtdev nvram RADIUS_Key2"-->";
+		AccessPolicy[1] = "<!--#exec cmd="web rtdev nvram AccessPolicy1"-->";
+		AccessControlList[1] = "<!--#exec cmd="web rtdev nvram AccessControlList1"-->";
+		WapiPsk[1] = "<!--#exec cmd="web rtdev nvram WapiPsk2"-->";
+	}
+	if ((str = "<!--#exec cmd="web rtdev nvram SSID3"-->") != "")
+	{
+		SSID[2] = str;
+		Key1Str[2] = "<!--#exec cmd="web rtdev nvram Key1Str3"-->";
+		Key2Str[2] = "<!--#exec cmd="web rtdev nvram Key2Str3"-->";
+		Key3Str[2] = "<!--#exec cmd="web rtdev nvram Key3Str3"-->";
+		Key4Str[2] = "<!--#exec cmd="web rtdev nvram Key4Str3"-->";
+		WPAPSK[2] = "<!--#exec cmd="web rtdev nvram WPAPSK3"-->";
+		RADIUS_Key[2] = "<!--#exec cmd="web rtdev nvram RADIUS_Key3"-->";
+		AccessPolicy[2] = "<!--#exec cmd="web rtdev nvram AccessPolicy2"-->";
+		AccessControlList[2] = "<!--#exec cmd="web rtdev nvram AccessControlList2"-->";
+		WapiPsk[2] = "<!--#exec cmd="web rtdev nvram WapiPsk3"-->";
+	}
+	if ((str = "<!--#exec cmd="web rtdev nvram SSID4"-->") != "")
+	{
+		SSID[3] = str;
+		Key1Str[3] = "<!--#exec cmd="web rtdev nvram Key1Str4"-->";
+		Key2Str[3] = "<!--#exec cmd="web rtdev nvram Key2Str4"-->";
+		Key3Str[3] = "<!--#exec cmd="web rtdev nvram Key3Str4"-->";
+		Key4Str[3] = "<!--#exec cmd="web rtdev nvram Key4Str4"-->";
+		WPAPSK[3] = "<!--#exec cmd="web rtdev nvram WPAPSK4"-->";
+		RADIUS_Key[3] = "<!--#exec cmd="web rtdev nvram RADIUS_Key4"-->";
+		AccessPolicy[3] = "<!--#exec cmd="web rtdev nvram AccessPolicy3"-->";
+		AccessControlList[3] = "<!--#exec cmd="web rtdev nvram AccessControlList3"-->";
+		WapiPsk[3] = "<!--#exec cmd="web rtdev nvram WapiPsk4"-->";
+	}
+	if ((str = "<!--#exec cmd="web rtdev nvram SSID5"-->") != "")
+	{
+		SSID[4] = str;
+		Key1Str[4] = "<!--#exec cmd="web rtdev nvram Key1Str5"-->";
+		Key2Str[4] = "<!--#exec cmd="web rtdev nvram Key2Str5"-->";
+		Key3Str[4] = "<!--#exec cmd="web rtdev nvram Key3Str5"-->";
+		Key4Str[4] = "<!--#exec cmd="web rtdev nvram Key4Str5"-->";
+		WPAPSK[4] = "<!--#exec cmd="web rtdev nvram WPAPSK5"-->";
+		RADIUS_Key[4] = "<!--#exec cmd="web rtdev nvram RADIUS_Key5"-->";
+		AccessPolicy[4] = "<!--#exec cmd="web rtdev nvram AccessPolicy4"-->";
+		AccessControlList[4] = "<!--#exec cmd="web rtdev nvram AccessControlList4"-->";
+		WapiPsk[4] = "<!--#exec cmd="web rtdev nvram WapiPsk5"-->";
+	}
+	if ((str = "<!--#exec cmd="web rtdev nvram SSID6"-->") != "")
+	{
+		SSID[5] = str;
+		Key1Str[5] = "<!--#exec cmd="web rtdev nvram Key1Str6"-->";
+		Key2Str[5] = "<!--#exec cmd="web rtdev nvram Key2Str6"-->";
+		Key3Str[5] = "<!--#exec cmd="web rtdev nvram Key3Str6"-->";
+		Key4Str[5] = "<!--#exec cmd="web rtdev nvram Key4Str6"-->";
+		WPAPSK[5] = "<!--#exec cmd="web rtdev nvram WPAPSK6"-->";
+		RADIUS_Key[5] = "<!--#exec cmd="web rtdev nvram RADIUS_Key6"-->";
+		AccessPolicy[5] = "<!--#exec cmd="web rtdev nvram AccessPolicy5"-->";
+		AccessControlList[5] = "<!--#exec cmd="web rtdev nvram AccessControlList5"-->";
+		WapiPsk[5] = "<!--#exec cmd="web rtdev nvram WapiPsk6"-->";
+	}
+	if ((str = "<!--#exec cmd="web rtdev nvram SSID7"-->") != "")
+	{
+		SSID[6] = str;
+		Key1Str[6] = "<!--#exec cmd="web rtdev nvram Key1Str7"-->";
+		Key2Str[6] = "<!--#exec cmd="web rtdev nvram Key2Str7"-->";
+		Key3Str[6] = "<!--#exec cmd="web rtdev nvram Key3Str7"-->";
+		Key4Str[6] = "<!--#exec cmd="web rtdev nvram Key4Str7"-->";
+		WPAPSK[6] = "<!--#exec cmd="web rtdev nvram WPAPSK7"-->";
+		RADIUS_Key[6] = "<!--#exec cmd="web rtdev nvram RADIUS_Key7"-->";
+		AccessPolicy[6] = "<!--#exec cmd="web rtdev nvram AccessPolicy6"-->";
+		AccessControlList[6] = "<!--#exec cmd="web rtdev nvram AccessControlList6"-->";
+		WapiPsk[6] = "<!--#exec cmd="web rtdev nvram WapiPsk7"-->";
+	}
+	if ((str = "<!--#exec cmd="web rtdev nvram SSID8"-->") != "")
+	{
+		SSID[7] = str;
+		Key1Str[7] = "<!--#exec cmd="web rtdev nvram Key1Str8"-->";
+		Key2Str[7] = "<!--#exec cmd="web rtdev nvram Key2Str8"-->";
+		Key3Str[7] = "<!--#exec cmd="web rtdev nvram Key3Str8"-->";
+		Key4Str[7] = "<!--#exec cmd="web rtdev nvram Key4Str8"-->";
+		WPAPSK[7] = "<!--#exec cmd="web rtdev nvram WPAPSK8"-->";
+		RADIUS_Key[7] = "<!--#exec cmd="web rtdev nvram RADIUS_Key8"-->";
+		AccessPolicy[7] = "<!--#exec cmd="web rtdev nvram AccessPolicy7"-->";
+		AccessControlList[7] = "<!--#exec cmd="web rtdev nvram AccessControlList7"-->";
+		WapiPsk[7] = "<!--#exec cmd="web rtdev nvram WapiPsk8"-->";
+	}
+	if ((str = "<!--#exec cmd="web rtdev nvram SSID9"-->") != "")
+	{
+		SSID[8] = str;
+		Key1Str[8] = "<!--#exec cmd="web rtdev nvram Key1Str9"-->";
+		Key2Str[8] = "<!--#exec cmd="web rtdev nvram Key2Str9"-->";
+		Key3Str[8] = "<!--#exec cmd="web rtdev nvram Key3Str9"-->";
+		Key4Str[8] = "<!--#exec cmd="web rtdev nvram Key4Str9"-->";
+		WPAPSK[8] = "<!--#exec cmd="web rtdev nvram WPAPSK9"-->";
+		RADIUS_Key[8] = "<!--#exec cmd="web rtdev nvram RADIUS_Key9"-->";
+		AccessPolicy[8] = "<!--#exec cmd="web rtdev nvram AccessPolicy8"-->";
+		AccessControlList[8] = "<!--#exec cmd="web rtdev nvram AccessControlList8"-->";
+		WapiPsk[8] = "<!--#exec cmd="web rtdev nvram WapiPsk9"-->";
+	}
+	if ((str = "<!--#exec cmd="web rtdev nvram SSID10"-->") != "")
+	{
+		SSID[9] = str;
+		Key1Str[9] = "<!--#exec cmd="web rtdev nvram Key1Str10"-->";
+		Key2Str[9] = "<!--#exec cmd="web rtdev nvram Key2Str10"-->";
+		Key3Str[9] = "<!--#exec cmd="web rtdev nvram Key3Str10"-->";
+		Key4Str[9] = "<!--#exec cmd="web rtdev nvram Key4Str10"-->";
+		WPAPSK[9] = "<!--#exec cmd="web rtdev nvram WPAPSK10"-->";
+		RADIUS_Key[9] = "<!--#exec cmd="web rtdev nvram RADIUS_Key10"-->";
+		AccessPolicy[9] = "<!--#exec cmd="web rtdev nvram AccessPolicy9"-->";
+		AccessControlList[9] = "<!--#exec cmd="web rtdev nvram AccessControlList9"-->";
+		WapiPsk[9] = "<!--#exec cmd="web rtdev nvram WapiPsk10"-->";
+	}
+	if ((str = "<!--#exec cmd="web rtdev nvram SSID11"-->") != "")
+	{
+		SSID[10] = str;
+		Key1Str[10] = "<!--#exec cmd="web rtdev nvram Key1Str11"-->";
+		Key2Str[10] = "<!--#exec cmd="web rtdev nvram Key2Str11"-->";
+		Key3Str[10] = "<!--#exec cmd="web rtdev nvram Key3Str11"-->";
+		Key4Str[10] = "<!--#exec cmd="web rtdev nvram Key4Str11"-->";
+		WPAPSK[10] = "<!--#exec cmd="web rtdev nvram WPAPSK11"-->";
+		RADIUS_Key[10] = "<!--#exec cmd="web rtdev nvram RADIUS_Key11"-->";
+		AccessPolicy[10] = "<!--#exec cmd="web rtdev nvram AccessPolicy10"-->";
+		AccessControlList[10] = "<!--#exec cmd="web rtdev nvram AccessControlList10"-->";
+		WapiPsk[10] = "<!--#exec cmd="web rtdev nvram WapiPsk11"-->";
+	}
+	if ((str = "<!--#exec cmd="web rtdev nvram SSID12"-->") != "")
+	{
+		SSID[11] = str;
+		Key1Str[11] = "<!--#exec cmd="web rtdev nvram Key1Str12"-->";
+		Key2Str[11] = "<!--#exec cmd="web rtdev nvram Key2Str12"-->";
+		Key3Str[11] = "<!--#exec cmd="web rtdev nvram Key3Str12"-->";
+		Key4Str[11] = "<!--#exec cmd="web rtdev nvram Key4Str12"-->";
+		WPAPSK[11] = "<!--#exec cmd="web rtdev nvram WPAPSK12"-->";
+		RADIUS_Key[11] = "<!--#exec cmd="web rtdev nvram RADIUS_Key12"-->";
+		AccessPolicy[11] = "<!--#exec cmd="web rtdev nvram AccessPolicy11"-->";
+		AccessControlList[11] = "<!--#exec cmd="web rtdev nvram AccessControlList11"-->";
+		WapiPsk[11] = "<!--#exec cmd="web rtdev nvram WapiPsk12"-->";
+	}
+	if ((str = "<!--#exec cmd="web rtdev nvram SSID13"-->") != "")
+	{
+		SSID[12] = str;
+		Key1Str[12] = "<!--#exec cmd="web rtdev nvram Key1Str13"-->";
+		Key2Str[12] = "<!--#exec cmd="web rtdev nvram Key2Str13"-->";
+		Key3Str[12] = "<!--#exec cmd="web rtdev nvram Key3Str13"-->";
+		Key4Str[12] = "<!--#exec cmd="web rtdev nvram Key4Str13"-->";
+		WPAPSK[12] = "<!--#exec cmd="web rtdev nvram WPAPSK13"-->";
+		RADIUS_Key[12] = "<!--#exec cmd="web rtdev nvram RADIUS_Key13"-->";
+		AccessPolicy[12] = "<!--#exec cmd="web rtdev nvram AccessPolicy12"-->";
+		AccessControlList[12] = "<!--#exec cmd="web rtdev nvram AccessControlList12"-->";
+		WapiPsk[12] = "<!--#exec cmd="web rtdev nvram WapiPsk13"-->";
+	}
+	if ((str = "<!--#exec cmd="web rtdev nvram SSID14"-->") != "")
+	{
+		SSID[13] = str;
+		Key1Str[13] = "<!--#exec cmd="web rtdev nvram Key1Str14"-->";
+		Key2Str[13] = "<!--#exec cmd="web rtdev nvram Key2Str14"-->";
+		Key3Str[13] = "<!--#exec cmd="web rtdev nvram Key3Str14"-->";
+		Key4Str[13] = "<!--#exec cmd="web rtdev nvram Key4Str14"-->";
+		WPAPSK[13] = "<!--#exec cmd="web rtdev nvram WPAPSK14"-->";
+		RADIUS_Key[13] = "<!--#exec cmd="web rtdev nvram RADIUS_Key14"-->";
+		AccessPolicy[13] = "<!--#exec cmd="web rtdev nvram AccessPolicy13"-->";
+		AccessControlList[13] = "<!--#exec cmd="web rtdev nvram AccessControlList13"-->";
+		WapiPsk[13] = "<!--#exec cmd="web rtdev nvram WapiPsk14"-->";
+	}
+	if ((str = "<!--#exec cmd="web rtdev nvram SSID15"-->") != "")
+	{
+		SSID[14] = str;
+		Key1Str[14] = "<!--#exec cmd="web rtdev nvram Key1Str15"-->";
+		Key2Str[14] = "<!--#exec cmd="web rtdev nvram Key2Str15"-->";
+		Key3Str[14] = "<!--#exec cmd="web rtdev nvram Key3Str15"-->";
+		Key4Str[14] = "<!--#exec cmd="web rtdev nvram Key4Str15"-->";
+		WPAPSK[14] = "<!--#exec cmd="web rtdev nvram WPAPSK15"-->";
+		RADIUS_Key[14] = "<!--#exec cmd="web rtdev nvram RADIUS_Key15"-->";
+		AccessPolicy[14] = "<!--#exec cmd="web rtdev nvram AccessPolicy14"-->";
+		AccessControlList[14] = "<!--#exec cmd="web rtdev nvram AccessControlList14"-->";
+		WapiPsk[14] = "<!--#exec cmd="web rtdev nvram WapiPsk15"-->";
+	}
+	if ((str = "<!--#exec cmd="web rtdev nvram SSID16"-->") != "")
+	{
+		SSID[15] = str;
+		Key1Str[15] = "<!--#exec cmd="web rtdev nvram Key1Str16"-->";
+		Key2Str[15] = "<!--#exec cmd="web rtdev nvram Key2Str16"-->";
+		Key3Str[15] = "<!--#exec cmd="web rtdev nvram Key3Str16"-->";
+		Key4Str[15] = "<!--#exec cmd="web rtdev nvram Key4Str16"-->";
+		WPAPSK[15] = "<!--#exec cmd="web rtdev nvram WPAPSK16"-->";
+		RADIUS_Key[15] = "<!--#exec cmd="web rtdev nvram RADIUS_Key16"-->";
+		AccessPolicy[15] = "<!--#exec cmd="web rtdev nvram AccessPolicy15"-->";
+		AccessControlList[15] = "<!--#exec cmd="web rtdev nvram AccessControlList15"-->";
+		WapiPsk[15] = "<!--#exec cmd="web rtdev nvram WapiPsk16"-->";
+	}
+	str = "<!--#exec cmd="web rtdev nvram PreAuth"-->";
+	PreAuth = str.split(";");
+	str = "<!--#exec cmd="web rtdev nvram AuthMode"-->";
+	AuthMode = str.split(";");
+	str = "<!--#exec cmd="web rtdev nvram EncrypType"-->";
+	EncrypType = str.split(";");
+	str = "<!--#exec cmd="web rtdev nvram DefaultKeyID"-->";
+	DefaultKeyID = str.split(";");
+	str = "<!--#exec cmd="web rtdev nvram Key1Type"-->";
+	Key1Type = str.split(";");
+	str = "<!--#exec cmd="web rtdev nvram Key2Type"-->";
+	Key2Type = str.split(";");
+	str = "<!--#exec cmd="web rtdev nvram Key3Type"-->";
+	Key3Type = str.split(";");
+	str = "<!--#exec cmd="web rtdev nvram Key4Type"-->";
+	Key4Type = str.split(";");
+	str = "<!--#exec cmd="web rtdev nvram RekeyMethod"-->";
+	RekeyMethod = str.split(";");
+	str = "<!--#exec cmd="web rtdev nvram RekeyInterval"-->";
+	RekeyInterval = str.split(";");
+	str = "<!--#exec cmd="web rtdev nvram PMKCachePeriod"-->";
+	PMKCachePeriod = str.split(";");
+	str = "<!--#exec cmd="web rtdev nvram IEEE8021X"-->";
+	IEEE8021X = str.split(";");
+	str = "<!--#exec cmd="web rtdev nvram RADIUS_Server"-->";
+	RADIUS_Server = str.split(";");
+	str = "<!--#exec cmd="web rtdev nvram RADIUS_Port"-->";
+	RADIUS_Port = str.split(";");
+	str = "<!--#exec cmd="web rtdev nvram session_timeout_interval"-->";
+	session_timeout_interval = str.split(";");
+	str = "<!--#exec cmd="web rtdev nvram WapiPskType"-->";
+	WapiPskType = str.split(";");
+	str = "<!--#exec cmd="web rtdev nvram WapiAsIpAddr"-->";
+	WapiAsIpAddr = str.split(";");
+	str = "<!--#exec cmd="web rtdev nvram WapiAsPort"-->";
+	WapiAsPort = str.split(";");
+	str = "<!--#exec cmd="web rtdev nvram WapiAsCertPath"-->";
+	WapiAsCertPath = str.split(";");
+	str = "<!--#exec cmd="web rtdev nvram WapiUserCertPath"-->";
+	WapiUserCertPath = str.split(";");
+
+
+	for (var i=0; i<SSID.length; i++) {
+		/* !!!! IMPORTANT !!!!*/
+		if(IEEE8021X[i] == "1")
+			AuthMode[i] = "IEEE8021X";
+		if(AuthMode[i] == "OPEN" && EncrypType[i] == "NONE" && IEEE8021X[i] == "0")
+			AuthMode[i] = "Disable";
+		//alert("SSID"+i+": "+SSID[i]+", PreAuth"+i+": "+PreAuth[i]+", AuthMode"+i+": "+AuthMode[i]+", EncrypType"+i+": "+EncrypType[i]+", DefaultKeyID"+i+": "+DefaultKeyID[i]+", Key1Type"+i+": "+Key1Type[i]+", Key1Str"+i+": "+Key1Str[i]+", Key2Type"+i+": "+Key2Type[i]+", Key2Str"+i+": "+Key2Str[i]+", Key3Type"+i+": "+Key3Type[i]+", Key3Str"+i+": "+Key3Str[i]+", Key4Type"+i+": "+Key4Type[i]+", Key4Str"+i+": "+Key4Str[i]+", WPAPSK"+i+": "+WPAPSK[i]+", RekeyMethod"+i+": "+RekeyMethod[i]+", RekeyInterval"+i+": "+RekeyInterval[i]+", PMKCachePeriod"+i+": "+PMKCachePeriod[i]+", IEEE8021X"+i+": "+IEEE8021X[i]+", RADIUS_Server"+i+": "+RADIUS_Server[i]+", RADIUS_Port"+i+": "+RADIUS_Port[i]+", RADIUS_Key"+i+": "+RADIUS_Key[i]+", session_timeout_interval"+i+": "+session_timeout_interval[i]+", AccessPolicy"+i+": "+AccessPolicy[i]+", AccessControlList"+i+": "+AccessControlList[i]+WapiPskType[i]+" + "+WapiPsk[i]+" + "+WapiAsIpAddr[i]+" + "+WapiAsPort[i]+" + "+WapiAsCertPath[i]+" + "+WapiUserCertPath[i]);
+	}
+	UpdateMBSSIDList();
+	LoadFields(defaultShownMBSSID);
+
+	// load Access Policy for MBSSID[selected]
+	LoadAP();
+	ShowAP(defaultShownMBSSID);
+}
+
+function checkData()
+{
+	var securitymode;
+//	var ssid = document.security_form.Ssid.value;
+	
+	securitymode = document.security_form.security_mode.value;
+	if (securitymode == "Disable")
+	{
+		if (wpsenable != "0") 
+			alert('This setting is no security!');
+	}
+	else if (securitymode == "OPEN" || securitymode == "SHARED" ||securitymode == "WEPAUTO")
+	{
+		if(! check_Wep(securitymode) )
+			return false;
+		if (wpsenable != "0") 
+			alert("This setting is going to turn off WPS feature!");
+	} 
+	else if (securitymode == "WPAPSK" || securitymode == "WPA2PSK" || securitymode == "WPAPSKWPA2PSK" /* || security_mode == 5 */) 
+	{
+		var keyvalue = document.security_form.passphrase.value;
+
+		if (keyvalue.length == 0){
+			alert('Please input wpapsk key!');
+			return false;
+		}
+
+		if (keyvalue.length < 8){
+			alert('Please input at least 8 character of wpapsk key!');
+			return false;
+		}
+		
+		if (keyvalue.length == 64 && checkHex(keyvalue) == false) {
+			alert('Please input 8~63 ASCII or 64 Hexadecimal character!');
+			return false;
+		}
+		
+		if(checkInjection(document.security_form.passphrase.value) == false){
+			alert('Invalid characters in Pass Phrase.');
+			return false;
+		}
+
+		if(document.security_form.cipher[0].checked != true && 
+		   document.security_form.cipher[1].checked != true &&
+   		   document.security_form.cipher[2].checked != true){
+   		   alert('Please choose a WPA Algorithms.');
+   		   return false;
+		}
+
+		if(check_wpa() == false)
+			return false;
+	}
+	else if (securitymode == "IEEE8021X") // 802.1x
+	{
+		if( document.security_form.ieee8021x_wep[0].checked == false &&
+			document.security_form.ieee8021x_wep[1].checked == false){
+			alert('Please choose the 802.1x WEP option.');
+			return false;
+		}
+		if(check_radius() == false)
+			return false;
+	}
+	else if (securitymode == "WPA" || securitymode == "WPA1WPA2") //     WPA or WPA1WP2 mixed mode
+	{
+		if(check_wpa() == false)
+			return false;
+		if(check_radius() == false)
+			return false;
+	}
+	else if (securitymode == "WPA2") //         WPA2
+	{
+		if(check_wpa() == false)
+			return false;
+		if( document.security_form.PreAuthentication[0].checked == false &&
+			document.security_form.PreAuthentication[1].checked == false){
+			alert('Please choose the Pre-Authentication options.');
+			return false;
+		}
+
+		if(!document.security_form.PMKCachePeriod.value.length){
+			alert('Please input the PMK Cache Period.');
+			return false;
+		} else if (isNaN(document.security_form.PMKCachePeriod.value)) {
+			alert('Please input a number.');
+			return false;
+		}
+		if(check_radius() == false)
+			return false;
+	}
+	else if (securitymode == "WAICERT")
+	{
+		if(check_as() == false)
+			return false;
+	}
+	else if (securitymode == "WAIPSK")
+	{
+		var pskey = document.security_form.wapipsk_prekey.value;
+
+		if (pskey.length == 0)
+		{
+			alert('Please input WAPI PSK pre-Shared Key!');
+			return false;
+		}
+
+		if (pskey.length < 8)
+		{
+			alert('Please input at least 8 character of WAPI PSK pre-Shared Key!');
+			return false;
+		}
+		
+		if (checkInjection(pskey) == false)
+		{
+			alert('Invalid characters in pre-Shared Key.');
+			return false;
+		}
+
+		if (document.security_form.wapipsk_keytype.selectedIndex == 0 &&
+		    pskey.length%2 != 0)
+		{
+			alert('Pre-Shared Key of HEX type is a multiple of 2!');
+			return false;
+		}
+	}
+
+	// check Access Policy
+	for(i=0; i<MBSSID_MAX; i++){
+
+
+		if( document.getElementById("newap_text_" + i).value != ""){
+			if(!checkMac(document.getElementById("newap_text_" + i).value)){
+				alert("The mac address in Access Policy form is invalid.\n");
+				return false;
+			}
+			if ((document.getElementById("newap_text_" + i).value == "<!--#exec cmd="web rtdev sys wifiMacAddr"-->") || 
+					(document.getElementById("newap_text_" + i).value == "<!--#exec cmd="web rtdev sys lanMacAddr"-->")) {
+				alert("The mac address is illegal!\n");
+				return false;
+			}
+		}
+	}
+
+	return true;
+}
+
+function check_wpa()
+{
+		if(document.security_form.cipher[0].checked != true && 
+		   document.security_form.cipher[1].checked != true &&
+   		   document.security_form.cipher[2].checked != true){
+   		   alert('Please choose a WPA Algorithms.');
+   		   return false;
+		}
+
+		// there is no tkip-aes mixed mode in WPA-PSK.
+		if ((document.security_form.security_mode.value == "WPA" || 
+		     document.security_form.security_mode.value == "WPAPSK") && 
+		     document.security_form.cipher[2].checked == true)
+		{
+			document.security_form.cipher[0].checked = true;
+		   	document.security_form.cipher[1].checked = false;
+   		   	document.security_form.cipher[2].checked = false;
+		}
+
+		if(isNaN(document.security_form.keyRenewalInterval.value) == true){
+			alert('Please input a valid key renewal interval');
+			return false;
+		}
+		if(document.security_form.keyRenewalInterval.value == 0){
+			alert('Renew key interval is equal to 0, so the device will not refresh key');
+		}
+		if (ht_disallow_tkip == "1" && document.security_form.cipher[0].checked)
+			alert("Disallow TKIP/WEP encryption is enabled, so 11N rate will turn off!");
+		return true;
+}
+
+function check_as()
+{
+	if (!document.security_form.wapicert_asipaddr.value.length)
+	{
+		alert("Please input the Authenticator Server ip address!");
+		return false;
+	}
+
+	if (!document.security_form.wapicert_asport.value.length)
+	{
+		alert("Please input the Authenticator Server port number!");
+		return false;
+	}
+
+	if (checkIpAddr(document.security_form.wapicert_asipaddr, false) == false)
+	{
+		alert("Please input a valid Athenticator server ip address!");
+		return false;
+	}
+
+	if( (checkRange(document.security_form.wapicert_asport.value, 1, 1, 65535)==false) ||
+		(isNaN(document.security_form.wapicert_asport.value) == true)){
+		alert('Please input a valid Athenticator server port number.');
+		return false;		
+	}
+}
+
+function check_radius()
+{
+	if(!document.security_form.RadiusServerIP.value.length){
+		alert('Please input the radius server ip address.');
+		return false;		
+	}
+	if(!document.security_form.RadiusServerPort.value.length){
+		alert('Please input the radius server port number.');
+		return false;		
+	}
+	if(!document.security_form.RadiusServerSecret.value.length){
+		alert('Please input the radius server shared secret.');
+		return false;		
+	}
+
+	if(checkIpAddr(document.security_form.RadiusServerIP, false) == false){
+		alert('Please input a valid radius server ip address.');
+		return false;		
+	}
+	if( (checkRange(document.security_form.RadiusServerPort.value, 1, 1, 65535)==false) ||
+		(isNaN(document.security_form.RadiusServerPort.value) == true)){
+		alert('Please input a valid radius server port number.');
+		return false;		
+	}
+	if(checkStrictInjection(document.security_form.RadiusServerSecret.value)==false){
+		alert('The shared secret contains invalid characters.');
+		return false;		
+	}
+
+	if(document.security_form.RadiusServerSessionTimeout.value.length){
+		if(isNaN(document.security_form.RadiusServerSessionTimeout.value) == true){
+			alert('Please input a valid session timeout number or u may left it empty.');
+			return false;	
+		}	
+	}
+
+	return true;
+}
+
+function securityMode(c_f)
+{
+	var security_mode;
+
+
+	changed = c_f;
+
+	hideWep();
+
+	display("none", "div_wpa");
+	display("none", "div_wpa_algorithms");
+	display("none", "wpa_passphrase");
+	display("none", "wpa_key_renewal_interval");
+	display("none", "wpa_PMK_Cache_Period");
+	display("none", "wpa_preAuthentication");
+	document.security_form.cipher[0].disabled = true;
+	document.security_form.cipher[1].disabled = true;
+	document.security_form.cipher[2].disabled = true;
+	document.security_form.passphrase.disabled = true;
+	document.security_form.keyRenewalInterval.disabled = true;
+	document.security_form.PMKCachePeriod.disabled = true;
+	document.security_form.PreAuthentication.disabled = true;
+
+	// 802.1x
+	display("none", "div_radius_server");
+	display("none", "div_8021x_wep");
+	document.security_form.ieee8021x_wep.disable = true;
+	document.security_form.RadiusServerIP.disable = true;
+	document.security_form.RadiusServerPort.disable = true;
+	document.security_form.RadiusServerSecret.disable = true;	
+	document.security_form.RadiusServerSessionTimeout.disable = true;
+	document.security_form.RadiusServerIdleTimeout.disable = true;	
+
+	// wapi
+	display("none", "div_wapi_psk");
+	document.security_form.wapipsk_prekey.disabled = true;
+	document.security_form.wapipsk_keytype.disabled = true;
+	display("none", "div_wapi_cert");
+	document.security_form.wapicert_asipaddr.disabled = true;
+	document.security_form.wapicert_asport.disabled = true;
+	document.security_form.wapicert_ascert.disabled = true;
+	document.security_form.wapicert_usercert.disabled = true;
+
+	security_mode = document.security_form.security_mode.value;
+
+	if (security_mode == "OPEN" || security_mode == "SHARED" ||security_mode == "WEPAUTO")
+	{
+		showWep(security_mode);
+	}else if (security_mode == "WPAPSK" || security_mode == "WPA2PSK" || security_mode == "WPAPSKWPA2PSK"){
+		<!-- WPA -->
+		display("table", "div_wpa");
+		display("table-row", "div_wpa_algorithms");
+		document.security_form.cipher[0].disabled = false;
+		document.security_form.cipher[1].disabled = false;
+
+		// deal with TKIP-AES mixed mode
+		if(security_mode == "WPA2PSK" || security_mode == "WPAPSKWPA2PSK")
+			document.security_form.cipher[2].disabled = false;
+
+		display("table-row", "wpa_passphrase");
+		document.security_form.passphrase.disabled = false;
+
+		display("table-row", "wpa_key_renewal_interval");
+		document.security_form.keyRenewalInterval.disabled = false;
+	}else if (security_mode == "WPA" || security_mode == "WPA2" || security_mode == "WPA1WPA2") //wpa enterprise
+	{
+		display("table", "div_wpa");
+		display("table-row", "div_wpa_algorithms");
+		document.security_form.cipher[0].disabled = false;
+		document.security_form.cipher[1].disabled = false;
+		display("table-row", "wpa_key_renewal_interval");
+		document.security_form.keyRenewalInterval.disabled = false;
+	
+		<!-- 802.1x -->
+		display("table", "div_radius_server");
+		document.security_form.RadiusServerIP.disable = false;
+		document.security_form.RadiusServerPort.disable = false;
+		document.security_form.RadiusServerSecret.disable = false;	
+		document.security_form.RadiusServerSessionTimeout.disable = false;
+		document.security_form.RadiusServerIdleTimeout.disable = false;	
+
+		if(security_mode == "WPA2" || security_mode == "WPA1WPA2")
+			document.security_form.cipher[2].disabled = false;
+
+		if(security_mode == "WPA2"){
+			display("table-row", "wpa_preAuthentication");
+			document.security_form.PreAuthentication.disabled = false;
+			display("table-row", "wpa_PMK_Cache_Period");
+			document.security_form.PMKCachePeriod.disabled = false;
+		}
+
+	}else if (security_mode == "IEEE8021X"){ // 802.1X-WEP
+		display("table", "div_8021x_wep");
+		display("table", "div_radius_server");
+		document.security_form.ieee8021x_wep.disable = false;
+		document.security_form.RadiusServerIP.disable = false;
+		document.security_form.RadiusServerPort.disable = false;
+		document.security_form.RadiusServerSecret.disable = false;	
+		document.security_form.RadiusServerSessionTimeout.disable = false;
+		//document.security_form.RadiusServerIdleTimeout.disable = false;
+	}
+	else if (security_mode == "WAIPSK") {
+		display("table", "div_wapi_psk");
+		document.security_form.wapipsk_prekey.disabled = false;
+		document.security_form.wapipsk_keytype.disabled = false;
+	} else if (security_mode == "WAICERT") {
+		display("table", "div_wapi_cert");
+		document.security_form.wapicert_asipaddr.disabled = false;
+		document.security_form.wapicert_asport.disabled = false;
+		document.security_form.wapicert_ascert.disabled = false;
+		document.security_form.wapicert_usercert.disabled = false;
+		WapiCertUpdate();
+	}
+}
+
+function hideWep()
+{
+	display("none", "div_wep");
+}
+function showWep(mode)
+{
+	<!-- WEP -->
+	display("table", "div_wep");
+	//document.security_form.wep_auth_type.disabled = false;
+}
+
+
+function check_Wep(securitymode)
+{
+	var defaultid = document.security_form.wep_default_key.value;
+	var key_input;
+
+	if ( defaultid == 1 )
+		var keyvalue = document.security_form.wep_key_1.value;
+	else if (defaultid == 2)
+		var keyvalue = document.security_form.wep_key_2.value;
+	else if (defaultid == 3)
+		var keyvalue = document.security_form.wep_key_3.value;
+	else if (defaultid == 4)
+		var keyvalue = document.security_form.wep_key_4.value;
+
+	if (keyvalue.length == 0 &&  (securitymode == "SHARED" || securitymode == "OPEN" || securitymode == "WEPAUTO")){ // shared wep  || md5
+		alert('Please input wep key'+defaultid+' !');
+		return false;
+	}
+
+	var keylength = document.security_form.wep_key_1.value.length;
+	if (keylength != 0){
+		if (document.security_form.WEP1Select.options.selectedIndex == 0){
+			if(keylength != 5 && keylength != 13) {
+				alert('Please input 5 or 13 characters of wep key1 !');
+				return false;
+			}
+			if(checkInjection(document.security_form.wep_key_1.value)== false){
+				alert('Wep key1 contains invalid characters.');
+				return false;
+			}
+		}
+		if (document.security_form.WEP1Select.options.selectedIndex == 1){
+			if(keylength != 10 && keylength != 26) {
+				alert('Please input 10 or 26 characters of wep key1 !');
+				return false;
+			}
+			if(checkHex(document.security_form.wep_key_1.value) == false){
+				alert('Invalid Wep key1 format!');
+				return false;
+			}
+		}
+	}
+
+	keylength = document.security_form.wep_key_2.value.length;
+	if (keylength != 0){
+		if (document.security_form.WEP2Select.options.selectedIndex == 0){
+			if(keylength != 5 && keylength != 13) {
+				alert('Please input 5 or 13 characters of wep key2 !');
+				return false;
+			}
+			if(checkInjection(document.security_form.wep_key_2.value)== false){
+				alert('Wep key2 contains invalid characters.');
+				return false;
+			}			
+		}
+		if (document.security_form.WEP2Select.options.selectedIndex == 1){
+			if(keylength != 10 && keylength != 26) {
+				alert('Please input 10 or 26 characters of wep key2 !');
+				return false;
+			}
+			if(checkHex(document.security_form.wep_key_2.value) == false){
+				alert('Invalid Wep key2 format!');
+				return false;
+			}
+		}
+	}
+
+	keylength = document.security_form.wep_key_3.value.length;
+	if (keylength != 0){
+		if (document.security_form.WEP3Select.options.selectedIndex == 0){
+			if(keylength != 5 && keylength != 13) {
+				alert('Please input 5 or 13 characters of wep key3 !');
+				return false;
+			}
+			if(checkInjection(document.security_form.wep_key_3.value)== false){
+				alert('Wep key3 contains invalid characters.');
+				return false;
+			}
+		}
+		if (document.security_form.WEP3Select.options.selectedIndex == 1){
+			if(keylength != 10 && keylength != 26) {
+				alert('Please input 10 or 26 characters of wep key3 !');
+				return false;
+			}
+			if(checkHex(document.security_form.wep_key_3.value) == false){
+				alert('Invalid Wep key3 format!');
+				return false;
+			}			
+		}
+	}
+
+	keylength = document.security_form.wep_key_4.value.length;
+	if (keylength != 0){
+		if (document.security_form.WEP4Select.options.selectedIndex == 0){
+			if(keylength != 5 && keylength != 13) {
+				alert('Please input 5 or 13 characters of wep key4 !');
+				return false;
+			}
+			if(checkInjection(document.security_form.wep_key_4.value)== false){
+				alert('Wep key4 contains invalid characters.');
+				return false;
+			}			
+		}
+		if (document.security_form.WEP4Select.options.selectedIndex == 1){
+			if(keylength != 10 && keylength != 26) {
+				alert('Please input 10 or 26 characters of wep key4 !');
+				return false;
+			}
+
+			if(checkHex(document.security_form.wep_key_4.value) == false){
+				alert('Invalid Wep key4 format!');
+				return false;
+			}			
+		}
+	}
+	if (ht_disallow_tkip == "1")
+		alert("Disallow TKIP/WEP encryption is enabled, so 11N rate will turn off!");
+	return true;
+}
+	
+function submit_apply()
+{
+
+	if (checkData() == true){
+		changed = 0;
+
+		document.security_form.submit();
+//		opener.location.reload();
+	}
+}
+
+function LoadFields(MBSSID)
+{
+	var result;
+	// Security Policy
+	sp_select = document.getElementById("security_mode");
+
+	sp_select.options.length = 0;
+
+	sp_select.options[sp_select.length] = new Option("Disable",		"Disable",	false, AuthMode[MBSSID] == "Disable");
+	sp_select.options[sp_select.length] = new Option("OPENWEP",	"OPEN",	false, AuthMode[MBSSID] == "OPEN");
+	if (wpsenable == "0") 
+	{
+		sp_select.options[sp_select.length] = new Option("SHAREDWEP","SHARED", 	false, AuthMode[MBSSID] == "SHARED");
+
+		sp_select.options[sp_select.length] = new Option("WEPAUTO", "WEPAUTO",	false, AuthMode[MBSSID] == "WEPAUTO");
+	}
+	if (wpsenable == "0")
+		sp_select.options[sp_select.length] = new Option("WPA", "WPA",		false, AuthMode[MBSSID] == "WPA");
+	sp_select.options[sp_select.length] = new Option("WPA-PSK", "WPAPSK",	false, AuthMode[MBSSID] == "WPAPSK");
+	if (wpsenable == "0")
+		sp_select.options[sp_select.length] = new Option("WPA2", "WPA2",		false, AuthMode[MBSSID] == "WPA2");
+	sp_select.options[sp_select.length] = new Option("WPA2-PSK", "WPA2PSK",	false, AuthMode[MBSSID] == "WPA2PSK");
+	sp_select.options[sp_select.length] = new Option("WPAPSKWPA2PSK", "WPAPSKWPA2PSK",	false, AuthMode[MBSSID] == "WPAPSKWPA2PSK");
+	if (wpsenable == "0")
+		sp_select.options[sp_select.length] = new Option("WPA1WPA2","WPA1WPA2",	false, AuthMode[MBSSID] == "WPA1WPA2");
+
+	if (wpsenable == "0")
+		sp_select.options[sp_select.length] = new Option("802.1X",	"IEEE8021X",false, AuthMode[MBSSID] == "IEEE8021X");
+	if (wapib == "1")
+	{
+		sp_select.options[sp_select.length] = new Option("WAPI-PSK", "WAIPSK",	false, AuthMode[MBSSID] == "WAIPSK");
+		sp_select.options[sp_select.length] = new Option("WAPI-Certificate", "WAICERT",	false, AuthMode[MBSSID] == "WAICERT");
+	}
+	// WEP
+	document.getElementById("WEP1").value = Key1Str[MBSSID];
+	document.getElementById("WEP2").value = Key2Str[MBSSID];
+	document.getElementById("WEP3").value = Key3Str[MBSSID];
+	document.getElementById("WEP4").value = Key4Str[MBSSID];
+
+	document.getElementById("WEP1Select").selectedIndex = (Key1Type[MBSSID] == "0" ? 1 : 0);
+	document.getElementById("WEP2Select").selectedIndex = (Key2Type[MBSSID] == "0" ? 1 : 0);
+	document.getElementById("WEP3Select").selectedIndex = (Key3Type[MBSSID] == "0" ? 1 : 0);
+	document.getElementById("WEP4Select").selectedIndex = (Key4Type[MBSSID] == "0" ? 1 : 0);
+
+	document.getElementById("wep_default_key").selectedIndex = parseInt(DefaultKeyID[MBSSID]) - 1 ;
+
+	// WPA
+	if(EncrypType[MBSSID] == "TKIP")
+		document.security_form.cipher[0].checked = true;
+	else if(EncrypType[MBSSID] == "AES")
+		document.security_form.cipher[1].checked = true;
+	else if(EncrypType[MBSSID] == "TKIPAES")
+		document.security_form.cipher[2].checked = true;
+
+	document.getElementById("passphrase").value = WPAPSK[MBSSID];
+	document.getElementById("keyRenewalInterval").value = RekeyInterval[MBSSID];
+	document.getElementById("PMKCachePeriod").value = PMKCachePeriod[MBSSID];
+	//document.getElementById("PreAuthentication").value = PreAuth[MBSSID];
+	if(PreAuth[MBSSID] == "0")
+		document.security_form.PreAuthentication[0].checked = true;
+	else
+		document.security_form.PreAuthentication[1].checked = true;
+
+	//802.1x wep
+	if(IEEE8021X[MBSSID] == "1"){
+		if(EncrypType[MBSSID] == "WEP")
+			document.security_form.ieee8021x_wep[1].checked = true;
+		else
+			document.security_form.ieee8021x_wep[0].checked = true;
+	}
+
+	document.getElementById("RadiusServerIP").value = RADIUS_Server[MBSSID];
+	document.getElementById("RadiusServerPort").value = RADIUS_Port[MBSSID];
+	document.getElementById("RadiusServerSecret").value = RADIUS_Key[MBSSID];			
+	document.getElementById("RadiusServerSessionTimeout").value = session_timeout_interval[MBSSID];
+
+	// wapi
+	document.security_form.wapicert_asipaddr.value = WapiAsIpAddr[MBSSID];
+	for (var i=0;i<document.security_form.wapicert_ascert.length;i++)
+	{
+		var temp = document.security_form.wapicert_ascert.options[i].value;
+		if (temp == WapiAsCertPath[MBSSID])
+			document.security_form.wapicert_ascert.selectedIndex = i;
+	}
+	for (i=0;i<document.security_form.wapicert_usercert.length;i++)
+	{
+		var temp = document.security_form.wapicert_usercert.options[i].value;
+		if (temp == WapiUserCertPath[MBSSID])
+			document.security_form.wapicert_usercert.selectedIndex = i;
+	}
+	document.security_form.wapipsk_prekey.value = WapiPsk[MBSSID];
+	if (WapiPskType[MBSSID] == "1")
+		document.security_form.wapipsk_keytype.selectedIndex = 1;
+	else
+		document.security_form.wapipsk_keytype.selectedIndex = 0;
+
+	securityMode(0);
+}
+
+function ShowAP(MBSSID)
+{
+	var i;
+	for(i=0; i<MBSSID_MAX; i++){
+		document.getElementById("apselect_"+i).selectedIndex	= AccessPolicy[i];
+		display("none", "AccessPolicy_"+i);
+	}
+
+	display("table", "AccessPolicy_"+MBSSID);
+}
+
+function LoadAP()
+{
+	for(var i=0; i<SSID.length; i++){
+		var j=0;
+		var aplist = new Array();
+
+		if(AccessControlList[i].length != 0){
+			aplist = AccessControlList[i].split(";");
+			for(j=0; j<aplist.length; j++){
+				document.getElementById("newap_"+i+"_"+j).value = aplist[j];
+			}
+
+			// hide the lastest <td>
+			if(j%2){
+				display("none", "newap_td_"+i+"_"+j);
+				j++;
+			}
+		}
+
+		// hide <tr> left
+		for(; j<ACCESSPOLICYLIST_MAX; j+=2){
+			display("none", "id_"+i+"_"+j);
+		}
+	}
+}
+
+function selectMBSSIDChanged()
+{
+	// check if any security settings changed
+	if(changed){
+		ret = confirm("Are you sure to ignore changed?");
+		if(!ret){
+			document.security_form.ssidIndex.options.selectedIndex = old_MBSSID;
+			return false;
+		}
+		else
+			changed = 0;
+	}
+
+	var selected = document.security_form.ssidIndex.options.selectedIndex;
+
+	// backup for user cancel action
+	old_MBSSID = selected;
+
+	MBSSIDChange(selected);
+}
+
+/*
+ * When user select the different SSID, this function would be called.
+ */ 
+function MBSSIDChange(selected)
+{
+	// load wep/wpa/802.1x table for MBSSID[selected]
+	LoadFields(selected);
+
+	// update Access Policy for MBSSID[selected]
+	ShowAP(selected);
+
+	// radio button special case
+	WPAAlgorithms = EncrypType[selected];
+	IEEE8021XWEP = IEEE8021X[selected];
+	PreAuthentication = PreAuth[selected];
+
+	changeSecurityPolicyTableTitle(SSID[selected]);
+
+	// clear all new access policy list field
+	for(i=0; i<MBSSID_MAX; i++)
+		document.getElementById("newap_text_"+i).value = "";
+
+	return true;
+}
+
+function changeSecurityPolicyTableTitle(t)
+{
+	var title = document.getElementById("sp_title");
+	title.innerHTML = "\"" + t + "\"";
+}
+
+function delap(mbssid, num)
+{
+	makeRequest("/cgi-bin/makeRequest.cgi", "delAccessPolicyList"+"&"+"rai0"+"&"+mbssid+","+num, deleteAccessPolicyListHandler);
+}
+
+function initTranslation()
+{
+	var e = document.getElementById("secureSelectSSID");
+	e.innerHTML = _("secure select ssid");
+	e = document.getElementById("secureSSIDChoice");
+	e.innerHTML = _("secure ssid choice");
+
+	e = document.getElementById("securityTitle");
+	e.innerHTML = _("secure ssid title");
+	e = document.getElementById("securityIntroduction");
+	e.innerHTML = _("secure ssid introduction");
+	e = document.getElementById("sp_title");
+	e.innerHTML = _("secure security policy");
+	e = document.getElementById("secureSecureMode");
+	e.innerHTML = _("secure security mode");
+
+	e = document.getElementById("secureWEP");
+	e.innerHTML = _("secure wep");
+	e = document.getElementById("secureWEPDefaultKey");
+	e.innerHTML = _("secure wep default key");
+	e = document.getElementById("secureWEPDefaultKey1");
+	e.innerHTML = _("secure wep default key1");
+	e = document.getElementById("secureWEPDefaultKey2");
+	e.innerHTML = _("secure wep default key2");
+	e = document.getElementById("secureWEPDefaultKey3");
+	e.innerHTML = _("secure wep default key3");
+	e = document.getElementById("secureWEPDefaultKey4");
+	e.innerHTML = _("secure wep default key4");
+	e = document.getElementById("secureWEPKey");
+	e.innerHTML = _("secure wep key");
+	e = document.getElementById("secureWEPKey1");
+	e.innerHTML = _("secure wep key1");
+	e = document.getElementById("secureWEPKey2");
+	e.innerHTML = _("secure wep key2");
+	e = document.getElementById("secureWEPKey3");
+	e.innerHTML = _("secure wep key3");
+	e = document.getElementById("secureWEPKey4");
+	e.innerHTML = _("secure wep key4");
+	
+	e = document.getElementById("secreWPA");
+	e.innerHTML = _("secure wpa");
+	e = document.getElementById("secureWPAAlgorithm");
+	e.innerHTML = _("secure wpa algorithm");
+	e = document.getElementById("secureWPAPassPhrase");
+	e.innerHTML = _("secure wpa pass phrase");
+	e = document.getElementById("secureWPAKeyRenewInterval");
+	e.innerHTML = _("secure wpa key renew interval");
+	e = document.getElementById("secureWPAPMKCachePeriod");
+	e.innerHTML = _("secure wpa pmk cache period");
+	e = document.getElementById("secureWPAPreAuth");
+	e.innerHTML = _("secure wpa preauth");
+	e = document.getElementById("secureWPAPreAuthDisable");
+	e.innerHTML = _("wireless disable");
+	e = document.getElementById("secureWPAPreAuthEnable");
+	e.innerHTML = _("wireless enable");
+	
+	e = document.getElementById("secure8021XWEP");
+	e.innerHTML = _("secure 8021x wep");
+	e = document.getElementById("secure1XWEP");
+	e.innerHTML = _("secure 1x wep");
+	e = document.getElementById("secure1XWEPDisable");
+	e.innerHTML = _("wireless disable");
+	e = document.getElementById("secure1XWEPEnable");
+	e.innerHTML = _("wireless enable");
+	
+	e = document.getElementById("secureRadius");
+	e.innerHTML = _("secure radius");
+	e = document.getElementById("secureRadiusIPAddr");
+	e.innerHTML = _("secure radius ipaddr");
+	e = document.getElementById("secureRadiusPort");
+	e.innerHTML = _("secure radius port");
+	e = document.getElementById("secureRadiusSharedSecret");
+	e.innerHTML = _("secure radius shared secret");
+	e = document.getElementById("secureRadiusSessionTimeout");
+	e.innerHTML = _("secure radius session timeout");
+	e = document.getElementById("secureRadiusIdleTimeout");
+	e.innerHTML = _("secure radius idle timeout");
+
+	/*
+	e = document.getElementById("secureAccessPolicy");
+	e.innerHTML = _("secure access policy");
+	e = document.getElementById("secureAccessPolicyCapable");
+	e.innerHTML = _("secure access policy capable");
+	e = document.getElementById("secureAccessPolicyCapableDisable");
+	e.innerHTML = _("wireless disable");
+	e = document.getElementById("secureAccessPolicyCapableAllow");
+	e.innerHTML = _("wireless allow");
+	e = document.getElementById("secureAccessPolicyCapableReject");
+	e.innerHTML = _("wireless reject ");
+	e = document.getElementById("secureAccessPolicyNew");
+	e.innerHTML = _("secure access policy new");
+	*/
+	
+	e = document.getElementById("secureApply");
+	e.value = _("wireless apply");
+	e = document.getElementById("secureCancel");
+	e.value = _("wireless cancel");
+}
+
+function UpdateMBSSIDList()
+{
+	document.security_form.ssidIndex.length = 0;
+
+	for(var i=0; i<SSID.length; i++){
+		var j = document.security_form.ssidIndex.options.length;
+		document.security_form.ssidIndex.options[j] = new Option(SSID[i], i, false, false);
+	}
+	
+	document.security_form.ssidIndex.options.selectedIndex = defaultShownMBSSID;
+	old_MBSSID = defaultShownMBSSID;
+	changeSecurityPolicyTableTitle(SSID[defaultShownMBSSID]);
+}
+
+function setChange(c){
+	changed = c;
+}
+
+var WPAAlgorithms;
+function onWPAAlgorithmsClick(type)
+{
+	if(type == 0 && WPAAlgorithms == "TKIP") return;
+	if(type == 1 && WPAAlgorithms == "AES") return;
+	if(type == 2 && WPAAlgorithms == "TKIPAES") return;
+	setChange(1);
+}
+
+var IEEE8021XWEP;
+function onIEEE8021XWEPClick(type)
+{
+	if(type == 0 && IEEE8021XWEP == false) return;
+	if(type == 1 && IEEE8021XWEP == true) return;
+	setChange(1);
+}
+
+var PreAuthentication;
+function onPreAuthenticationClick(type)
+{
+	if(type == 0 && PreAuthentication == false) return;
+	if(type == 1 && PreAuthentication == true) return;
+	setChange(1);
+}
+
+function open_wapi_cert_upload(target)
+{
+	if (target == "user")
+		window.open("../wireless/wapi_cert_user_upload.html","wapi_cert_user_upload","toolbar=no, location=yes, scrollbars=yes, resizable=no, width=500, height=500");
+	else if (target == "as")
+		window.open("../wireless/wapi_cert_as_upload.html","wapi_cert_as_upload","toolbar=no, location=yes, scrollbars=yes, resizable=no, width=500, height=500");
+}
+</script>
+
+<body onload="initAll()">
+<table class="body"><tbody><tr><td>
+
+<h1 id="securityTitle">Wireless Security/Encryption Settings </h1>
+<p id="securityIntroduction">Setup the wireless security and encryption to prevent from unauthorized access and monitoring.</p>
+<hr />
+
+<form method="post" name="security_form" action="/cgi-bin/wireless.cgi">
+<input type=hidden name=page value=security>
+<input type=hidden name=wlan_conf value="rtdev">
+
+<!-- ---------------------  MBSSID Selection  --------------------- -->
+<table border="1" cellpadding="2" cellspacing="1" width="540">
+<tbody><tr>
+  <td class="title" colspan="2" id="secureSelectSSID">Select SSID</td>
+</tr>
+  <tr>
+    <td class="head" id="secureSSIDChoice">SSID choice</td>
+    <td>
+      <select name="ssidIndex" size="1" onchange="selectMBSSIDChanged()">
+			<!-- ....Javascript will update options.... -->
+      </select>
+    </td>
+  </tr>
+</tbody></table>
+
+<hr />
+
+<table border="1" bordercolor="#9babbd" cellpadding="3" cellspacing="1" hspace="2" vspace="2" width="540">
+  <tbody><tr>
+
+    <td class="title" colspan="2"> <span id="sp_title">Security Policy </span></td>
+  </tr>
+  <tr id="div_security_infra_mode" name="div_security_infra_mode"> 
+    <td class="head" id="secureSecureMode">Security Mode</td>
+    <td>
+      <select name="security_mode" id="security_mode" size="1" onchange="securityMode(1)">
+			<!-- ....Javascript will update options.... -->
+      </select>
+
+    </td>
+  </tr>
+</tbody></table>
+<br>
+
+<!-- WEP -->
+<table id="div_wep" name="div_wep" border="1" bordercolor="#9babbd" cellpadding="3" cellspacing="1" hspace="2" vspace="2" width="540" style="visibility: hidden;">
+  <tbody><tr> 
+    <td class="title" colspan="4" id="secureWEP">Wire Equivalence Protection (WEP)</td>
+  </tr>
+
+  <tr> 
+    <td class="head" colspan="2" id="secureWEPDefaultKey">Default Key</td>
+    <td colspan="2">
+      <select name="wep_default_key" id="wep_default_key" size="1" onchange="setChange(1)">
+	<option value="1" id="secureWEPDefaultKey1">Key 1</option>
+	<option value="2" id="secureWEPDefaultKey2">Key 2</option>
+	<option value="3" id="secureWEPDefaultKey3">Key 3</option>
+	<option value="4" id="secureWEPDefaultKey4">Key 4</option>
+      </select>
+    </td>
+  </tr>
+  
+  <tr> 
+    <td class="head1" rowspan="4" id="secureWEPKey">WEP Keys</td>
+    <td class="head2" id="secureWEPKey1">WEP Key 1 :</td>
+    <td><input name="wep_key_1" id="WEP1" maxlength="26" value="" onKeyUp="setChange(1)"></td>
+    <td><select id="WEP1Select" name="WEP1Select" onchange="setChange(1)"> 
+		<option value="1">ASCII</option>
+		<option value="0">Hex</option>
+		</select></td>
+  </tr>
+
+  <tr> 
+    <td class="head2" id="secureWEPKey2">WEP Key 2 : </td>
+    <td><input name="wep_key_2" id="WEP2" maxlength="26" value="" onKeyUp="setChange(1)"></td>
+    <td><select id="WEP2Select" name="WEP2Select" onchange="setChange(1)">
+		<option value="1">ASCII</option>
+		<option value="0">Hex</option>
+		</select></td>
+  </tr>
+  <tr> 
+    <td class="head2" id="secureWEPKey3">WEP Key 3 : </td>
+    <td><input name="wep_key_3" id="WEP3" maxlength="26" value="" onKeyUp="setChange(1)"></td>
+    <td><select id="WEP3Select" name="WEP3Select" onchange="setChange(1)">
+		<option value="1">ASCII</option>
+		<option value="0">Hex</option>
+		</select></td>
+  </tr>
+  <tr> 
+    <td class="head2" id="secureWEPKey4">WEP Key 4 : </td>
+    <td><input name="wep_key_4" id="WEP4" maxlength="26" value="" onKeyUp="setChange(1)"></td>
+    <td><select id="WEP4Select" name="WEP4Select" onchange="setChange(1)">
+		<option value="1">ASCII</option>
+		<option value="0">Hex</option>
+		</select></td>
+  </tr>
+
+</tbody></table>
+
+<!-- WPA -->
+<table id="div_wpa" name="div_wpa" border="1" bordercolor="#9babbd" cellpadding="3" cellspacing="1" hspace="2" vspace="2" width="540" style="visibility: hidden;">
+
+  <tbody><tr>
+    <td class="title" colspan="2" id="secreWPA">WPA</td>
+  </tr>
+  <tr id="div_wpa_algorithms" name="div_wpa_algorithms" style="visibility: hidden;">
+    <td class="head" id="secureWPAAlgorithm">WPA Algorithms</td>
+    <td>
+      <input name="cipher" id="cipher" value="0" type="radio" onClick="onWPAAlgorithmsClick(0)">TKIP &nbsp;
+      <input name="cipher" id="cipher" value="1" type="radio" onClick="onWPAAlgorithmsClick(1)">AES &nbsp;
+      <input name="cipher" id="cipher" value="2" type="radio" onClick="onWPAAlgorithmsClick(2)">TKIPAES &nbsp;
+    </td>
+  </tr>
+  <tr id="wpa_passphrase" name="wpa_passphrase" style="visibility: hidden;">
+    <td class="head" id="secureWPAPassPhrase">Pass Phrase</td>
+    <td>
+      <input name="passphrase" id="passphrase" size="28" maxlength="64" value="" onKeyUp="setChange(1)">
+    </td>
+  </tr>
+
+  <tr id="wpa_key_renewal_interval" name="wpa_key_renewal_interval" style="visibility: hidden;">
+    <td class="head" id="secureWPAKeyRenewInterval">Key Renewal Interval</td>
+    <td>
+      <input name="keyRenewalInterval" id="keyRenewalInterval" size="6" maxlength="7" value="3600" onKeyUp="setChange(1)"> seconds &nbsp;&nbsp;(0 ~ 4194303)
+    </td>
+  </tr>
+
+  <tr id="wpa_PMK_Cache_Period" name="wpa_PMK_Cache_Period" style="visibility: hidden;">
+    <td class="head" id="secureWPAPMKCachePeriod">PMK Cache Period</td>
+    <td>
+      <input name="PMKCachePeriod" id="PMKCachePeriod" size="4" maxlength="4" value="" onKeyUp="setChange(1)"> minute
+    </td>
+  </tr>
+
+  <tr id="wpa_preAuthentication" name="wpa_preAuthentication" style="visibility: hidden;">
+    <td class="head" id="secureWPAPreAuth">Pre-Authentication</td>
+    <td>
+      <input name="PreAuthentication" id="PreAuthentication" value="0" type="radio" onClick="onPreAuthenticationClick(0)"><font id="secureWPAPreAuthDisable">Disable &nbsp;</font>
+      <input name="PreAuthentication" id="PreAuthentication" value="1" type="radio" onClick="onPreAuthenticationClick(1)"><font id="secureWPAPreAuthEnable">Enable &nbsp;</font>
+    </td>
+  </tr>
+</tbody></table>
+
+<!-- 802.1x -->
+<!-- WEP  -->
+<table id="div_8021x_wep" name="div_8021x_wep" border="1" bordercolor="#9babbd" cellpadding="3" cellspacing="1" hspace="2" vspace="2" width="640" style="visibility: hidden;">
+  <tbody>
+  <tr>
+    <td class="title" colspan="2" id="secure8021XWEP">802.1x WEP</td>
+  </tr>
+  <tr>
+		<td class="head" id="secure1XWEP"> WEP </td>
+		<td>
+	      <input name="ieee8021x_wep" id="ieee8021x_wep" value="0" type="radio" onClick="onIEEE8021XWEPClick(0)"><font id="secure1XWEPDisable">Disable &nbsp;</font>
+    	  <input name="ieee8021x_wep" id="ieee8021x_wep" value="1" type="radio" onClick="onIEEE8021XWEPClick(1)"><font id="secure1XWEPEnable">Enable</font>
+		</td>
+  </tr>
+</tbody></table>
+
+<table id="div_radius_server" name="div_radius_server" border="1" bordercolor="#9babbd" cellpadding="3" cellspacing="1" hspace="2" vspace="2" width="540" style="visibility: hidden;">
+<tbody>
+   <tr>
+    <td class="title" colspan="2" id="secureRadius">Radius Server</td>
+   </tr>
+    <tr> 
+		<td bgcolor="#E8F8FF"  class="head" id="secureRadiusIPAddr"> IP Address </td>
+		<td> <input name="RadiusServerIP" id="RadiusServerIP" size="16" maxlength="32" value="" onKeyUp="setChange(1)"> </td>
+	</tr>
+    <tr> 
+		<td bgcolor="#E8F8FF"  class="head" id="secureRadiusPort"> Port </td>
+		<td> <input name="RadiusServerPort" id="RadiusServerPort" size="5" maxlength="5" value="" onKeyUp="setChange(1)"> </td>
+	</tr>
+    <tr> 
+		<td bgcolor="#E8F8FF"  class="head" id="secureRadiusSharedSecret"> Shared Secret </td>
+		<td> <input name="RadiusServerSecret" id="RadiusServerSecret" size="16" maxlength="64" value="" onKeyUp="setChange(1)"> </td>
+	</tr>
+    <tr> 
+		<td bgcolor="#E8F8FF"  class="head" id="secureRadiusSessionTimeout"> Session Timeout </td>
+		<td> <input name="RadiusServerSessionTimeout" id="RadiusServerSessionTimeout" size="3" maxlength="4" value="0" onKeyUp="setChange(1)"> </td>
+	</tr>
+    <tr> 
+		<td bgcolor="#E8F8FF"  class="head" id="secureRadiusIdleTimeout"> Idle Timeout </td>
+		<td> <input name="RadiusServerIdleTimeout" id="RadiusServerIdleTimeout" size="3" maxlength="4" value="" onKeyUp="setChange(1)" readonly> </td>
+	</tr>
+
+</tbody></table>
+
+<!-- WAPI PSK -->
+<table id="div_wapi_psk" name="div_wapi_psk" border="1" bordercolor="#9babbd" cellpadding="3" cellspacing="1" hspace="2" vspace="2" width="540" style="visibility: hidden;">
+  <tr>
+    <td class="title" colspan="3" id="wapiWAPIPSK">WAPI-PSK</td>
+  </tr>
+  <tr>
+    <td class="head" id="wapiPreKey">Pre-Shared Key</td>
+    <td>
+      <input type="text" name="wapipsk_prekey" size="28" maxlength="64" value="">
+    </td>
+    <td>
+      <select name="wapipsk_keytype">
+        <option value="0" selected>HEX</option>
+	<option value="1">ASCII</option>
+      </select>
+    </td>
+  </tr>
+</table>
+
+<!-- WAPI Cert -->
+<table id="div_wapi_cert" name="div_wapi_cert" border="1" bordercolor="#9babbd" cellpadding="3" cellspacing="1" hspace="2" vspace="2" width="540" style="visibility: hidden;">
+  <tr>
+    <td class="title" colspan="2" id="wapiWAPICERT">WAPI-Certificate</td>
+  </tr>
+  <tr> 
+    <td class="head" id="wapiAsIPAddr">AS IP Address </td>
+    <td>
+      <input type="text" name="wapicert_asipaddr" size="16" maxlength="32" value="">
+    </td>
+  </tr>
+  <tr> 
+    <td class="head" id="wapiAsPort">AS Port</td>
+    <td> 
+      <input type="text" name="wapicert_asport" size="5" maxlength="5" value="3810" readOnly>
+    </td>
+  </tr>
+  <tr>
+    <td class="head" id="wapiAsCert">AS Certificate</td>
+    <td>
+      <select name="wapicert_ascert" id="wapicert_ascert" size="1">
+      </select>
+      <input type="button" value="Install" name="wapi_as_cert_upload" id="wapiASCertInstall" onClick="open_wapi_cert_upload('as')">
+      <input type="button" value="Refresh" name="wapi_cert_refresh" onClick="WapiCertUpdate()">
+    </td>
+  </tr>
+  <tr>
+    <td class="head" id="wapiUserCert">User Certificate</td>
+    <td>
+      <select name="wapicert_usercert" id="wapicert_usercert" size="1">
+      </select>
+      <input type="button" value="Install" name="wapi_apuser_cert_upload" id="wapiUserCertInstall" onClick="open_wapi_cert_upload('user')">
+      <input type="button" value="Refresh" name="wapi_cert_refresh" onClick="WapiCertUpdate()">
+    </td>
+  </tr>
+</table>
+
+<!--									-->
+<!--	AccessPolicy for mbssid 		-->
+<!--									-->
+
+<script language="JavaScript" type="text/javascript">
+var aptable;
+
+for(aptable = 0; aptable < MBSSID_MAX; aptable++){
+	document.write(" <table id=AccessPolicy_"+ aptable +" border=1 bordercolor=#9babbd cellpadding=3 cellspacing=1 hspace=2 vspace=2 width=540>");
+	document.write(" <tbody> <tr> <td class=title colspan=2 > Access Policy </td></tr>");
+	document.write(" <tr> <td bgcolor=#E8F8FF class=head >"+" Policy "+"</td>");
+	document.write(" <td> <select name=apselect_"+ aptable + " id=apselect_"+aptable+" size=1 onchange=\"setChange(1)\">");
+	document.write(" 			<option value=0 >Disable</option> <option value=1 >Allow</option><option value=2 >Reject</option></select> </td></tr>");
+
+	for(i=0; i< ACCESSPOLICYLIST_MAX/2; i++){
+		input_name = "newap_"+ aptable +"_" + (2*i);
+		td_name = "newap_td_"+ aptable +"_" + (2*i);
+
+		document.write(" <tr id=id_"+aptable+"_");
+		document.write(i*2);
+		document.write("> <td id=");
+		document.write(td_name);
+		document.write("> <input style=\"width: 30px;\" value=Del onclick=\"delap("+aptable+", ");
+		document.write(2*i);
+		document.write(")\" type=button > <input id=");
+		document.write(input_name);
+		document.write(" size=16 maxlength=20 readonly></td>");
+
+		input_name = "newap_" + aptable + "_" + (2*i+1);
+		td_name = "newap_td_" + aptable + "_" + (2*i+1);
+		document.write("      <td id=");
+		document.write(td_name);
+		document.write("> <input style=\"width: 30px;\" value=Del onclick=\"delap("+aptable+", ");
+		document.write(2*i+1);
+		document.write(")\" type=button> <input id=");
+		document.write(input_name);
+		document.write(" size=16 maxlength=20 readonly></td> </tr>");
+	}
+
+	document.write("<tr><td bgcolor=#E8F8FF class=head  >Add a station Mac:</td>");
+	document.write("	<td>	<input name=newap_text_"+aptable+" id=newap_text_"+aptable+" size=16 maxlength=20>	</td>	</tr> </tbody></table>");
+}
+</script>
+<br />
+<table border="0" cellpadding="2" cellspacing="1" width="540">
+  <tbody><tr align="center">
+
+    <td>
+      <input style="width: 120px;" value="Apply" id="secureApply" onclick="submit_apply()" type="button"> &nbsp; &nbsp;
+      <input style="width: 120px;" value="Cancel" id="secureCancel" type="reset" onClick="window.location.reload()" >
+    </td>
+  </tr>
+</tbody></table>
+</form>
+
+</td></tr></tbody></table>
+</body>
+<head>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" CONTENT="-1">
+</head>
+</html>
+ 

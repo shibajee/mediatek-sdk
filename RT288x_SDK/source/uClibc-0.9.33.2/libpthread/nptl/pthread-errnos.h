@@ -1,0 +1,9 @@
+#define EAGAIN 11
+#define EBUSY 16
+#define EDEADLK 45
+#define EINTR 4
+#define EINVAL 22
+#define ENOSYS 89
+#define EOVERFLOW 79
+#define ETIMEDOUT 145
+#define EWOULDBLOCK 11

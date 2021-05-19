@@ -1,0 +1,407 @@
+<!-- Copyright 2004, Ralink Technology Corporation All Rights Reserved. -->
+<html>
+<head>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="/style/normal_ws.css" type="text/css">
+<title>Local Area Network (LAN) Settings</title>
+</head>
+
+<script type="text/javascript" src="/shareFun.js"></script>
+<script language="JavaScript" type="text/javascript">
+	
+var sc_acct2_adv_hold_method = "<!--#exec cmd="web config2 nvram SC_ACCT_2_ADV_HOLD_METHOD"-->";
+var sc_acct2_adv_dtmf_type = "<!--#exec cmd="web config2 nvram SC_ACCT_2_ADV_DTMF_TYPE"-->";
+var sc_acct2_sip_info_enable = "<!--#exec cmd="web config2 nvram SC_ACCT_2_SIP_INFO_ENABLE"-->";
+var sc_acct2_adv_hide_user_id = "<!--#exec cmd="web config2 nvram SC_ACCT_2_ADV_HIDE_USER_ID"-->";
+
+var sc_acct2_adv_all_cf = "<!--#exec cmd="web config2 nvram SC_ACCT_2_ADV_ALL_CF"-->";
+
+var sc_acct2_sip_mwi = "<!--#exec cmd="web config2 nvram SC_ACCT_2_SIP_MWI"-->";
+
+var sc_acct2_adv_auto_decline = "<!--#exec cmd="web config2 nvram SC_ACCT_2_ADV_AUTO_DECLINE"-->";
+var sc_acct2_adv_cfu = "<!--#exec cmd="web config2 nvram SC_ACCT_2_ADV_CFU"-->";
+var sc_acct2_adv_cfb = "<!--#exec cmd="web config2 nvram SC_ACCT_2_ADV_CFB"-->";
+var sc_acct2_adv_cfna = "<!--#exec cmd="web config2 nvram SC_ACCT_2_ADV_CFNA"-->";
+
+var sc_acct2_adv_call_waiting = "<!--#exec cmd="web config2 nvram SC_ACCT_2_ADV_CALL_WAITING"-->";
+var sc_acct2_adv_hotline= "<!--#exec cmd="web config2 nvram SC_ACCT_2_ADV_HOTLINE"-->";
+
+var sc_acct2_adv_dnd= "<!--#exec cmd="web config2 nvram SC_ACCT_2_ADV_DND"-->";
+function checkValue(val)
+{
+	var f = document.forms[0];	
+
+	document.voip_status.page.value = val;
+
+	if (val == 0) // connect
+	{
+		//document.nfc_operation.NFC_Disable.disabled = false;
+		//document.nfc_operation.NFC_Enable.disabled = true;
+		document.voip_status.connect_status.value = 0;
+	}
+	else if (val == 1) // disconnect
+	{
+		//document.nfc_operation.NFC_Disable.disabled = true;
+		//document.nfc_operation.NFC_Enable.disabled = false;
+		document.voip_status.connect_status.value = 1;
+	}
+
+	//f.submit();
+
+	//setTimeout('window.close()', 1000);
+
+	return true;
+}	
+function initValue()
+{
+
+	 	if( sc_acct2_adv_hold_method == "0"){
+			document.voip_feature2.holdmethod2.options.selectedIndex = 0;
+		}else if(sc_acct2_adv_hold_method == "1"){
+    	document.voip_feature2.holdmethod2.options.selectedIndex = 1;
+    }			
+    
+	 	if( sc_acct2_adv_dnd == "0"){
+			document.voip_feature2.dnd2.options.selectedIndex = 0;
+		}else if(sc_acct2_adv_hold_method == "1"){
+    	document.voip_feature2.dnd2.options.selectedIndex = 1;
+    }			    
+    
+    
+    
+    if( sc_acct2_adv_dtmf_type == "0"){
+			document.voip_feature2.dtmfoption2.options.selectedIndex = 0;
+		}else if(sc_acct2_adv_dtmf_type == "1"){
+    	document.voip_feature2.dtmfoption2.options.selectedIndex = 1;
+    }	
+    if( sc_acct2_adv_all_cf == "0"){
+			document.voip_feature2.allcallforward2.options.selectedIndex = 0;
+		}else if(sc_acct2_adv_all_cf == "1"){
+    	document.voip_feature2.allcallforward2.options.selectedIndex = 1;
+    }			
+    if( sc_acct2_sip_info_enable == "0"){
+			document.voip_feature2.sipinfo2.options.selectedIndex = 0;
+		}else if(sc_acct2_sip_info_enable == "1"){
+    	document.voip_feature2.sipinfo2.options.selectedIndex = 1;
+    }				
+    if( sc_acct2_adv_hide_user_id == "0"){
+			document.voip_feature2.h_u_id2.options.selectedIndex = 0;
+		}else if(sc_acct2_adv_hide_user_id == "1"){
+    	document.voip_feature2.h_u_id2.options.selectedIndex = 1;
+    }			   
+    if( sc_acct2_sip_mwi == "0"){
+			document.voip_feature2.mwi2.options.selectedIndex = 0;
+		}else if(sc_acct2_sip_mwi == "1"){
+    	document.voip_feature2.mwi2.options.selectedIndex = 1;
+    }    
+    
+    if( sc_acct2_adv_auto_decline == "0"){
+			document.voip_feature2.a_d_anonymous2.options.selectedIndex = 0;
+		}else if(sc_acct2_adv_auto_decline == "1"){
+    	document.voip_feature2.a_d_anonymous2.options.selectedIndex = 1;
+    }  
+    
+    if( sc_acct2_adv_cfu == "0"){
+			document.voip_feature2.unconditionalcf2.options.selectedIndex = 0;
+		}else if(sc_acct2_adv_cfu == "1"){
+    	document.voip_feature2.unconditionalcf2.options.selectedIndex = 1;
+    }      
+    
+    if( sc_acct2_adv_cfb == "0"){
+			document.voip_feature2.busycf2.options.selectedIndex = 0;
+		}else if(sc_acct2_adv_cfb == "1"){
+    	document.voip_feature2.busycf2.options.selectedIndex = 1;
+    }
+     if( sc_acct2_adv_cfna == "0"){
+			document.voip_feature2.noanswer_cf2.options.selectedIndex = 0;
+		}else if(sc_acct2_adv_cfna == "1"){
+    	document.voip_feature2.noanswer_cf2.options.selectedIndex = 1;
+    }   
+          
+     if( sc_acct2_adv_call_waiting == "0"){
+			document.voip_feature2.call_waiting2.options.selectedIndex = 0;
+		}else if(sc_acct2_adv_call_waiting == "1"){
+    	document.voip_feature2.call_waiting2.options.selectedIndex = 1;
+    }   
+
+     if( sc_acct2_adv_hotline == "0"){
+			document.voip_feature2.hotline2.options.selectedIndex = 0;
+		}else if(sc_acct2_adv_hotline == "1"){
+    	document.voip_feature2.hotline2.options.selectedIndex = 1;
+    }   
+
+}
+
+var oldIp;
+function recIpCfg()
+{
+	oldIp = document.voip_set.reIp.value;
+}
+
+
+</script>
+
+<body onLoad="initValue()">
+<table class="body"><tr><td>
+
+<h1 id="lTitle">VoIP Feature 2</h1>
+<p id="lIntroduction"></p>
+<hr />
+
+<form method=post name="voip_feature2" action="/cgi-bin/voip.cgi" onSubmit="return CheckValue()">
+<input type=hidden name=page value=voip_feature2>
+<table width="95%" border="1" cellpadding="2" cellspacing="1">
+<tr>
+  <td class="title" colspan="2" id="feature_settings">Feature Settings</td>
+</tr>
+
+<tr>
+	<td class="head" id="Enable">
+		Auto Decline Anonymous
+	</td>
+	<td>
+	<select name="a_d_anonymous2" size="1">
+	<option value=0 id="a_d_anonymousDisable">Disable</option>
+	<option value=1 id="a_d_anonymousEnable">Enable</option>
+	</select>
+	</td>
+</tr>
+
+<tr>
+	<td class="head" id="dndEnable">
+		Do Not Disturb(DND)
+	</td>
+	<td>
+	<select name="dnd2" size="1">
+	<option value=0 id="dndDisable">Disable</option>
+	<option value=1 id="dnda_d_anonymousEnable">Enable</option>
+	</select>
+	</td>
+</tr>
+
+
+
+<tr>
+	<td class="head" id="h_u_idEnable">
+		Hider User ID
+	</td>
+	<td>
+	<select name="h_u_id2" size="1">
+	<option value=0 id="h_u_idDisable">Disable</option>
+	<option value=1 id="h_u_idEnable">Enable</option>
+	</select>
+	</td>
+</tr>
+
+<tr>
+	<td class="head" id="mwiEnable">
+		MWI
+	</td>
+	<td>
+	<select name="mwi2" size="1">
+	<option value=0 id="mwiDisable">Disable</option>
+	<option value=1 id="mwiEnable">Enable</option>
+	</select>
+	</td>
+</tr>
+
+
+<tr>
+  <td class="head" id="mwi_interval">MWI Interval</td>
+  <td><input name="mwi_interval2" maxlength=15 value="<!--#exec cmd="web config2 nvram SC_ACCT_2_SIP_MWI_INTERVAL"-->" > seconds(3600-86400,default:86400)</td>
+</tr>
+
+<tr>
+  <td class="head" id="mwi_event">MWI Event</td>
+  <td><input name="mwi_event2" maxlength=15 value="<!--#exec cmd="web config2 nvram SC_ACCT_2_SIP_MWI_EVENT"-->" ></td>
+</tr>
+
+
+
+
+<tr>
+	<td class="head" id="hold_method">
+		Hold Method
+	</td>
+	<td>
+	<select name="holdmethod2" size="1">
+	<option value=0 id="sendonly_recvonly">Sendonly/Recvonly</option>
+	<option value=1 id="inactive">Inactive</option>
+	</select>
+	</td>
+</tr>
+
+
+
+<tr>
+  <td class="title" colspan="2" id="dtmf">DTMF</td>
+</tr>
+<tr>
+	<td class="head" id="dtmf_option">
+		DTMF
+	</td>
+	<td>
+	<select name="dtmfoption2" size="1">
+	<option value=0 id="sendonly_recvonly">Out-of-band(RFC 2833)</option>
+	<option value=1 id="inactive">In Band</option>
+	</select>
+	</td>
+</tr>
+
+<tr>
+	<td class="head" id="sipinfoid">
+		SIP INFO
+	</td>
+	<td>
+	<select name="sipinfo2" size="1">
+	<option value=0 id="sipinfoDisable">Disable</option>
+	<option value=1 id="sipinfoEnable">Enable</option>
+	</select>
+	</td>
+</tr>
+
+<tr>
+  <td class="title" colspan="2" id="call_forward_settings">Call Forward Settings</td>
+</tr>
+
+<tr>
+	<td class="head" id="allcallforwardid">
+		All Call Forwarding(All CF)
+	</td>
+	<td>
+	<select name="allcallforward2" size="1">
+	<option value=0 id="allcallforwardDisable">Disable</option>
+	<option value=1 id="allcallforwardEnable">Enable</option>
+	</select>
+	</td>
+</tr>
+
+<tr>
+	<td class="head" id="unconditionalcfid">
+		Unconditional CF
+	</td>
+	<td>
+	<select name="unconditionalcf2" size="1">
+	<option value=0 id="unconditionalcfidDisable">Disable</option>
+	<option value=1 id="unconditionalcfidEnable">Enable</option>
+	</select>
+	</td>
+</tr>
+
+
+<tr>
+  <td class="head" id="unconditionalcf_targetid">Unconditional CF Target</td>
+  <td><input name="unconditionalcf_target2" maxlength=15 value="<!--#exec cmd="web config2 nvram SC_ACCT_1_ADV_CFU_TARGET"-->" ></td>
+</tr>
+
+<tr>
+	<td class="head" id="busycfid">
+		Busy CF
+	</td>
+	<td>
+	<select name="busycf2" size="1">
+	<option value=0 id="busycfDisable">Disable</option>
+	<option value=1 id="busycfEnable">Enable</option>
+	</select>
+	</td>
+</tr>
+
+<tr>
+  <td class="head" id="busycf_targetid">Busy CF Target</td>
+  <td><input name="busycf_target2" maxlength=15 value="<!--#exec cmd="web config2 nvram SC_ACCT_1_ADV_CFB_TARGET"-->" ></td>
+</tr>
+
+
+
+<tr>
+	<td class="head" id="noanswer_cf_id">
+		No Answer CF
+	</td>
+	<td>
+	<select name="noanswer_cf2" size="1">
+	<option value=0 id="noanswer_cfDisable">Disable</option>
+	<option value=1 id="noanswer_cfEnable">Enable</option>
+	</select>
+	</td>
+</tr>
+
+
+
+<tr>
+  <td class="head" id="noanswer_cf_targetid">No Answer CF Target</td>
+  <td><input name="noanswer_cf_target2" maxlength=15 value="<!--#exec cmd="web config2 nvram SC_ACCT_1_ADV_CFNA_TARGET"-->" ></td>
+</tr>
+
+<tr>
+  <td class="title" colspan="2" id="call_waiting_settings">Call Waiting Setting</td>
+</tr>
+
+<tr>
+	<td class="head" id="call_waiting_id">
+		Call waiting
+	</td>
+	<td>
+	<select name="call_waiting2" size="1">
+	<option value=0 id="call_waitingDisable">Disable</option>
+	<option value=1 id="call_waitingEnable">Enable</option>
+	</select>
+	A call B, C call A and A hear waiting tone
+	</td>
+</tr>
+
+
+<tr>
+  <td class="title" colspan="2" id="hotline_settings">Hotline Setting</td>
+</tr>
+
+<tr>
+	<td class="head" id="hotline_enable">
+		Hotline
+	</td>
+	<td>
+	<select name="hotline2" size="1">
+	<option value=0 id="hotlinecisable">Disable</option>
+	<option value=1 id="hotlinenable">Enable</option>
+	</select>
+	</td>
+</tr>
+
+<tr>
+  <td class="head" id="hotline_targetid">Hotline Target</td>
+  <td><input name="hotline_target2" maxlength=15 value="<!--#exec cmd="web config2 nvram SC_ACCT_1_ADV_HOTLINE_TARGET"-->" ></td>
+</tr>
+<tr>
+  <td class="head" id="hotline_period_timeid">Hotline Period Time</td>
+  <td><input name="hotline_period_time2" maxlength=15 value="<!--#exec cmd="web config2 nvram SC_ACCT_1_ADV_HOTLINE_TIMER"-->">seconds(5-10,default:6)</td>
+</tr>
+
+
+
+
+
+</table>
+
+
+<table width="95%" cellpadding="2" cellspacing="1">
+<tr align="center">
+  <td>
+    <input type=submit  name="Save" style="{width:120px;}" value="Save" id="Save" ;>&nbsp;&nbsp;
+    <input type=reset  name="Cancel" style="{width:120px;}" value="Cancel" id="Cancel" ;>
+  </td>
+
+</tr>
+
+</table>
+
+
+
+
+
+
+</form>
+
+</td></tr></table>
+</body>
+</html>
+

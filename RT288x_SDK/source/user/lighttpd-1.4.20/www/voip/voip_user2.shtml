@@ -1,0 +1,485 @@
+<!-- Copyright 2004, Ralink Technology Corporation All Rights Reserved. -->
+<html>
+<head>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="/style/normal_ws.css" type="text/css">
+<title>QoS/Bandwidth Management Settings</title>
+</head>
+
+<script type="text/javascript" src="/shareFun.js"></script>
+<script language="JavaScript" type="text/javascript">
+
+
+
+var sip_enable2 = "<!--#exec cmd="web config2 nvram SC_ACCT_2_ENABLE"-->";
+var acct_2_media_1stCodec = "<!--#exec cmd="web config2 nvram SC_ACCT_2_MEDIA_1ST_CODEC"-->"; 
+var acct_2_media_2ndCodec = "<!--#exec cmd="web config2 nvram SC_ACCT_2_MEDIA_2ND_CODEC"-->"; 
+var acct_2_media_3rdCodec = "<!--#exec cmd="web config2 nvram SC_ACCT_2_MEDIA_3RD_CODEC"-->";
+var acct_2_media_4thCodec = "<!--#exec cmd="web config2 nvram SC_ACCT_2_MEDIA_4TH_CODEC"-->";
+var acct_2_media_5thCodec = "<!--#exec cmd="web config2 nvram SC_ACCT_2_MEDIA_5TH_CODEC"-->";
+var acct_2_media_6thCodec = "<!--#exec cmd="web config2 nvram SC_ACCT_2_MEDIA_6TH_CODEC"-->";
+var acct_2_media_7thCodec = "<!--#exec cmd="web config2 nvram SC_ACCT_2_MEDIA_7TH_CODEC"-->";
+var acct_2_media_8thCodec = "<!--#exec cmd="web config2 nvram SC_ACCT_2_MEDIA_8TH_CODEC"-->";
+var acct_2_media_9thCodec = "<!--#exec cmd="web config2 nvram SC_ACCT_2_MEDIA_9TH_CODEC"-->";
+
+var acct_2_media_g273_rate = "<!--#exec cmd="web config2 nvram SC_ACCT_2_MEDIA_G723_RATE"-->";
+var acct_2_media_ilbc_rate = "<!--#exec cmd="web config2 nvram SC_ACCT_2_MEDIA_ILBC_RATE"-->";
+
+var acct_2_session_flag = "<!--#exec cmd="web config2 nvram SC_ACCT_2_SIP_SESSION_FLAG"-->"; //check
+var acct_2_session_refresher = "<!--#exec cmd="web config2 nvram SC_ACCT_2_SIP_SESSION_REFRESHER"-->"; //check
+var acct_2_session_method = "<!--#exec cmd="web config2 nvram SC_ACCT_2_SIP_SESSION_METHOD"-->";
+var acct_2_session_minexp = "<!--#exec cmd="web config2 nvram SC_ACCT_2_SIP_SESSION_MIN_EXP"-->";
+var acct_2_session_timer = "<!--#exec cmd="web config2 nvram SC_ACCT_2_SIP_SESSION_TIMER"-->";
+
+function checkValue(val)
+{
+	var f = document.forms[0];	
+
+	document.voip_status.page.value = val;
+
+	if (val == 0) // connect
+	{
+		//document.nfc_operation.NFC_Disable.disabled = false;
+		//document.nfc_operation.NFC_Enable.disabled = true;
+		document.voip_status.connect_status.value = 0;
+	}
+	else if (val == 1) // disconnect
+	{
+		//document.nfc_operation.NFC_Disable.disabled = true;
+		//document.nfc_operation.NFC_Enable.disabled = false;
+		document.voip_status.connect_status.value = 1;
+	}
+
+	//f.submit();
+
+	//setTimeout('window.close()', 1000);
+
+	return true;
+}	
+
+function CodecSetup(ele, per)
+{
+	switch(per){
+	case "1":
+		ele.options.selectedIndex = 0;	break;
+	case "2":
+		ele.options.selectedIndex = 1;	break;
+	case "3":
+		ele.options.selectedIndex = 2;	break;
+	case "4":
+		ele.options.selectedIndex = 3;	break;
+	case "5":
+		ele.options.selectedIndex = 4;	break;
+	case "6":
+		ele.options.selectedIndex = 5;	break;
+	case "7":
+		ele.options.selectedIndex = 6;	break;
+	case "8":
+		ele.options.selectedIndex = 7;	break;
+	case "9":
+		ele.options.selectedIndex = 8;	break;
+	case "10":
+		ele.options.selectedIndex = 9;	break;
+
+	}
+}
+function initValue()
+{
+		if(sip_enable2 == "0"){
+			document.voip_user2.sip_select2.options.selectedIndex = 0;
+		}else if(sip_enable2 == "1"){
+    	document.voip_user2.sip_select2.options.selectedIndex = 1;
+    }
+    
+    CodecSetup(document.voip_user2.codec1st2, acct_2_media_1stCodec);
+    CodecSetup(document.voip_user2.codec2nd2, acct_2_media_2ndCodec);
+    CodecSetup(document.voip_user2.codec3rd2, acct_2_media_3rdCodec);
+    CodecSetup(document.voip_user2.codec4th2, acct_2_media_4thCodec);
+		CodecSetup(document.voip_user2.codec5th2, acct_2_media_5thCodec);
+		CodecSetup(document.voip_user2.codec6th2, acct_2_media_6thCodec);
+		CodecSetup(document.voip_user2.codec7th2, acct_2_media_7thCodec);
+		CodecSetup(document.voip_user2.codec8th2, acct_2_media_8thCodec);
+		CodecSetup(document.voip_user2.codec9th2, acct_2_media_9thCodec);
+		
+		if(acct_2_media_g273_rate == "0"){
+			document.voip_user2.g723_1_rates2.options.selectedIndex = 0;
+		}else if(acct_2_media_g273_rate == "1"){
+    	document.voip_user2.g723_1_rates2.options.selectedIndex = 1;
+    }		
+
+		if(acct_2_media_ilbc_rate == "0"){
+			document.voip_user2.ilbc_rates2.options.selectedIndex = 0;
+		}else if(acct_2_media_ilbc_rate == "1"){
+    	document.voip_user2.ilbc_rates2.options.selectedIndex = 1;
+    }			
+    
+ 		if(acct_2_session_method == "0"){
+			document.voip_user2.setimer_refresh2.options.selectedIndex = 0;
+		}else if(acct_2_session_method == "1"){
+    	document.voip_user2.setimer_refresh2.options.selectedIndex = 1;
+    }			   
+    
+    
+
+	
+    
+}
+var oldIp;
+function recIpCfg()
+{
+	oldIp = document.voip_set.reIp.value;
+}
+
+
+</script>
+
+
+
+<!--     body      -->
+
+<body onload="initValue()">
+<table class="body"><tr><td>
+
+<h1 id="lTitle">VoIP User 2</h1>
+<p id="lIntroduction"></p>
+<hr />
+
+<form method=post name="voip_user2" action="/cgi-bin/voip.cgi" onSubmit="return CheckValue()">
+<input type=hidden name=page value=voip_user2>
+<table width="95%" border="1" cellpadding="2" cellspacing="1">
+<tr>
+  <td class="title" colspan="2" id="registrar_server">SIP Account</td>
+</tr>
+
+
+<tr>
+	<td class="head" id="Enable">
+		Enable/Disable
+	</td>
+	<td>
+	<select name="sip_select2" size="1">
+	<option value=0 id="SipDisable">Disable</option>
+	<option value=1 id="SipEnable">Enable</option>
+	</select>
+	</td>
+</tr>
+
+
+
+
+
+<tr>
+  <td class="head" id="sip_local_port">SIP Local Port</td>
+  <td><input name="sip_port2" maxlength=15 value="<!--#exec cmd="web config2 nvram SC_ACCT_2_SIP_LOCAL_PORT"-->"> &nbsp;default:5060</td>
+</tr>
+
+<tr>
+  <td class="head" id="Subscriber_Number">Subscriber Number </td>
+  <td><input name="subscriber_number2" maxlength=15 value="<!--#exec cmd="web config2 nvram SC_ACCT_2_SIP_USERNAME"-->"></td>
+</tr>
+
+
+<tr>
+  <td class="head" id="display_name">Display Name</td>
+  <td><input name="d_name2" maxlength=15 value="<!--#exec cmd="web config2 nvram SC_ACCT_2_SIP_DISPNAME"-->" ></td>
+</tr>
+
+<tr>
+  <td class="head" id="authentication_name">Authentication Name</td>
+  <td><input name="auth_name2" maxlength=15 value="<!--#exec cmd="web config2 nvram SC_ACCT_2_SIP_AUTHNAME"-->" ></td>
+</tr>
+
+<tr>
+  <td class="head" id="sip_password">Password/td>
+  <td><input name="s_password2" maxlength=15 value="<!--#exec cmd="web config2 nvram SC_ACCT_2_SIP_PASSWORD"-->" ></td>
+</tr>
+
+
+<tr>
+  <td class="title" colspan="2" id="registrar_server">Codec Settings</td>
+</tr>
+
+<tr>
+	<td class="head" id="codec1">
+		1st Codec
+	</td>
+	<td>
+	<select name="codec1st2" size="1">
+	<option value=1 id="g729">G.729</option>
+	<option value=2 id="g723_1">G.723.1</option>
+	<option value=3 id="none">NONE</option>
+	<option value=4 id="g726_16k">G.726&nbsp;16k</option>
+	<option value=5 id="g726_24k">G.726&nbsp;24k</option>			
+	<option value=6 id="g726_32k">G.726&nbsp;32k</option>			
+	<option value=7 id="g726_40k">G.726&nbsp;40k</option>			
+	<option value=8 id="g711_alaw">G.711&nbsp;aLaw</option>
+	<option value=9 id="g711_mulaw">G.711&nbsp;mulaw</option>
+	<option value=10 id="iLBC">iLBC</option>							
+	</select>
+	</td>
+</tr>
+
+<tr>
+	<td class="head" id="codec2">
+		2nd Codec
+	</td>
+	<td>
+	<select name="codec2nd2" size="1">
+	<option value=1 id="g729">G.729</option>
+	<option value=2 id="g723_1">G.723.1</option>
+	<option value=3 id="none">NONE</option>
+	<option value=4 id="g726_16k">G.726&nbsp;16k</option>
+	<option value=5 id="g726_24k">G.726&nbsp;24k</option>			
+	<option value=6 id="g726_32k">G.726&nbsp;32k</option>			
+	<option value=7 id="g726_40k">G.726&nbsp;40k</option>			
+	<option value=8 id="g711_alaw">G.711&nbsp;aLaw</option>
+	<option value=9 id="g711_mulaw">G.711&nbsp;mulaw</option>
+	<option value=10 id="iLBC">iLBC</option>							
+	</select>
+	</td>
+</tr>
+
+<tr>
+	<td class="head" id="codec2">
+		3rd Codec
+	</td>
+	<td>
+	<select name="codec3rd2" size="1">
+	<option value=1 id="g729">G.729</option>
+	<option value=2 id="g723_1">G.723.1</option>
+	<option value=3 id="none">NONE</option>
+	<option value=4 id="g726_16k">G.726&nbsp;16k</option>
+	<option value=5 id="g726_24k">G.726&nbsp;24k</option>			
+	<option value=6 id="g726_32k">G.726&nbsp;32k</option>			
+	<option value=7 id="g726_40k">G.726&nbsp;40k</option>			
+	<option value=8 id="g711_alaw">G.711&nbsp;aLaw</option>
+	<option value=9 id="g711_mulaw">G.711&nbsp;mulaw</option>
+	<option value=10 id="iLBC">iLBC</option>							
+	</select>
+	</td>
+</tr>
+
+<tr>
+	<td class="head" id="codec2">
+		4th Codec
+	</td>
+	<td>
+	<select name="codec4th2" size="1">
+	<option value=1 id="g729">G.729</option>
+	<option value=2 id="g723_1">G.723.1</option>
+	<option value=3 id="none">NONE</option>
+	<option value=4 id="g726_16k">G.726&nbsp;16k</option>
+	<option value=5 id="g726_24k">G.726&nbsp;24k</option>			
+	<option value=6 id="g726_32k">G.726&nbsp;32k</option>			
+	<option value=7 id="g726_40k">G.726&nbsp;40k</option>			
+	<option value=8 id="g711_alaw">G.711&nbsp;aLaw</option>
+	<option value=9 id="g711_mulaw">G.711&nbsp;mulaw</option>
+	<option value=10 id="iLBC">iLBC</option>							
+	</select>
+	</td>
+</tr>
+
+<tr>
+	<td class="head" id="codec2">
+		5th Codec
+	</td>
+	<td>
+	<select name="codec5th2" size="1">
+	<option value=1 id="g729">G.729</option>
+	<option value=2 id="g723_1">G.723.1</option>
+	<option value=3 id="none">NONE</option>
+	<option value=4 id="g726_16k">G.726&nbsp;16k</option>
+	<option value=5 id="g726_24k">G.726&nbsp;24k</option>			
+	<option value=6 id="g726_32k">G.726&nbsp;32k</option>			
+	<option value=7 id="g726_40k">G.726&nbsp;40k</option>			
+	<option value=8 id="g711_alaw">G.711&nbsp;aLaw</option>
+	<option value=9 id="g711_mulaw">G.711&nbsp;mulaw</option>
+	<option value=10 id="iLBC">iLBC</option>							
+	</select>
+	</td>
+</tr>
+
+<tr>
+	<td class="head" id="codec2">
+		6th Codec
+	</td>
+	<td>
+	<select name="codec6th2" size="1">
+	<option value=1 id="g729">G.729</option>
+	<option value=2 id="g723_1">G.723.1</option>
+	<option value=3 id="none">NONE</option>
+	<option value=4 id="g726_16k">G.726&nbsp;16k</option>
+	<option value=5 id="g726_24k">G.726&nbsp;24k</option>			
+	<option value=6 id="g726_32k">G.726&nbsp;32k</option>			
+	<option value=7 id="g726_40k">G.726&nbsp;40k</option>			
+	<option value=8 id="g711_alaw">G.711&nbsp;aLaw</option>
+	<option value=9 id="g711_mulaw">G.711&nbsp;mulaw</option>
+	<option value=10 id="iLBC">iLBC</option>							
+	</select>
+	</td>
+</tr>
+
+<tr>
+	<td class="head" id="codec2">
+		7th Codec
+	</td>
+	<td>
+	<select name="codec7th2" size="1">
+	<option value=1 id="g729">G.729</option>
+	<option value=2 id="g723_1">G.723.1</option>
+	<option value=3 id="none">NONE</option>
+	<option value=4 id="g726_16k">G.726&nbsp;16k</option>
+	<option value=5 id="g726_24k">G.726&nbsp;24k</option>			
+	<option value=6 id="g726_32k">G.726&nbsp;32k</option>			
+	<option value=7 id="g726_40k">G.726&nbsp;40k</option>			
+	<option value=8 id="g711_alaw">G.711&nbsp;aLaw</option>
+	<option value=9 id="g711_mulaw">G.711&nbsp;mulaw</option>
+	<option value=10 id="iLBC">iLBC</option>							
+	</select>
+	</td>
+</tr>
+
+<tr>
+	<td class="head" id="codec2">
+		8th Codec
+	</td>
+	<td>
+	<select name="codec8th2" size="1">
+	<option value=1 id="g729">G.729</option>
+	<option value=2 id="g723_1">G.723.1</option>
+	<option value=3 id="none">NONE</option>
+	<option value=4 id="g726_16k">G.726&nbsp;16k</option>
+	<option value=5 id="g726_24k">G.726&nbsp;24k</option>			
+	<option value=6 id="g726_32k">G.726&nbsp;32k</option>			
+	<option value=7 id="g726_40k">G.726&nbsp;40k</option>			
+	<option value=8 id="g711_alaw">G.711&nbsp;aLaw</option>
+	<option value=9 id="g711_mulaw">G.711&nbsp;mulaw</option>
+	<option value=10 id="iLBC">iLBC</option>							
+	</select>
+	</td>
+</tr>
+
+<tr>
+	<td class="head" id="codec2">
+		9th Codec
+	</td>
+	<td>
+	<select name="codec9th2" size="1">
+	<option value=1 id="g729">G.729</option>
+	<option value=2 id="g723_1">G.723.1</option>
+	<option value=3 id="none">NONE</option>
+	<option value=4 id="g726_16k">G.726&nbsp;16k</option>
+	<option value=5 id="g726_24k">G.726&nbsp;24k</option>			
+	<option value=6 id="g726_32k">G.726&nbsp;32k</option>			
+	<option value=7 id="g726_40k">G.726&nbsp;40k</option>			
+	<option value=8 id="g711_alaw">G.711&nbsp;aLaw</option>
+	<option value=9 id="g711_mulaw">G.711&nbsp;mulaw</option>
+	<option value=10 id="iLBC">iLBC</option>							
+	</select>
+	</td>
+</tr>
+
+
+
+<tr>
+	<td class="head" id="Enable">
+		G.723.1 Rates
+	</td>
+	<td>
+	<select name="g723_1_rates2" size="1">
+	<option value=0 id="g723_53">5.3 kbps</option>
+	<option value=1 id="g723_63">6.3 kbps</option>
+	</select>
+	</td>
+</tr>
+
+
+<tr>
+	<td class="head" id="Enable">
+		iLBC Rates
+	</td>
+	<td>
+	<select name="ilbc_rates2" size="1">
+	<option value=0 id="ilbc_20">20ms</option>
+	<option value=1 id="ilbc_30">30ms</option>
+	</select>
+	</td>
+</tr>
+
+<tr>
+  <td class="title" colspan="2" id="setimer_enable">Sessison Timer Enable</td>
+</tr>
+
+<tr>
+	<td class="head" id="setimer_Enable">
+		Sessison Timer Enable/Disable
+	</td>
+	<td>
+	<select name="setimer_select2" size="1">
+	<option value=0 id="setimer_Disable">Disable</option>
+	<option value=1 id="setimer_SipEnable">Enable</option>
+	</select>
+	</td>
+</tr>
+
+<tr>
+	<td class="head" id="refresh_method">
+		Refresh Method
+	</td>
+	<td>
+	<select name="setimer_refresh2" size="1">
+	<option value=0 id="refresh_update">UPDATE</option>
+	<option value=1 id="refresh_invite">INVITE</option>
+	</select>
+	</td>
+</tr>
+
+
+<tr>
+  <td class="head" id="min_setimer">Min Sessison Timer </td>
+  <td><input name="min_se_timer2" maxlength=15 value="<!--#exec cmd="web config2 nvram SC_ACCT_2_SIP_SESSION_MIN_EXP"-->">&nbsp seconds(90~65535, deafult:90)</td>
+</tr>
+<tr>
+  <td class="head" id="setimer">Sessison Timer </td>
+  <td><input  name="se_timer2" maxlength=15 value="<!--#exec cmd="web config2 nvram SC_ACCT_2_SIP_SESSION_TIMER"-->">&nbsp seconds(120~65535, deafult:1800)</td>
+</tr>
+
+
+<tr>
+  <td class="title" colspan="2" id="user_misc">Misc.</td>
+</tr>
+<tr>
+  <td class="head" id="sip_user_agent_name">SIP User Agent Name </td>
+  <td><input name="s_usr_name2" maxlength=15 value="<!--#exec cmd="web config2 nvram SC_ACCT_2_SIP_USER_AGENT"-->"></td>
+</tr>
+
+<tr>
+  <td class="head" id="time_out_for_ring_back">Timeout for Ring back  </td>
+  <td><input name="ring_back_timeout2" maxlength=15 value="<!--#exec cmd="web config2 nvram SC_ACCT_2_TIMER_RINGING"-->"></td>
+</tr>
+
+</table>
+
+
+<table width="95%" cellpadding="2" cellspacing="1">
+<tr align="center">
+  <td>
+    <input type=submit  name="Save" style="{width:120px;}" value="Save" id="Save" ;>&nbsp;&nbsp;
+    <input type=reset  name="Cancel" style="{width:120px;}" value="Cancel" id="Cancel" ;>
+  </td>
+
+</tr>
+</table>
+
+
+
+
+
+
+</form>
+
+</td></tr></table>
+</body>
+</html>
+

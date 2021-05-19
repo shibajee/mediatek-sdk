@@ -1,0 +1,158 @@
+<!-- Copyright 2004, Ralink Technology Corporation All Rights Reserved. -->
+<html>
+<head>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="/style/normal_ws.css" type="text/css">
+<title>Local Area Network (LAN) Settings</title>
+</head>
+
+<script type="text/javascript" src="/shareFun.js"></script>
+<script language="JavaScript" type="text/javascript">
+	
+	
+function checkValue(val)
+{
+	var f = document.forms[0];	
+
+	document.voip_status.page.value = val;
+
+	if (val == 0) // connect
+	{
+		//document.nfc_operation.NFC_Disable.disabled = false;
+		//document.nfc_operation.NFC_Enable.disabled = true;
+		document.voip_status.connect_status.value = 0;
+	}
+	else if (val == 1) // disconnect
+	{
+		//document.nfc_operation.NFC_Disable.disabled = true;
+		//document.nfc_operation.NFC_Enable.disabled = false;
+		document.voip_status.connect_status.value = 1;
+	}
+
+	//f.submit();
+
+	//setTimeout('window.close()', 1000);
+
+	return true;
+}	
+function initValue()
+{
+	
+}
+
+var oldIp;
+function recIpCfg()
+{
+	oldIp = document.voip_set.reIp.value;
+}
+
+
+</script>
+
+<body onLoad="initValue()">
+<table class="body"><tr><td>
+
+<h1 id="lTitle">VoIP Server 2</h1>
+<p id="lIntroduction"></p>
+<hr />
+
+<form method=post name="voip_set2" action="/cgi-bin/voip.cgi" onSubmit="return CheckValue()">
+<input type=hidden name=page value=set_voip2>
+<table width="95%" border="1" cellpadding="2" cellspacing="1">
+<tr>
+  <td class="title" colspan="2" id="registrar_server">Registrar Server</td>
+</tr>
+
+<tr>
+  <td class="head" id="registrar_server_ip">Registrar Server</td>
+  <td><input name="reIp2" maxlength=15 value="<!--#exec cmd="web config2 nvram SC_ACCT_2_SIP_REG_ADDR"-->" onFocus="recIpCfg()"></td>
+</tr>
+
+<tr>
+  <td class="head" id="registrar_server_port_number">Port Number</td>
+  <td><input name="rePort2" maxlength=15 value="<!--#exec cmd="web config2 nvram SC_ACCT_2_SIP_REG_PORT"-->" ></td>
+</tr>
+<tr>
+  <td class="head" id="sep_registrar_server_ip">Separate Registrar Server</td>
+  <td><input name="sep_reIp2" maxlength=15 value="<!--#exec cmd="web config2 nvram SC_ACCT_2_SIP_SEP_REG_ADDR"-->" onFocus="recIpCfg()"></td>
+</tr>
+
+<tr>
+  <td class="head" id="registrar_server_port_number">Separate Port Number</td>
+  <td><input name="sep_rePort2" maxlength=15 value="<!--#exec cmd="web config2 nvram SC_ACCT_2_SIP_SEP_REG_PORT"-->" ></td>
+</tr>
+
+
+<tr>
+  <td class="head" id="register_period_time">Register Period Time</td>
+  <td><input name="reg_ptime2" maxlength=15 value="<!--#exec cmd="web config2 nvram SC_ACCT_2_SIP_REG_EXPIRY"-->" > seconds(60-65535,default:900)</td>
+</tr>
+
+
+<tr>
+  <td class="title" colspan="2" id="proxy_server">Proxy Server</td>
+</tr>
+
+<tr>
+  <td class="head" id="proxy_server_ip">Proxy Server</td>
+  <td><input name="proxyIp2" maxlength=15 value="<!--#exec cmd="web config2 nvram SC_ACCT_2_SIP_PRI_PROXY_ADDR"-->" ></td>
+</tr>
+
+<tr>
+  <td class="head" id="proxy_server_port_number">Port Number</td>
+  <td><input name="proxyPort2" maxlength=15 value="<!--#exec cmd="web config2 nvram SC_ACCT_2_SIP_PRI_PROXY_PORT"-->" ></td>
+</tr>
+
+<tr>
+  <td class="title" colspan="2" id="outbound_server">Outbound Server</td>
+</tr>
+<tr>
+  <td class="head" id="outbound_server_ip">Outbound Server</td>
+  <td><input name="outboundIp2" maxlength=15 value="<!--#exec cmd="web config2 nvram SC_ACCT_2_SIP_OUTBOUND_ADDR"-->" ></td>
+</tr>
+<tr>
+  <td class="head" id="outbound_server_port_number">Port Number</td>
+  <td><input name="outboundPort2" maxlength=15 value="<!--#exec cmd="web config2 nvram SC_ACCT_2_SIP_OUTBOUND_PORT"-->" ></td>
+</tr>
+
+<tr>
+  <td class="title" colspan="2" id="nat_traversal">NAT Traversal</td>
+</tr>
+<tr>
+  <td class="head" id="stun_ip">STUN Server</td>
+  <td><input name="stunIp2" maxlength=15 value="<!--#exec cmd="web config2 nvram SC_ACCT_2_NAT_SRV_ADDR"-->" ></td>
+</tr>
+
+
+<tr>
+  <td class="head" id="stun_server_port_number">Port Number</td>
+  <td><input name="stunPort2" maxlength=15 value="<!--#exec cmd="web config2 nvram SC_ACCT_2_NAT_SRV_PORT"-->" ></td>
+</tr>
+
+
+</table>
+
+
+<table width="95%" cellpadding="2" cellspacing="1">
+<tr align="center">
+  <td>
+    <input type=submit  name="Save" style="{width:120px;}" value="Save" id="Save" ;>&nbsp;&nbsp;
+    <input type=reset  name="Cancel" style="{width:120px;}" value="Cancel" id="Cancel" ;>
+  </td>
+
+</tr>
+
+</table>
+
+
+
+
+
+
+</form>
+
+</td></tr></table>
+</body>
+</html>
+

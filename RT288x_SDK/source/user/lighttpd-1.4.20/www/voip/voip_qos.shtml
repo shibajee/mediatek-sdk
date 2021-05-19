@@ -1,0 +1,121 @@
+<!-- Copyright 2004, Ralink Technology Corporation All Rights Reserved. -->
+<html>
+<head>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="/style/normal_ws.css" type="text/css">
+<title>Local Area Network (LAN) Settings</title>
+</head>
+
+<script type="text/javascript" src="/shareFun.js"></script>
+<script language="JavaScript" type="text/javascript">
+	
+
+
+
+
+
+
+function checkValue(val)
+{
+	var f = document.forms[0];	
+
+	document.voip_status.page.value = val;
+
+	if (val == 0) // connect
+	{
+		//document.nfc_operation.NFC_Disable.disabled = false;
+		//document.nfc_operation.NFC_Enable.disabled = true;
+		document.voip_status.connect_status.value = 0;
+	}
+	else if (val == 1) // disconnect
+	{
+		//document.nfc_operation.NFC_Disable.disabled = true;
+		//document.nfc_operation.NFC_Enable.disabled = false;
+		document.voip_status.connect_status.value = 1;
+	}
+
+	//f.submit();
+
+	//setTimeout('window.close()', 1000);
+
+	return true;
+}	
+function initValue()
+{
+  
+    
+ 
+
+
+}
+
+
+
+
+</script>
+
+<body onLoad="initValue()">
+<table class="body"><tr><td>
+
+<h1 id="lTitle">VoIP QoS</h1>
+<p id="lIntroduction"></p>
+<hr />
+
+<form method=post name="voip_qos" action="/cgi-bin/voip.cgi" onSubmit="return CheckValue()">
+<input type=hidden name=page value=voip_qos>
+<table width="95%" border="1" cellpadding="2" cellspacing="1">
+	
+
+
+
+<tr>
+  <td class="title" colspan="2" id="voip_qosid">QoS Settings</td>
+</tr>
+
+
+
+<tr>
+  <td class="head" id="sip_tos_diffservid">SIP ToS/DiffServ</td>
+  <td><input name="sip_tos_diffserv" maxlength=15 value="<!--#exec cmd="web config2 nvram SC_SYS_QOS_SIP_TOS"-->" ></td>
+</tr>
+<tr>
+  <td class="head" id="sip_tos_diffservid">RTP ToS/DiffServ</td>
+  <td><input name="rtp_tos_diffserv" maxlength=15 value="<!--#exec cmd="web config2 nvram SC_SYS_QOS_RTP_TOS"-->" ></td>
+</tr>
+
+
+
+
+
+
+
+
+
+
+
+</table>
+
+
+<table width="95%" cellpadding="2" cellspacing="1">
+<tr align="center">
+  <td>
+    <input type=submit  name="Save" style="{width:120px;}" value="Save" id="Save" ;>&nbsp;&nbsp;
+    <input type=reset  name="Cancel" style="{width:120px;}" value="Cancel" id="Cancel" ;>
+  </td>
+
+</tr>
+
+</table>
+
+
+
+
+
+
+</form>
+
+</td></tr></table>
+</body>
+</html>
+

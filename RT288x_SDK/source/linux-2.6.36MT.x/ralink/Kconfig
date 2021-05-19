@@ -1,0 +1,155 @@
+menu "Ralink Module"
+
+###########
+# Debuging
+###########
+source "drivers/net/rt_rdm/Kconfig"
+
+#############
+# Wire
+#############
+source "drivers/net/raeth/Kconfig"
+
+config  HW_IPSEC
+	bool	"HW IPSec Enable"
+	select INET_AH
+	select INET_ESP
+	select INET_XFRM_MODE_TRANSPORT
+	select INET_XFRM_MODE_TUNNEL
+	select UNIX
+	select XFRM
+	select XFRM_USER
+	select NET_KEY
+	select CRYPTO_AEAD
+	select CRYPTO_AUTHENC
+	select CRTPTO_RNG
+	select CRYPTO_CBC
+	select CRYPTO_HMAC
+	select CRYPTO_SHA1
+	select CRYPTO_MD5
+	select CRYPTO_AES
+	select CRYPTO_DES
+	select CRYPTO_ANSI_CPRNG
+	default n
+config  RALINK_HWCRYPTO
+	depends on HW_IPSEC
+	tristate "HW Crypto Engine"
+	default n
+
+#############
+# Wireless
+#############
+menuconfig WIFI_DRIVER
+	bool "WiFi Driver Support"
+
+if WIFI_DRIVER
+choice
+	prompt "Choose First WiFi Interface"
+	config  FIRST_IF_NONE
+	bool "None"
+	config  FIRST_IF_RT3092
+	bool "RT3092"
+	config  FIRST_IF_RT5392
+	bool "RT5392"
+	config  FIRST_IF_RT5592
+	bool "RT5592"
+	config  FIRST_IF_RT3593
+	bool "RT3593"
+	config  FIRST_IF_MT7610
+	bool "MT7610"
+	config  FIRST_IF_RT3572
+	bool "RT3572"
+	config  FIRST_IF_RT5572
+	bool "RT5572"
+endchoice
+choice
+	prompt "Choose Second WiFi Interface"
+	config  SECOND_IF_NONE
+	bool "None"
+	config  SECOND_IF_RT3092
+	bool "RT3092"
+	config  SECOND_IF_RT5392
+	bool "RT5392"
+	config  SECOND_IF_RT5592
+	bool "RT5592"
+	config  SECOND_IF_MT7610
+	bool "MT7610"
+	config  SECOND_IF_RT3593
+	bool "RT3593"
+	config  SECOND_IF_RT3572
+	bool "RT3572"
+	config  SECOND_IF_RT5572
+	bool "RT5572"
+endchoice
+
+#source "drivers/net/wireless/RTPCI_ap/Kconfig"
+
+#source "drivers/net/wireless/RT3090_ap/Kconfig"
+
+#source "drivers/net/wireless/RT5392_ap/Kconfig"
+
+#source "drivers/net/wireless/RT5592_ap/Kconfig"
+
+#source "drivers/net/wireless/RT3593_ap/Kconfig"
+
+#source "drivers/net/wireless/MT7610_ap/Kconfig"
+
+#source "drivers/net/wireless/RT3572_ap/Kconfig"
+
+#source "drivers/net/wireless/RT5572_ap/Kconfig"
+
+config  RT_FIRST_CARD
+	int
+	depends on ! FIRST_IF_NONE
+	default 3090 if FIRST_IF_RT3092
+	default 5392 if FIRST_IF_RT5392
+	default 5592 if FIRST_IF_RT5592
+	default 3593 if FIRST_IF_RT3593
+	default 7610 if FIRST_IF_MT7610
+	default 3572 if FIRST_IF_RT3572
+	default 5572 if FIRST_IF_RT5572
+
+config  RT_SECOND_CARD
+	int
+	depends on ! SECOND_IF_NONE
+	default 3090 if SECOND_IF_RT3092
+	default 5392 if SECOND_IF_RT5392
+	default 5592 if SECOND_IF_RT5592
+	default 3593 if SECOND_IF_RT3593
+	default 7610 if SECOND_IF_MT7610
+	default 3572 if SECOND_IF_RT3572
+	default 5572 if SECOND_IF_RT5572
+
+config  RTDEV
+	bool
+	depends on ! SECOND_IF_NONE
+	default y
+
+config  RT_FIRST_IF_RF_OFFSET
+	hex
+	depends on ! FIRST_IF_NONE
+	default 0x40000
+
+config  RT_SECOND_IF_RF_OFFSET
+	hex
+	depends on ! SECOND_IF_NONE
+	default 0x48000
+
+endif # WIFI_DRIVER
+
+#######
+# NAT
+#######
+choice
+prompt "Ralink NAT Type"
+	
+config  RA_NAT_NONE
+bool "None"
+config  RA_NAT_HW
+bool "Hardware"
+endchoice
+
+source "net/nat/hw_nat/Kconfig"
+
+endmenu
+

@@ -1,0 +1,301 @@
+<!-- Copyright 2004, Ralink Technology Corporation All Rights Reserved. -->
+<html>
+<head>
+<title>Operation Mode</title>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="style/normal_ws.css" type="text/css">
+</head>
+
+<script type="text/javascript" src="/shareFun.js"></script>
+<script language="JavaScript" type="text/javascript">
+var Qvalue = new Array();
+function checkData()
+{
+	if (document.opmode.oEthConvMode[2].checked == true)
+	{
+		var re = /[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}/;
+		if (document.opmode.oEthConvMac.value.length == 0)
+		{
+			alert("MAC Address should not be empty!");
+			document.opmode.oEthConvMac.focus();
+			return false;
+		}
+		if (!re.test(document.opmode.oEthConvMac.value))
+		{
+			alert("Please fill the MAC Address in correct format! (XX:XX:XX:XX:XX:XX)");
+			document.opmode.oEthConvMac.focus();
+			return false;
+		}
+	}
+
+	return true;
+}
+
+function opmode_submit()
+{
+	if (checkData() == true)
+	{
+		document.opmode.submit(); 
+		parent.menu.location.reload();
+	}
+}
+
+function switchEthConvMode(mode)
+{
+	document.getElementById("oEthConvMac").disabled = true;
+	document.opmode.oEthConvMode[mode].checked = true;
+	if (mode == 2)
+	{
+		document.opmode.oEthConvMac.disabled = false;
+		document.opmode.oEthConvMac.value = Qvalue[3];
+	}
+}
+
+function SwitchNatOpmode()
+{
+	document.opmode.tcp_timeout.disabled = true;
+	document.opmode.udp_timeout.disabled = true;
+	if (document.opmode.natEnbl.selectedIndex == 1)
+	{
+		document.opmode.tcp_timeout.disabled = false;
+		document.opmode.udp_timeout.disabled = false;
+	}
+}
+
+function SwtichEthConvApcli()
+{
+	display("none", "div_ethConvMac");
+	document.getElementById("oEthConvMode").disabled = true;
+
+	if (document.opmode.ethConv.options.selectedIndex == 1) {
+		display("table-row", "div_ethConvMac");
+		document.getElementById("ethConv").disabled = false;
+		document.getElementById("oEthConvMode").disabled = false;
+		if (document.opmode.oEthConvMode[2].checked == true)
+			switchEthConvMode(2);
+		else if (document.opmode.oEthConvMode[1].checked == true)
+			switchEthConvMode(1);
+		else
+			switchEthConvMode(0);
+	} else if (document.opmode.apcliEnbl.options.selectedIndex == 1) {
+		document.getElementById("ethConv").disabled = true;
+		document.getElementById("apcliEnbl").disabled = false;
+	} else {
+		document.getElementById("ethConv").disabled = false;
+		document.getElementById("apcliEnbl").disabled = false;
+	}
+}
+
+function ChangeMode()
+{
+	display("none", "eth_conv");
+	document.getElementById("ethConv").disabled = true;
+	display("none", "div_apcli");
+	document.getElementById("apcliEnbl").disabled = true;
+	display("none", "nat");
+	document.getElementById("nat").disabled = true;
+	document.opmode.tcp_timeout.disabled = true;
+	document.opmode.udp_timeout.disabled = true;
+	display("none", "div_hwnat");
+	document.getElementById("hwnatEnbl").disabled = true;
+
+	if (document.opmode.opMode[0].checked) {
+		/*
+		display("table", "eth_conv");
+		document.getElementById("ethConv").disabled = false;
+		if (Qvalue[2] == "1") {
+			document.opmode.ethConv.options.selectedIndex = 1;
+			if (Qvalue[3] == "00:00:00:00:00:00" || Qvalue[3] == "") 
+			{
+				document.opmode.oEthConvMode[0].checked = true;
+			}
+			else if (Qvalue[3] == "FF:FF:FF:FF:FF:FF")
+			{
+				document.opmode.oEthConvMode[1].checked = true;
+			}
+			else
+			{
+				document.opmode.oEthConvMode[2].checked = true;
+			}
+		}
+		else
+		{
+			document.opmode.ethConv.options.selectedIndex = 0;
+		}
+		*/
+		display("table", "div_apcli");
+		if (Qvalue[5] == "1" && Qvalue[2] != "1")
+			document.opmode.apcliEnbl.options.selectedIndex = 1;
+		else
+			document.opmode.apcliEnbl.options.selectedIndex = 0;
+		SwtichEthConvApcli();
+
+		/*
+		display("table", "miiInic");
+		document.getElementById("miiInic").disabled = false;
+		if (Qvalue[6] == "1") {
+			document.opmode.miiMode.options.selectedIndex = 1;
+		}
+		*/
+	}
+	else if (document.opmode.opMode[1].checked || document.opmode.opMode[3].checked) {
+		display("table", "nat");
+		document.getElementById("nat").disabled = false;
+		if (Qvalue[1] == "1")
+			document.opmode.natEnbl.options.selectedIndex = 1;
+		else
+			document.opmode.natEnbl.options.selectedIndex = 0;
+		SwitchNatOpmode();
+		display("table-row", "div_hwnat");
+		document.getElementById("hwnatEnbl").disabled = false;
+		if (Qvalue[4] == "1")
+			document.opmode.hwnatEnbl.options.selectedIndex = 1;
+		else
+			document.opmode.hwnatEnbl.options.selectedIndex = 0;
+		document.opmode.tcp_timeout.value = Qvalue[7];
+		document.opmode.udp_timeout.value = Qvalue[8];
+	}
+	else if (document.opmode.opMode[2].checked) {
+		//keep the nat table hidden, and always enable NAT
+		document.getElementById("nat").disabled = false;
+		document.opmode.natEnbl.options.selectedIndex = 1;
+		document.getElementById("hwnatEnbl").disabled = false;
+		if (Qvalue[4] == "1")
+			document.opmode.hwnatEnbl.options.selectedIndex = 1;
+	}
+}
+
+/* 
+   [0] OperationMode
+   [1] natEnabled
+   [2] ethConvert
+   [3] ethConvertMAC
+   [4] hwnatEnabled
+   [5] apClient
+   [6] InicMiiEnable
+   [7] TcpTimeout
+   [8] UdpTimeout
+*/
+function LoadValue()
+{
+	display("none", "stadt");
+	display("none", "stadd");
+	if (Qvalue[0] == "1")
+		document.opmode.opMode[1].checked = true;
+	else if (Qvalue[0] == "2")
+		document.opmode.opMode[2].checked = true;
+	else if (Qvalue[0] == "3")
+		document.opmode.opMode[3].checked = true;
+	else
+		document.opmode.opMode[0].checked = true;
+	ChangeMode();
+}
+
+function InitValue()
+{
+	makeRequest("/cgi-bin/OpCfg.cgi", "query", getCfgHandler);
+}
+</script>
+</head>
+
+<body onLoad="InitValue()">
+<table class="body"><tr><td>
+
+<h1>Operation Mode Configuration</h1>
+<p>You may configure the operation mode suitable for you environment.</p>
+<hr>
+
+<form method="post" name="opmode" action="/cgi-bin/OpCfg.cgi">
+<dl>
+  <dt><input type="radio" name="opMode" value="0" onClick="ChangeMode()"><b>Bridge:</b></dt>
+  <dd>All ethernet and wireless interfaces are bridged into a single bridge interface.</dd>
+  <dt id="gwdt"><input type="radio" name="opMode" value="1" onClick="ChangeMode()"><b>Gateway:</b></dt>
+  <dd>The first ethernet port is treated as WAN port. The other ethernet ports and the wireless interface are bridged together and are treated as LAN ports.</dd>
+  <dt id="stadt"><input type="radio" name="opMode" value="2" onClick="ChangeMode()"><b>Ethernet Converter:</b></dt>
+  <dd id="stadd">The wireless interface is treated as WAN port, and the ethernet ports are LAN ports.</dd>
+  <dt "apclidt"><input type="radio" name="opMode" value="3" onClick="ChangeMode()"><b>AP Client:</b></dt>
+  <dd>The wireless apcli interface is treated as WAN port, and the wireless ap interface and the ethernet ports are LAN ports.</dd>
+</dl>
+<table id="nat" border="0" cellpadding="2" cellspacing="1">
+<tr>
+  <td>NAT Enabled:<td>
+  <td>
+    <select id="natEnbl" name="natEnbl" size="1" OnChange="SwitchNatOpmode()">
+      <option value="0">Disable</option>
+      <option value="1">Enable</option>
+    </select>
+  </td>
+</tr>
+<tr>
+  <td>TCP Timeout:<td>
+  <td><input type="text" name="tcp_timeout" size="4" maxlength="5" value="180"></td>
+</tr>
+<tr>
+  <td>UDP Timeout:<td>
+  <td><input type="text" name="udp_timeout" size="4" maxlength="5" value="180"</td>
+</tr>
+<tr id="div_hwnat">
+  <td>Hardware NAT Enabled:<td>
+  <td>
+    <select id="hwnatEnbl" name="hwnatEnbl" size="1">
+      <option value="0">Disable</option>
+      <option value="1">Enable</option>
+    </select>
+  </td>
+</tr>
+</table>
+<table id="eth_conv" border="0" cellpadding="2" cellspacing="1">
+<tr>
+  <td>Ethernet Converter Enabled:<td>
+  <td>
+    <select id="ethConv" name="ethConv" size="1" OnChange="SwtichEthConvApcli()">
+      <option value="0">Disable</option>
+      <option value="1">Enable</option>
+    </select>
+  </td>
+</tr>
+<tr id ="div_ethConvMac">
+  <td>
+    <dl>
+      <dt><input type="radio" name="oEthConvMode" id="oEthConvMode" value="0" onClick="switchEthConvMode(0)">use wireless itself MAC
+      <dt><input type="radio" name="oEthConvMode" id="oEthConvMode" value="1" onClick="switchEthConvMode(1)">use source MAC of first packet coming from wired device
+      <dt><input type="radio" name="oEthConvMode" id="oEthConvMode" value="2" onClick="switchEthConvMode(2)">use desired MAC
+      <dd><input type="text" name="oEthConvMac" id="oEthConvMac" maxlength=17 value=""></dd>
+    </dl>
+  </td>
+</tr>
+</table>
+<table id="div_apcli" border="0" cellpadding="2" cellspacing="1">
+<tr>
+  <td>AP Client:<td>
+  <td>
+    <select id="apcliEnbl" name="apcliEnbl" size="1" OnChange="SwtichEthConvApcli()">
+      <option value="0">Disable</option>
+      <option value="1">Enable</option>
+    </select>
+  </td>
+</tr>
+</table>
+<!--
+<table id="miiInic" border="0" cellpadding="2" cellspacing="1">
+<tr>
+  <td>INIC Mii Mode:<td>
+  <td>
+    <select id="miiMode" name="miiMode" size="1">
+      <option value="0">Disable</option>
+      <option value="1">Enable</option>
+    </select>
+  </td>
+</tr>
+</table>
+-->
+<p />
+<center>
+<input type="button" style="{width:120px;}" value="Apply" onClick="opmode_submit();">&nbsp;&nbsp;
+<input type="reset" style="{width:120px;}" value="Reset" onClick="window.location.reload()">
+</center>
+</form>
+
+</td></tr></table>
+</body>

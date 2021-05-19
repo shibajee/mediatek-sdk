@@ -1,0 +1,98 @@
+proc_open-buffer.o proc_open-buffer.o: buffer.c \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/stdlib.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/features.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/uClibc_config.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/sys/cdefs.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/include/stddef.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/sys/types.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/types.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/kernel_types.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/wordsize.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/pthreadtypes.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/sched.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/time.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/endian.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/endian.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/sys/select.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/select.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/sigset.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/time.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/sys/sysmacros.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/alloca.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/string.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/stdio.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/uClibc_stdio.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/wchar.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/wchar.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/include/stdarg.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/stdio_lim.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/assert.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/ctype.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/uClibc_touplow.h \
+  buffer.h ../config.h settings.h
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/stdlib.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/features.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/uClibc_config.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/sys/cdefs.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/include/stddef.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/sys/types.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/types.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/kernel_types.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/wordsize.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/pthreadtypes.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/sched.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/time.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/endian.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/endian.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/sys/select.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/select.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/sigset.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/time.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/sys/sysmacros.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/alloca.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/string.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/stdio.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/uClibc_stdio.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/wchar.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/wchar.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/include/stdarg.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/stdio_lim.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/assert.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/ctype.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/uClibc_touplow.h:
+
+buffer.h:
+
+../config.h:
+
+settings.h:

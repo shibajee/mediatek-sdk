@@ -1,0 +1,12 @@
+
+ libid3tag - ID3 tag manipulation library
+ Copyright (C) 2000-2004 Underbit Technologies, Inc.
+
+ $Id: //WIFI_SOC/MP/SDK_4_3_0_0/RT288x_SDK/source/lib/libid3tag-0.15.1b/TODO#1 $
+
+===============================================================================
+
+libid3tag:
+  - finish file API
+  - fix API headers
+

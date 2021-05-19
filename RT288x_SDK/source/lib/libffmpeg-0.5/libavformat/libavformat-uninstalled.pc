@@ -1,0 +1,12 @@
+prefix=
+exec_prefix=
+libdir=${pcfiledir}
+includedir=/home/steven/cvs/RT288x_SDK/source/lib/ffmpeg-0.5
+
+Name: libavformat
+Description: FFmpeg container format library
+Version: 52.31.0
+Requires: libavcodec = 52.20.0
+Conflicts:
+Libs: ${libdir}/libavformat.a   -lz -lm -ldl -ldl
+Cflags: -I${includedir}

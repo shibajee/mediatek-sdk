@@ -1,0 +1,158 @@
+<!-- Copyright 2004, Ralink Technology Corporation All Rights Reserved. -->
+<html>
+<head>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="/style/normal_ws.css" type="text/css">
+<title>One Button Through Wall</title>
+</head>
+
+<script type="text/javascript" src="/shareFun.js"></script>
+<script language="JavaScript" type="text/javascript">
+
+CCK_1M=0
+CCK_5M=0
+OFDM_6M=0
+OFDM_12M=0
+HT20_MCS_0=0
+HT20_MCS_32=0
+HT20_MCS_1_2=0
+HT40_MCS_0=0
+HT40_MCS_32=0
+HT40_MCS_1_2=0
+
+
+
+
+var CCK_1M = "<!--#exec cmd="web 2860 nvram CCK_1M"-->";
+var CCK_5M = "<!--#exec cmd="web 2860 nvram CCK_5M"-->";
+var OFDM_6M = "<!--#exec cmd="web 2860 nvram OFDM_6M"-->";
+var OFDM_12M = "<!--#exec cmd="web 2860 nvram OFDM_12M"-->";
+var HT20_MCS_0 = "<!--#exec cmd="web 2860 nvram HT20_MCS_0"-->";
+var HT20_MCS_32 = "<!--#exec cmd="web 2860 nvram HT20_MCS_32"-->";
+var HT20_MCS_1_2 = "<!--#exec cmd="web 2860 nvram HT20_MCS_1_2"-->";
+var HT40_MCS_0 = "<!--#exec cmd="web 2860 nvram HT40_MCS_0"-->";
+var HT40_MCS_32 = "<!--#exec cmd="web 2860 nvram HT40_MCS_32"-->";
+var HT40_MCS_1_2 = "<!--#exec cmd="web 2860 nvram HT40_MCS_1_2"-->";
+
+
+
+
+function initValue()
+{
+	var obtw = "<!--#exec cmd="web 2860 nvram obtw"-->";
+		display("none", "obtw_table");
+	if(obtw == "0"){
+		// disable obtw
+		document.getElementById("obtw_enable").options.selectedIndex = 0;
+	}else{
+		// enable obtw
+		document.getElementById("obtw_enable").options.selectedIndex = 1;	
+		display("table", "obtw_table");
+	}
+}
+
+function CheckValue()
+{
+	
+	return true;
+}
+
+
+</script>
+
+<body onLoad="initValue()">
+<table class="body"><tr><td>
+
+
+<h1 id="obtwTitle">One Button Through Wall Settings </h1>
+<p id="obtwIntroduction"></p>
+<hr />
+
+<form method=post name=wireless_advanced action="/cgi-bin/wireless.cgi" onSubmit="return CheckValue()">
+<input type=hidden name=page value=obtw>
+<input type=hidden name=wlan_conf value="2860">
+<table width="540" border="1" cellspacing="1" cellpadding="3" vspace="2" hspace="2" bordercolor="#9BABBD">
+	
+ <tr>
+  <td class="title" colspan="2" id="obtwConfig_text">One Button Through Wall</td>
+</tr>
+ <tr>
+	<td class="head" id="obtw">
+		Disable/Enable
+	</td>
+
+	<td>
+	<select id="obtw_enable" name="obtw_enable" size="1">
+	<option value=0 id="obtw_disable">Disable</option>
+	<option value=1 id="obtw_enable">Enable</option>
+	</select>
+	</td>
+</tr>
+<table id="obtw_table" name="obtw_table" border="1" cellpadding="2" cellspacing="1" width="540" style="visibility: hidden;">
+<tr >
+  <td class="head" id="CCK_1M_id">CCK_1M</td>
+  <td><input name="CCK_1M" maxlength=15 value="<!--#exec cmd="web 2860 nvram CCK_1M"-->" ></td>
+</tr>
+
+<tr>
+  <td class="head" id="CCK_5M_id">CCK_5M</td>
+  <td><input name="CCK_5M" maxlength=15 value="<!--#exec cmd="web 2860 nvram CCK_5M"-->" ></td>
+</tr>
+
+<tr>
+  <td class="head" id="OFDM_6M_id">OFDM_6M</td>
+  <td><input name="OFDM_6M" maxlength=15 value="<!--#exec cmd="web 2860 nvram OFDM_6M"-->" ></td>
+</tr>
+
+<tr>
+  <td class="head" id="OFDM_12M_id">OFDM_12M</td>
+  <td><input name="OFDM_12M" maxlength=15 value="<!--#exec cmd="web 2860 nvram OFDM_12M"-->" ></td>
+</tr>
+
+<tr>
+  <td class="head" id="HT20_MCS_0_id">HT20_MCS_0</td>
+  <td><input name="HT20_MCS_0" maxlength=15 value="<!--#exec cmd="web 2860 nvram HT20_MCS_0"-->" ></td>
+</tr>
+
+
+
+<tr>
+  <td class="head" id="HT20_MCS_1_2_id">HT20_MCS_1_2</td>
+  <td><input name="HT20_MCS_1_2" maxlength=15 value="<!--#exec cmd="web 2860 nvram HT20_MCS_1_2"-->" ></td>
+</tr>
+
+<tr>
+  <td class="head" id="HT40_MCS_0_id">HT40_MCS_0</td>
+  <td><input name="HT40_MCS_0" maxlength=15 value="<!--#exec cmd="web 2860 nvram HT40_MCS_0"-->" ></td>
+</tr>
+
+<tr>
+  <td class="head" id="HT40_MCS_32_id">HT40_MCS_32</td>
+  <td><input name="HT40_MCS_32" maxlength=15 value="<!--#exec cmd="web 2860 nvram HT40_MCS_32"-->" ></td>
+</tr>
+
+<tr>
+  <td class="head" id="HT40_MCS_1_2_id">HT40_MCS_1_2</td>
+  <td><input name="HT40_MCS_1_2" maxlength=15 value="<!--#exec cmd="web 2860 nvram HT40_MCS_1_2"-->" ></td>
+</tr>
+
+
+<br>
+</table>
+</table>
+
+<table width="95%" cellpadding="2" cellspacing="1">
+<tr align="center">
+  <td>
+    <input type=submit  name="Save" style="{width:120px;}" value="Save" id="Save" ;>&nbsp;&nbsp;
+    <input type=reset  name="Cancel" style="{width:120px;}" value="Cancel" id="Cancel" ;>
+  </td>
+
+</tr>
+
+</table>
+</form>
+</td></tr></table>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!-- Copyright 2004, Ralink Technology Corporation All Rights Reserved. -->
+<html>
+<head>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="/style/normal_ws.css" type="text/css">
+<title>Statistic</title>
+</head>
+<script language="JavaScript" type="text/javascript">
+
+function formCheck()
+{
+	if( document.SystemCommand.command.value == ""){
+		alert("Please specify a command.");
+		return false;
+	}
+
+	return true;
+}
+
+</script>
+
+<body>
+<table class="body"><tr><td>
+
+<h1 id="statisticTitle">Statistic</h1>
+<p id="statisticIntroduction"> Take a look at the Ralink SoC statistics </p>
+
+
+<table border="1" cellpadding="2" cellspacing="1" width="95%">
+<tbody>
+
+<!-- =================  MEMORY  ================= -->
+<tr>
+  <td class="title" colspan="2" id="statisticMM">Memory</td>
+</tr>
+<tr>
+  <td class="head" id="statisticMMTotal">Memory total: </td>
+  <td> <!--#exec cmd="web 2860 sys memTotal"--></td>
+</tr>
+<tr>
+  <td class="head" id="statisticMMLeft">Memory left: </td>
+  <td> <!--#exec cmd="web 2860 sys memFree"--></td>
+</tr>
+
+<!-- =================  WAN/LAN  ================== -->
+<tr>
+  <td class="title" colspan="2" id="statisticWANLAN">WAN/LAN</td>
+</tr>
+<tr>
+  <td class="head" id="statisticWANRxPkt">WAN Rx packets: </td>
+  <td> <!--#exec cmd="web 2860 sys wanRxPkt"--></td>
+</tr>
+<tr>
+  <td class="head" id="statisticWANRxBytes">WAN Rx bytes: </td>
+  <td> <!--#exec cmd="web 2860 sys wanRxByte"--></td>
+</tr>
+<tr>
+  <td class="head" id="statisticWANTxPkt">WAN Tx packets: </td>
+  <td> <!--#exec cmd="web 2860 sys wanTxPkt"--></td>
+</tr>
+<tr>
+  <td class="head" id="statisticWANTxBytes">WAN Tx bytes: </td>
+  <td> <!--#exec cmd="web 2860 sys wanTxByte"--></td>
+</tr>
+<tr>
+  <td class="head" id="statisticLANRxPkt">LAN Rx packets: &nbsp; &nbsp; &nbsp; &nbsp;</td>
+  <td> <!--#exec cmd="web 2860 sys lanRxPkt"--></td>
+</tr>
+<tr>
+  <td class="head" id="statisticLANRxBytes">LAN Rx bytes: </td>
+  <td> <!--#exec cmd="web 2860 sys lanRxByte"--></td>
+</tr>
+<tr>
+  <td class="head" id="statisticLANTxPkt">LAN Tx packets: </td>
+  <td> <!--#exec cmd="web 2860 sys lanTxPkt"--></td>
+</tr>
+<tr>
+  <td class="head" id="statisticLANTxBytes">LAN Tx bytes: </td>
+  <td> <!--#exec cmd="web 2860 sys lanTxByte"--></td>
+</tr>
+
+<!-- =================  ALL  ================= -->
+<tr>
+  <td class="title" colspan="2" id="statisticAllIF">All interfaces</td>
+<tr>
+
+<script language="JavaScript" type="text/javascript">
+var i;
+var a = new Array();
+a = [<!--#exec cmd="web 2860 sys allStatistic"-->];
+for(i=0; i<a.length; i+=5){
+	// name
+	document.write("<tr> <td class=head> Name </td><td class=head>");
+	document.write(a[i]);
+	document.write("</td></tr>");
+
+	// Order is important! rxpacket->rxbyte->txpacket->txbyte
+	// rxpacket
+	document.write("<tr> <td class=head> Rx Packet </td><td>");
+	document.write(a[i+1]);
+	document.write("</td></tr>");
+
+	// rxbyte
+	document.write("<tr> <td class=head> Rx Byte </td><td>");
+	document.write(a[i+2]);
+	document.write("</td></tr>");
+
+	// txpacket
+	document.write("<tr> <td class=head> Tx Packet </td><td>");
+	document.write(a[i+3]);
+	document.write("</td></tr>");
+
+	// txbyte
+	document.write("<tr> <td class=head> Tx Byte </td><td>");
+	document.write(a[i+4]);
+	document.write("</td></tr>");
+}
+</script>
+
+</tbody>
+</table>
+
+</td></tr></table>
+</body></html>
+

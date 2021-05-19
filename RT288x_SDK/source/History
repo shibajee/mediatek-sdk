@@ -1,0 +1,88 @@
+Mediatek APSoC SDK - History
+
+Version 4.3.1.0
+===============
+
+IMPROVEMENT:
+- Add MX25L51245G(64MB) to MT7620's SPI NOR flash QVL.
+- Add MX25L51245G(64MB)/MT25QL512AB(64MB)/W25Q256FV(32MB)/ N25Q256A(32MB) to RT6856/MT7621/MT7628's SPI NOR flash QVL.
+- Add MT7628 4M/16M profile.
+- Add dump_mt7530_phy application. (for MT7621, MT7623 and MT7620+MT7530).
+- For MT7628 if not support PCIe, degrade PCIe PHY to 1.3mA for power saving.
+- Update mii_mgr_cl45 usage and print format.
+- Add user mode watchdog menu and Makefile into linux-3.10.14.
+- Add MT7621 pcie SSC option and Disable SSC by default to avoid MT7603 Ch14 Rx De-sense.
+- For MT7628, turn on FC by default.
+- Add ALSA Full Duplex mode support.
+- Fix MT7628 wifi de-sense issue which was caused by SDXC in Normal mode(AP mode).
+- Add Samba version 4.0.24
+
+
+BUG FIXED:
+- Fix VOIP configuration crash issue.
+- Fix MT7621 NAND flash page read API to return error code when correcting some correctable ECC bits, this may fix some problems such as failed to mount SQUASHFS file system when correcting error ECC bits.
+- ALSA fix error of Coding shrink.
+- Fix MT7628 Ethernet sometimes has little spur in current domain.
+- For MT7621, if hw_nat enables IPv6 acceleration, entries across dram boundary are bad.  These entries must be set as static.
+- HNAT module use wrong setting when removing HNAT module. This register should be controlled by Ethernet driver not HNAT module.
+- Choose HNAT_USE_SKB_CB for OpenWrt.
+- Update skb allocation API for kernel 3.10.
+- For MT7628 turn off EEE TX/RX support by default.
+- For MT7628 Remove duplicated long_loop excution in rcS.
+- Fix Wrong GPIO setting in MT7628 Ethernet driver.
+- Add line2 configuration in VOIP web page.
+- Remove VOIP software from current SDK, and separately relaese in another software package.
+
+
+Uboot :
+- Add MX25L51245G(64MB) to MT7620's SPI NOR flash QVL.
+- Add MX25L51245G(64MB)/MT25QL512AB(64MB)/W25Q256FV(32MB)/ N25Q256A(32MB) to RT6856/MT7621/MT7628's SPI NOR flash QVL.
+- Support MT7628 tiny Uboot.
+- Add MT7628 DDR DQS window calibration.
+- Change EPHY setting to fix MT7628 Ethernet sometimes has little spur in current domain.
+- Support MT7628 ETH One Port Only mode.
+- Automatic set share pin register when Uboot detect EEPROM PA/LNA config is ePAeLNA/iPAeLNA/ePAiLNA.
+- support MT7621 dual image.
+
+
+Version 4.3.0.0
+===============
+
+PLATFORM:
+
+- Support MT7628/MT7621/MT7620 [linux-2.6.36.x]
+- Support RT6855/RT6856 [linux-2.6.36MT.x]
+- Support RT3052/RT3883/RT3352/RT5350 [linux-2.6.21.x]
+
+NEW FUNCTIONS:
+
+- [APP] Support MT7628 long-loop detection to extend maximum Ethernet cable length
+- [APP] supports linux 3.10 CFG80211 hostapd for MT76x2E/MT7620
+- [APP] Support miniDLNA
+- [APP]Display the OS information of device
+- [APP] Support Auto-Wan detection
+- [IPSec] Add SHA256 support for MT7621 and RT6856 HW IPSec
+- [APP] Add MT7620 NAND ECC tool
+- [I2S] Add Pause/Resume/Stop functions of TX and RX
+- [I2S] Add TX+RX work simultaneously
+- [I2S] Add MT7621 REFCLK support for 12MHz/12.288MHz/11.289MHz
+- VOIP support
+- TR069 support
+
+IMPROVEMENT:
+
+- [SW] MT7621 GE2 to external Switch
+- [PPTP/L2TP] Increase stability for MT7620/MT7621 PPTP/L2TP fast path 
+- [SW] MT7621 switch support IGMP proxy
+- [HNAT] Add ac counter maintainer to get statistic counter periodically for MT7620/MT7621
+- [USB] Support MT7621/MT7628/MT7620 USB firmware upgrade mechanism in Uboot
+- [SDXC] Implement card detect with software polling
+
+BUG FIXED:
+
+- [RAETH] Fix ifconfig mtu down/up issue in SMP Linux
+- [RAETH] Fix RPS cannot work properly in vlan mode
+- [LIB] Fix C library header file path for uClibc-0.9.33 (ntfs-3g issue)
+- [NAND] MT7620/MT7621 support UBIFS without BMT mechanism
+- [NAND] MT7621 HW design for 2048/112 NAND flash
+

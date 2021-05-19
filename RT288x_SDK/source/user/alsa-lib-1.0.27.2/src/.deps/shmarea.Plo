@@ -1,0 +1,88 @@
+shmarea.lo shmarea.o: shmarea.c \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/stdio.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/features.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/uClibc_config.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/sys/cdefs.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/include/stddef.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/types.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/kernel_types.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/pthreadtypes.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/sched.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/uClibc_stdio.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/wchar.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/wchar.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/include/stdarg.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/stdio_lim.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/malloc.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/string.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/errno.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/errno.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/errno_values.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/sys/poll.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/poll.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/sys/mman.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/mman.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/sys/shm.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/sys/ipc.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/ipc.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/shm.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/time.h \
+  ../include/list.h
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/stdio.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/features.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/uClibc_config.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/sys/cdefs.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/include/stddef.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/types.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/kernel_types.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/pthreadtypes.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/sched.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/uClibc_stdio.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/wchar.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/wchar.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/include/stdarg.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/stdio_lim.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/malloc.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/string.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/errno.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/errno.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/errno_values.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/sys/poll.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/poll.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/sys/mman.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/mman.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/sys/shm.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/sys/ipc.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/ipc.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/shm.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/time.h:
+
+../include/list.h:

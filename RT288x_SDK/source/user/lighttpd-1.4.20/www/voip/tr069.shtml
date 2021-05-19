@@ -1,0 +1,246 @@
+<!-- Copyright 2004, Ralink Technology Corporation All Rights Reserved. -->
+<html>
+<head>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="/style/normal_ws.css" type="text/css">
+<title>Wireless WAPI User Certificate Upload</title>
+</head>
+
+<script type="text/javascript" src="/shareFun.js"></script>
+<script language="JavaScript" type="text/javascript">
+
+var tr069 = "<!--#exec cmd="web config2 nvram TR_ENABLE"-->";
+var bootstrap = "<!--#exec cmd="web config2 nvram TR_BOOTSTRAP"-->";
+var tr = "<!--#exec cmd="web config2 nvram TR_INFORM_ENABLE"-->";
+
+
+
+
+function checkValue(val)
+{
+	var f = document.forms[0];	
+
+	document.voip_status.page.value = val;
+
+	if (val == 0) // connect
+	{
+		//document.nfc_operation.NFC_Disable.disabled = false;
+		//document.nfc_operation.NFC_Enable.disabled = true;
+		document.voip_status.connect_status.value = 0;
+	}
+	else if (val == 1) // disconnect
+	{
+		//document.nfc_operation.NFC_Disable.disabled = true;
+		//document.nfc_operation.NFC_Enable.disabled = false;
+		document.voip_status.connect_status.value = 1;
+	}
+
+	//f.submit();
+
+	//setTimeout('window.close()', 1000);
+
+	return true;
+}	
+function initValue()
+{
+  
+  		if(tr069 == "0"){
+			document.tr069.tr069Enable.options.selectedIndex = 0;
+		}else if(tr069 == "1"){
+    	document.tr069.tr069Enable.options.selectedIndex = 1;
+    }    
+         
+  	if(bootstrap == "0"){
+			document.tr069.bootstrapEnable.options.selectedIndex = 0;
+		}else if(bootstrap == "1"){
+    	document.tr069.bootstrapEnable.options.selectedIndex = 1;
+    }   
+  	if(tr == "0"){
+			document.tr069.periodicalEnable.options.selectedIndex = 0;
+		}else if(tr == "1"){
+    	document.tr069.periodicalEnable.options.selectedIndex = 1;
+    }  
+    document.getElementById("ccInfo").value = "<!--#exec cmd="web config2 tr069 cwmp_client"-->";
+    document.getElementById("caInfo").value = "<!--#exec cmd="web config2 tr069 cwmp_cacert"-->";
+}
+
+
+
+
+</script>
+
+<body onLoad="initValue()">
+<table class="body"><tr><td>
+
+<h1 id="lTitle">TR-069 Configuration</h1>
+<p id="lIntroduction"></p>
+<hr />
+
+<form method=post name="tr069" action="/cgi-bin/tr069.cgi" onSubmit="return CheckValue()">
+<input type=hidden name=page value=tr069>
+<table width="540" border="1" cellpadding="2" cellspacing="1">
+	
+
+
+
+<tr>
+  <td class="title" colspan="2" id="tr069id">TR-069 Configuration</td>
+</tr>
+
+
+<tr>
+	<td class="head" id="tr069Enableid">
+		Enable
+	</td>
+	<td>
+	<select name="tr069Enable" size="1">
+	<option value=0 id="disable">Disable</option>
+	<option value=1 id="enable">Enable</option>
+	</select>
+	</td>
+</tr>
+
+
+<tr>
+  <td class="head" id="fixed_client_port_id">Fixed Client Port</td>
+  <td><input name="fixed_client_port" maxlength=15 value="<!--#exec cmd="web config2 nvram TR_CLIENT_PORT"-->" ></td>
+</tr>
+
+<tr>
+  <td class="head" id="acs_server_url_id">ACS Server URL</td>
+  <td><input name="acs_server_url" maxlength=15 value="<!--#exec cmd="web config2 nvram TR_ACS_URL"-->" ></td>
+</tr>
+
+
+<tr>
+	<td class="head" id="bootstrapEnableid">
+		Bootstrap Enable
+	</td>
+	<td>
+	<select name="bootstrapEnable" size="1">
+	<option value=0 id="disable">Disable</option>
+	<option value=1 id="enable">Enable</option>
+	</select>
+	</td>
+</tr>
+
+<tr>
+  <td class="head" id="acs_usemame_id">ACS Usemame</td>
+  <td><input name="acs_usemame" maxlength=15 value="<!--#exec cmd="web config2 nvram TR_ACS_USER"-->" ></td>
+</tr>
+
+<tr>
+  <td class="head" id="acs_password_id">ACS Password</td>
+  <td><input name="acs_password" maxlength=15 value="<!--#exec cmd="web config2 nvram TR_ACS_PASS"-->" ></td>
+</tr>
+
+
+<tr>
+	<td class="head" id="periodicalEnableid">
+		Periodical Inform Enable
+	</td>
+	<td>
+	<select name="periodicalEnable" size="1">
+	<option value=0 id="disable">Disable</option>
+	<option value=1 id="enable">Enable</option>
+	</select>
+	</td>
+</tr>
+
+<tr>
+  <td class="head" id="periodicalIntervalid">Periodical Inform interval</td>
+  <td><input name="periodicalInterval" maxlength=15 value="<!--#exec cmd="web config2 nvram TR_INFORM_INTERVAL"-->" ></td>
+</tr>
+
+
+<tr>
+  <td class="head" id="connectionRequsetUseid">Connection Request Usemame</td>
+  <td><input name="connectionRequsetUse" maxlength=15 value="<!--#exec cmd="web config2 nvram TR_CR_USER"-->" ></td>
+</tr>
+
+
+
+
+<tr>
+  <td class="head" id="connectionPasswordid">Connection Request Password</td>
+  <td><input name="connectionPassword" maxlength=15 value="<!--#exec cmd="web config2 nvram TR_CR_PASS"-->" ></td>
+</tr>
+
+
+
+
+
+
+
+</table>
+
+
+<table width="95%" cellpadding="2" cellspacing="1">
+<tr align="center">
+  <td>
+    <input type=submit  name="Save" style="{width:120px;}" value="Save" id="Save" ;>&nbsp;&nbsp
+    <input type=reset  name="Cancel" style="{width:120px;}" value="Cancel" id="Cancel" ;>
+  </td>
+
+</tr>
+
+</table>
+
+</form>
+
+
+<form method="post" name="tr069_upload" action="/cgi-bin/tr069upload_ca.cgi" enctype="multipart/form-data">
+<table width="540" border="1" cellpadding="2" cellspacing="1">
+
+  
+  <tr><td colspan="2" class="title" id="div_ca_upload_text">CA Certificate Upload</td></tr>
+  
+<tr>
+  <td class="head" id="caCfid">CA Certificate File</td>
+  <td><input name="caCf" type=file maxlength=50 </td>
+</tr>
+
+</table>
+<table width = "540" border = "0" cellpadding = "2" cellspacing = "1">
+<input value="Apply" id="uploadCA" name="UploadCA" type="submit" > 
+</table>
+</form>
+
+<table width="540" id="upload_ca_info" name="upload_ca_info" border="1" cellpadding="1" cellspacing="1" width="90%">
+<tbody>
+<tr><td colspan="2" class="title" id="div_ca_info_text">CA Certificate Info</td></tr>
+<tr><td colspan="2"> 
+<textarea name="caInfo" id="caInfo" cols="50" rows="2" wrap="off" readonly="1"></textarea>
+</td></tr>
+</tbody></table>
+
+<br />
+
+<form method="post" name="tr069_upload" action="/cgi-bin/tr069upload_cc.cgi" enctype="multipart/form-data">
+<table width="540" border="1" cellpadding="2" cellspacing="1">
+  
+<tr><td colspan="2" class="title" id="div_cc_upload_text">Client Certificate Upload</td></tr>	
+<tr>
+  <td class="head" id="cCfid">Client Certificate File</td>
+  <td><input name="cCif" type=file maxlength=50 </td>
+</tr>
+
+</table>
+<table width = "540" border = "0" cellpadding = "2" cellspacing = "1">
+<input value="Apply" id="uploadCC" name="UploadCC" type="submit" >
+</table>
+</form>
+
+
+<table width="540" id="upload_cc_info" name="upload_cc_info" border="1" cellpadding="1" cellspacing="1" width="90%">
+<tbody>
+<tr><td colspan="2" class="title" id="div_cc_info_text">Client Certificate Info</td></tr>
+<tr><td colspan="2"> 
+<textarea name="ccInfo" id="ccInfo" cols="50" rows="2" wrap="off" readonly="1"></textarea>
+</td></tr>
+</tbody></table>
+
+
+</body>
+</html>

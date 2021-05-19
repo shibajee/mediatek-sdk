@@ -1,0 +1,4 @@
+This is test program to test splice function.
+
+Format:
+splice [src_file] [dst_file]

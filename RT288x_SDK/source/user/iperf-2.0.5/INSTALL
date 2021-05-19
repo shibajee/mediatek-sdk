@@ -1,0 +1,13 @@
+$Id: //WIFI_SOC/MP/SDK_4_3_0_0/RT288x_SDK/source/user/iperf-2.0.5/INSTALL#1 $
+
+Platform Specific Notes
+
+FreeBSD
+
+  If you use a cc or c++ other than the system one, threads may not be
+  detected properly.  To work around this set the following environment 
+  variables:
+
+    setenv CC /usr/bin/cc
+    setenv CXX /usr/bin/c++
+

@@ -1,0 +1,111 @@
+<!-- Copyright 2004, Ralink Technology Corporation All Rights Reserved. -->
+<html>
+<head>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="/style/normal_ws.css" type="text/css">
+<title>Create Director</title>
+</head>
+<script type="text/javascript" src="/shareFun.js"></script>
+<script language="JavaScript" type="text/javascript">
+var part_count = parseInt("<!--#exec cmd="web 2860 sys n_AllPart"-->");
+
+function checkData()
+{
+	// alert("part_count: " +part_count);
+	if (document.disk_adddir.adddir_name.value == "")
+	{
+		alert('Please specify Directory Name');
+		document.disk_adddir.adddir_name.focus();
+		document.disk_adddir.adddir_name.select();
+		return false;
+	}
+	else if(document.disk_adddir.adddir_name.value.match(/[`~!@#$%^&*\()+\|{}\[\]:;\"\'<,>.\/\\?]/)) 
+	{
+		alert("Don't input /[ `~!@#$%^&*\()+\|{}\[\]:;\"\'<,>.\/\\?]/");
+		return false;
+	}
+
+	if (part_count <= 0)
+	{
+		alert("No Partition");
+		return false;
+	}
+	else if (part_count == 1)
+	{
+		if (document.disk_adddir.disk_part.checked == false)
+		{
+			alert("Please choose one option");
+			return false;
+		}
+	}
+	else if (part_count > 1)
+	{
+		for(i=0;i<part_count;i++)
+		{
+			if (document.disk_adddir.disk_part[i].checked == true)
+				break;
+		}
+		if (i == part_count)
+		{
+			alert("Please choose one option");
+			return false;
+		}
+	}
+
+	return true;
+}
+
+function submit_apply()
+{
+	if (checkData() == true)
+		document.disk_adddir.submit();
+}
+</script>
+
+<body>
+<table class="body"><tr><td>
+
+<form method=post name="disk_adddir" action="/cgi-bin/nas.cgi">
+<input type=hidden name=page value="adddir">
+<table width="540" border="1" cellspacing="1" cellpadding="3" vspace="2" hspace="2" bordercolor="#9BABBD">
+  <tr> 
+    <td class="title" id="adddirName">Directory Name</td>
+    <td>
+      <input type=text name=adddir_name size=16 maxlength=16 value="">
+    </td>
+  </tr>
+</table>
+
+<hr />
+<br />
+
+<table width="540" border="1" cellspacing="1" cellpadding="3" vspace="2" hspace="2" bordercolor="#9BABBD">
+  <tr>
+    <td class="title" colspan="3" id="adddirPart">Partition</td>
+  </tr>
+  <tr>
+    <td bgcolor="#E8F8FF" width=15px>&nbsp;</td>
+    <td align="center" bgcolor="#E8F8FF" width=150px id="adddirPartition">Partition</td>
+    <td align="center" bgcolor="#E8F8FF" id="adddirPath">Path</td>
+  </tr>
+  <!--#exec cmd="web 2860 sys DiskPartition"-->
+</table>
+
+<hr />
+<br />
+
+<table width = "540" border = "0" cellpadding = "2" cellspacing = "1">
+  <tr align="center">
+    <td>
+      <input type=button style="{width:120px;}" value="Apply" id="adddirApply" onClick="submit_apply()"> &nbsp; &nbsp;
+      <input type=reset  style="{width:120px;}" value="Cancel" id="adddirCancel" onClick="window.close()">
+    </td>
+  </tr>
+</table>
+</form>
+
+</td></tr></table>
+</body>
+</html>
+

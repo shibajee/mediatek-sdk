@@ -1,0 +1,74 @@
+<!-- Copyright 2004, Ralink Technology Corporation All Rights Reserved. -->
+<html>
+<head>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="Expires" content="-1">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="/style/normal_ws.css" type="text/css">
+<title>Wireless Station List</title>
+</head>
+
+<script type="text/javascript" src="/shareFun.js"></script>
+<script language="JavaScript" type="text/javascript">
+
+function PageInit()
+{
+	var txbf = "<!--#exec cmd="web 2860 build txbf"-->";
+
+	if (txbf == "1")
+		display("none", "div_info_normal");
+	else
+		display("none", "div_info_txbf");
+}
+</script>
+
+<body onLoad="PageInit()">
+<table class="body"><tr><td>
+
+<h1 id="stalistTitle">Station List</h1>
+<p id="stalistIntroduction"> You could monitor stations which associated to this AP here. </p>
+<hr />
+
+<table width="540" border="1" cellpadding="2" cellspacing="1">
+  <tr> 
+    <td class="title" id="stalistWirelessNet">Wireless Network</td>
+  </tr>
+</table>
+<table id="div_info_normal" width="540" border="1" cellpadding="2" cellspacing="1">
+  <tr>
+    <td bgcolor=#E8F8FF id="stalistMacAddr">MAC Address</td>
+    <td bgcolor=#E8F8FF>Aid</td>
+    <td bgcolor=#E8F8FF>PSM</td>
+    <td bgcolor=#E8F8FF>MimoPS</td>
+    <td bgcolor=#E8F8FF>MCS</td>
+    <td bgcolor=#E8F8FF>BW</td>
+    <td bgcolor=#E8F8FF>SGI</td>
+    <td bgcolor=#E8F8FF>STBC</td>
+  </tr>
+  <!--#exec cmd="web 2860 wifi staInfo"-->
+</table>
+<table id="div_info_txbf" width="540" border="1" cellpadding="2" cellspacing="1">
+  <tr>
+    <td bgcolor=#E8F8FF id="stalistMacAddr">MAC Addr</td>
+    <td bgcolor=#E8F8FF>Aid</td>
+    <td bgcolor=#E8F8FF>PSM</td>
+    <td bgcolor=#E8F8FF>MIMO<br>PS</td>
+    <td bgcolor=#E8F8FF>TX Rate</td>
+    <td bgcolor=#E8F8FF>TxBF</td>
+    <td bgcolor=#E8F8FF>RSSI</td>
+    <td bgcolor=#E8F8FF>Stream<br>SNR</td>
+    <td bgcolor=#E8F8FF>Snd Rsp<br>SNR</td>
+    <td bgcolor=#E8F8FF>Last<br>RX Rate</td>
+    <td bgcolor=#E8F8FF>Connect<br>Time</td>
+  </tr>
+  <!--#exec cmd="web 2860 wifi staInfo"-->
+</table>
+
+</td></tr></table>
+</body>
+<head>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="-1">
+</head>
+</html>
+

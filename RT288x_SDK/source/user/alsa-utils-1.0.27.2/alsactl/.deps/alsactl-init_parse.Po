@@ -1,0 +1,275 @@
+alsactl-init_parse.o alsactl-init_parse.o: init_parse.c \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/stdlib.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/features.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/uClibc_config.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/sys/cdefs.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/include/stddef.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/sys/types.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/types.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/kernel_types.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/pthreadtypes.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/sched.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/time.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/endian.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/endian.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/sys/select.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/select.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/sigset.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/time.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/sys/sysmacros.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/alloca.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/stdio.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/uClibc_stdio.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/wchar.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/wchar.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/include/stdarg.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/stdio_lim.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/unistd.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/posix_opt.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/confname.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/getopt.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/string.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/fcntl.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/fcntl.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/ctype.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/uClibc_touplow.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/errno.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/errno.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/errno_values.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/fnmatch.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/sys/stat.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/stat.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/sys/un.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/sockaddr.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/sys/wait.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/signal.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/signum.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/siginfo.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/sigaction.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/sigcontext.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/asm/sigcontext.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/sigstack.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/sigthread.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/sys/resource.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/resource.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/waitflags.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/waitstatus.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/dirent.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/dirent.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/posix1_lim.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/local_lim.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/linux/limits.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/math.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/huge_val.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/mathdef.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/mathcalls.h \
+  /home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/asoundlib.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/assert.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/sys/poll.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/poll.h \
+  /home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/asoundef.h \
+  /home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/version.h \
+  /home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/global.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/uClibc_clk_tck.h \
+  /home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/input.h \
+  /home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/output.h \
+  /home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/error.h \
+  /home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/conf.h \
+  /home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/pcm.h \
+  /home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/rawmidi.h \
+  /home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/timer.h \
+  /home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/hwdep.h \
+  /home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/control.h \
+  /home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/mixer.h \
+  /home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/seq_event.h \
+  /home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/seq.h \
+  /home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/seqmid.h \
+  /home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/seq_midi_event.h \
+  ../include/aconfig.h alsactl.h list.h init_sysdeps.c \
+  init_utils_string.c init_utils_run.c init_sysfs.c
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/stdlib.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/features.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/uClibc_config.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/sys/cdefs.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/include/stddef.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/sys/types.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/types.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/kernel_types.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/pthreadtypes.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/sched.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/time.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/endian.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/endian.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/sys/select.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/select.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/sigset.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/time.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/sys/sysmacros.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/alloca.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/stdio.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/uClibc_stdio.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/wchar.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/wchar.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/include/stdarg.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/stdio_lim.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/unistd.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/posix_opt.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/confname.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/getopt.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/string.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/fcntl.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/fcntl.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/ctype.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/uClibc_touplow.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/errno.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/errno.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/errno_values.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/fnmatch.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/sys/stat.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/stat.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/sys/un.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/sockaddr.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/sys/wait.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/signal.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/signum.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/siginfo.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/sigaction.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/sigcontext.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/asm/sigcontext.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/sigstack.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/sigthread.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/sys/resource.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/resource.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/waitflags.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/waitstatus.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/dirent.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/dirent.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/posix1_lim.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/local_lim.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/linux/limits.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/math.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/huge_val.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/mathdef.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/mathcalls.h:
+
+/home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/asoundlib.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/assert.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/sys/poll.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/poll.h:
+
+/home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/asoundef.h:
+
+/home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/version.h:
+
+/home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/global.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/../../../../mipsel-linux-uclibc/sys-include/bits/uClibc_clk_tck.h:
+
+/home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/input.h:
+
+/home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/output.h:
+
+/home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/error.h:
+
+/home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/conf.h:
+
+/home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/pcm.h:
+
+/home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/rawmidi.h:
+
+/home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/timer.h:
+
+/home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/hwdep.h:
+
+/home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/control.h:
+
+/home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/mixer.h:
+
+/home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/seq_event.h:
+
+/home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/seq.h:
+
+/home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/seqmid.h:
+
+/home/pork/workspace/perforce/WS_WS_pork.chen/WIFI_SOC/TRUNK/RT288x_SDK/source/user/alsa-lib-1.0.27.2/alsa_install/include/alsa/seq_midi_event.h:
+
+../include/aconfig.h:
+
+alsactl.h:
+
+list.h:
+
+init_sysdeps.c:
+
+init_utils_string.c:
+
+init_utils_run.c:
+
+init_sysfs.c:

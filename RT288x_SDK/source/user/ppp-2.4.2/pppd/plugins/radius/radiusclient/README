@@ -1,0 +1,17 @@
+$Id: //WIFI_SOC/MP/SDK_4_3_0_0/RT288x_SDK/source/user/ppp-2.4.2/pppd/plugins/radius/radiusclient/README#1 $
+
+Please view doc/instop.html with your favourite WWW browser, e.g lynx or
+netscape.
+
+Currently radiusclient will compile on the following platforms:
+
+	Compiled on:
+
+		i386-pc-bsdi2.1
+		sparc-unknown-netbsd1.2.1
+		i386-unknown-freebsd2.2.6
+	
+	Compiled and tested on:
+
+		i486-pc-linux
+		sparc-sun-solaris2.5.1

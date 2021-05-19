@@ -1,0 +1,69 @@
+<!-- Copyright 2004, Ralink Technology Corporation All Rights Reserved. -->
+<html>
+<head>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="/style/normal_ws.css" type="text/css">
+<title>Settings Management</title>
+</head>
+<body>
+<table class="body"><tr><td>
+<h1 id="setmanTitle">Settings Management</h1>
+<p id="setmanIntroduction">You might save system settings by exporting them to a configuration file, restore them by importing the file, or reset them to factory default.</p>
+<hr />
+
+<!-- ================= Export ================= -->
+<br />
+<form method="post" name="ExportSettings" action="/cgi-bin/ExportSettings.sh">
+<table width="540" border="1" cellspacing="1" cellpadding="3" bordercolor="#9BABBD">
+  <tr>
+    <td class="title" colspan="2" id="setmanExpSet">Export Settings</td>
+  </tr>
+  <tr>
+    <td class="head" id="setmanExpSetButton">Export Button</td>
+    <td><input value="Export" id="setmanExpSetExport" name="Export" style="{width:120px;}" type="submit"></td>
+  </tr>
+</table>
+</form>
+<br />
+
+<!-- ================= Import ================= -->
+<form method="post" name="ImportSettings" action="/cgi-bin/upload_settings.cgi" enctype="multipart/form-data">
+<table width="540" border="1" cellspacing="1" cellpadding="3" bordercolor="#9BABBD">
+  <tr>
+      <td class="title" colspan="2" id="setmanImpSet">Import Settings</td>
+    </tr>
+    <tr>
+      <td class="head" id="setmanImpSetFileLocation">Settings file location</td>
+      <td><input type="File" name="filename" size="20" maxlength="256"></td>
+    </tr>
+  </table>
+<table width="540" border="0" cellpadding="2" cellspacing="1">
+  <tr align="center">
+    <td>
+      <input type=submit style="{width:120px;}" value="Import" id="setmanImpSetImport"> &nbsp; &nbsp;
+      <input type=reset  style="{width:120px;}" value="Cancel" id="setmanImpSetCancel">
+    </td>
+  </tr>
+</table>
+</form>
+<br />
+
+<!-- ================= Load FactoryDefaults  ================= -->
+<form method="post" name="LoadDefaultSettings" action="/cgi-bin/adm.cgi">
+<input type=hidden name=page value=loaddefault>
+<table width="540" border="1" cellspacing="1" cellpadding="3" bordercolor="#9BABBD">
+  <tr>
+    <td class="title" colspan="2" id="setmanLoadFactDefault">Load Factory Defaults</td>
+  </tr>
+  <tr>
+    <td class="head" id="setmanLoadFactDefaultButton">Load Default Button</td>
+    <td><input value="Load Default" id="setmanLoadDefault" name="LoadDefault" style="{width:120px;}" type="submit"></td>
+  </tr>
+</table>
+</form>
+
+
+<br>
+</td></tr></table>
+</body></html>

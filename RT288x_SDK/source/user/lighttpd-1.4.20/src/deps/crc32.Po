@@ -1,0 +1,65 @@
+crc32.o crc32.o: crc32.c crc32.h ../config.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/sys/types.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/features.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/uClibc_config.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/sys/cdefs.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/types.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/include/stddef.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/kernel_types.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/wordsize.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/pthreadtypes.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/sched.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/time.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/endian.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/endian.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/sys/select.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/select.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/sigset.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/time.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/sys/sysmacros.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/stdint.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/wchar.h
+
+crc32.h:
+
+../config.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/sys/types.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/features.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/uClibc_config.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/sys/cdefs.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/types.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/include/stddef.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/kernel_types.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/wordsize.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/pthreadtypes.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/sched.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/time.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/endian.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/endian.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/sys/select.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/select.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/sigset.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/time.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/sys/sysmacros.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/stdint.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/wchar.h:

@@ -1,0 +1,73 @@
+<!-- Copyright 2004, Ralink Technology Corporation All Rights Reserved. -->
+<html>
+<head>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="/style/normal_ws.css" type="text/css">
+<title>Wireless Sniffer Controller</title>
+</head>
+
+<script type="text/javascript" src="/shareFun.js"></script>
+<script language="JavaScript" type="text/javascript">
+function doSnifferStart()
+{
+	document.station_sniffer.start.disabled = true;
+}
+
+function doSnifferStop()
+{
+	document.station_sniffer.start.disabled = false;
+}
+
+function SnifferSubmit(mode)
+{
+	if (mode == 1) {
+		makeRequest("/cgi-bin/makeRequest.cgi", "sniffer_start&"+document.station_sniffer.channel.value, doSnifferStart);
+	} else {
+		makeRequest("/cgi-bin/makeRequest.cgi", "sniffer_stop", doSnifferStop);
+	}
+}
+
+function initValue()
+{
+	for(i=0;i<14;i++)
+		document.station_sniffer.channel.options[i] = new Option(i+1, i+1);
+	document.station_sniffer.channel.options[i] = new Option("Auto", "0");
+}
+
+</script>
+
+<body onLoad="initValue()">
+<table class="body"><tr><td>
+
+<h1>Sniffer Controller</h1>
+<p></p>
+<hr />
+
+<form method=post name="station_sniffer">
+<input type=hidden name=page value=sniffer>
+<table width="540" border="1" cellspacing="1" cellpadding="3" bordercolor="#9BABBD">
+  <tr> 
+    <td class="title" colspan="2">Sniffer Configuration</td>
+  </tr>
+  <tr align="center">
+    <td class="head">Channel</td>
+    <td>
+      <select name="channel" size="1">
+      </select>
+    </td>
+  </tr>
+</table>
+<table width = "540" border = "0" cellpadding = "2" cellspacing = "1">
+  <tr align="center">
+    <td>
+      <input type=button name=start style="{width:120px;}" value="Sniffer START" onClick="SnifferSubmit(1);">&nbsp;&nbsp;
+      <input type=button  style="{width:120px;}" value="Sniffer STOP" onClick="SnifferSubmit(0);">
+    </td>
+  </tr>
+</table>
+</form>  
+</td></tr></table>
+</body>
+</html>
+

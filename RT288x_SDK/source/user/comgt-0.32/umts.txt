@@ -1,0 +1,9 @@
+#Set UMTS only mode
+# $Id: //WIFI_SOC/MP/SDK_4_3_0_0/RT288x_SDK/source/user/comgt-0.32/umts.txt#1 $
+
+set com 115200n81
+set senddelay 0.05
+waitquiet 1 0.2
+send "AT_OPSYS=1^m"
+print "Setting UMTS only mode\n"
+

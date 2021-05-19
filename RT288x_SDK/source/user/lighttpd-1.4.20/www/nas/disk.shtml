@@ -1,0 +1,137 @@
+<!-- Copyright 2004, Ralink Technology Corporation All Rights Reserved. -->
+<html>
+<head>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="/style/normal_ws.css" type="text/css">
+<title>Disk Managament</title>
+</head>
+<script type="text/javascript" src="/shareFun.js"></script>
+<script language="JavaScript" type="text/javascript">
+var dir_count = parseInt("<!--#exec cmd="web 2860 sys n_AllDir"-->");
+
+function initValue()
+{
+	display("none", "WaitTable");
+	display("table", "ListTable");
+}
+
+function open_diskadd_window()
+{
+	window.open("disk_adddir.shtml","storage_disk_add","toolbar=no, location=no, scrollbars=yes, resizable=no, width=640, height=640");
+}
+
+function CheckSelect()
+{
+	// alert("dir_count: "+dir_count);
+	if (dir_count <= 0)
+	{
+		alert("No any option can be choosed!");
+		return false;
+	}
+	else if (dir_count == 1)
+	{
+		if (document.storage_disk_adm.dir_path.checked == false)
+		{
+			alert("please select one option!");
+			return false;
+		}
+		document.storage_disk_adm.selectDirIndex.value = 0;
+	}
+	else
+	{
+		for(i=0;i<dir_count;i++)
+		{
+			if (document.storage_disk_adm.dir_path[i].checked == true)
+			{
+				document.storage_disk_adm.selectDirIndex.value = i;
+				break;
+			}
+		}
+		if (i == dir_count)
+		{
+			alert("please select one option!");
+			return false;
+		}
+	}
+
+	return true;
+}
+
+function submit_apply(parm)
+{
+	if (parm == "rmdir")
+	{
+		if (!CheckSelect())
+		{
+			window.location.reload();
+			return;
+		}
+		document.storage_disk_adm.page.value = parm;
+		document.storage_disk_adm.submit();
+	} 
+	else if (parm == "rmdisk")
+	{
+		var remove_ok = confirm("Are you sure to remove disk?");
+		if (remove_ok == true)
+		{
+			document.storage_disk_adm.page.value = parm;
+			document.storage_disk_adm.submit();
+		}
+	}
+}
+
+</script>
+
+<body onLoad="initValue()">
+<table class="body" id="ListTable"><tr><td>
+<h1 id="storageDiskAdmTitle">Disk Management</h1>
+<hr />
+<form method=post name=storage_disk_adm action="/cgi-bin/nas.cgi">
+<input type=hidden name=page value="">
+<table width="540" border="1" cellspacing="1" cellpadding="3" vspace="2" hspace="2" bordercolor="#9BABBD">
+  <tr> 
+    <td class="title" colspan="4"><font id="storageShowDisk">Folder List</font></td>
+  </tr>
+  <tr align=center> 
+    <td bgcolor="#E8F8FF" width=15px>&nbsp;</td>
+    <td bgcolor="#E8F8FF" id="storageDirPath">Directory Path</td>
+    <td bgcolor="#E8F8FF" id="storageDirPart">Partition</td>
+  </tr>
+  <!--#exec cmd="web 2860 sys DiskDir"-->
+</table>
+<table width = "540" border = "0" cellpadding = "2" cellspacing = "1">
+  <tr align="center">
+    <td>
+      <input type="button" style="{width:80px;}" value="Add" id="storageDiskAdmAdd" onClick="open_diskadd_window()">&nbsp;&nbsp;
+      <input type="button" style="{width:80px;}" value="Delete" id="storageDiskAdmDel" onClick="submit_apply('rmdir')">
+      <input type="button" style="{width:80px;}" value="RemoveDisk" id="storageDiskRemove" onClick="submit_apply('rmdisk')">&nbsp;&nbsp;
+    </td>
+  </tr>
+</table>
+<hr />
+</form>
+
+</td></tr></table>
+<!-- Waiting Screen -->
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<center>
+<table border="0" id="WaitTable" width="100%">
+  <tr>
+    <!-- <td>Please wait <span id="wait_time"></span> second !</td> -->
+    <td align"certer"><h2>Please wait ...</h2></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="/graphics/ajax-loader.gif" border="0"></td>
+  </tr>
+</table>
+</center>
+</body>
+</html>
+
+

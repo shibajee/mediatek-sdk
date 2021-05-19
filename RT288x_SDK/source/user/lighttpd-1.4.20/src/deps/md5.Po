@@ -1,0 +1,51 @@
+md5.o md5.o: md5.c ../config.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/string.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/features.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/uClibc_config.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/sys/cdefs.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/include/stddef.h \
+  md5.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/limits.h \
+  /opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/include/limits.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/posix1_lim.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/local_lim.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/linux/limits.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/posix2_lim.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/stdint.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/wchar.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/wordsize.h \
+  /home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/inttypes.h
+
+../config.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/string.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/features.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/uClibc_config.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/sys/cdefs.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/include/stddef.h:
+
+md5.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/limits.h:
+
+/opt/buildroot-gcc342/bin/../lib/gcc/mipsel-linux-uclibc/3.4.2/include/limits.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/posix1_lim.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/local_lim.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/linux/limits.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/posix2_lim.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/stdint.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/wchar.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/bits/wordsize.h:
+
+/home/chhung/Perforce/ws_red.hung_apsoc/WIFI_SOC/main/RT288x_SDK/source/lib/include/inttypes.h:

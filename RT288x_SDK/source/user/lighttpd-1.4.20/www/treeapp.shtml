@@ -1,0 +1,237 @@
+<html>
+<head>
+<title>Tree Page</title>
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="/dtree/dtree.css" type="text/css" />
+<link rel="StyleSheet" href="dtree.css" type="text/css" />
+<script type="text/javascript" src="dtree/dtree.js"></script>
+</head>
+
+<body bgcolor=#ffffff>
+<script language="javascript">    
+var isMenuLock = 0;
+
+function setLockMenu(flag){
+	isMenuLock = flag;
+}
+function go(zz) {
+	if(!isMenuLock)
+		top.view.location=zz;
+}
+function refresh(){
+	window.location.reload(false);
+}
+</script>
+
+<p><a href="javascript: a.openAll();" id="openall">open</a> | <a href="javascript: a.closeAll();" id="closeall">close</a></p>
+
+<script type="text/javascript">
+a = new dTree('a');
+a.config.useStatusText=true;
+a.config.useCookies=false;
+var opmode = "<!--#exec cmd="web 2860 nvram OperationMode"-->";
+
+//  nodeID, parent nodeID,  Name,  URL
+a.add(000,  -1, "Ralink",		"javascript:go('overview.html');");
+
+//a.add(100,   0, 'Wizard',		"javascript:go('adm/wizard.asp');");
+a.add(200,   0, "Operation Mode",	"javascript:go('opmode.shtml');");
+
+a.add(300,   0, "Internet Settings",	"javascript:a.oo(300);");
+var auto_wan_build = "<!--#exec cmd="web 2860 build auto_wan"-->";
+var one_button_through_wall = "<!--#exec cmd="web 2860 build one_button_through_wall"-->";
+if (opmode != "0"){ 
+	a.add(301, 300, "WAN",			"javascript:go('internet/wan.shtml');");
+	if(auto_wan_build == "1")
+	a.add(308, 300, "Auto WAN",			"javascript:go('internet/auto_wan.shtml');");
+}
+a.add(302, 300, "LAN",			"javascript:go('internet/lan.shtml');");
+var dhcpen = "<!--#exec cmd="web 2860 nvram dhcpEnabled"-->";
+if (dhcpen == "1")
+	a.add(303, 300, "DHCP Clients",		"javascript:go('internet/dhcpcliinfo.shtml');");
+var vpnen = "<!--#exec cmd="web 2860 build vpnpassthr"-->";
+if (vpnen == "1")
+	a.add(304, 300, "VPN Passthrough",	"javascript:go('internet/vpnpass.shtml');");
+if (opmode != "0") 
+	a.add(305, 300, "Routing",		"javascript:go('internet/routing.shtml');");
+var qosb = "<!--#exec cmd="web 2860 build qos"-->";
+if (opmode == "1" && qosb == "1")
+	a.add(306, 300, "QoS",			"javascript:go('internet/qos.shtml');");
+var ipv6b = "<!--#exec cmd="web 2860 build ipv6"-->";
+if (ipv6b == "1")
+	a.add(307, 300, "IPv6",			"javascript:go('internet/ipv6.shtml');");
+
+if (opmode == '2')
+{
+	a.add(400,   0, "Wireless Settings",		"javascript:a.oo(400);");
+	//a.add(401, 400, "Profile",			"javascript:go('station/profile.asp');");
+	//a.add(402, 400, "Link Status",			"javascript:go('station/link_status.asp');");
+	//a.add(403, 400, "Site Survey",			"javascript:go('station/site_survey.asp');");
+	//a.add(404, 400, "Statistics",			"javascript:go('station/statistics.asp');");
+	//a.add(405, 400, "Advance",			"javascript:go('station/advance.asp');");
+	//a.add(406, 400, "QoS",				"javascript:go('station/qos.asp');");
+	//a.add(407, 400, "11n Configurations",		"javascript:go('station/11n_cfg.asp');");
+	//a.add(408, 400, "About"),			"javascript:go('station/about.asp');");
+	//if (wscb == "1")
+	//	a.add(409, 400, "WPS",			"javascript:go('wps/wps_sta.asp');");
+	//if (ad == '1')
+	//	a.add(410, 400, "Antenna Diversity",	"javascript:go('wireless/ant_diversity.asp');");
+	a.add(411, 400, "Sniffer",			"javascript:go('station/sniffer.html');");
+}
+else
+{
+	a.add(400,   0, "Wireless Settings",   	"javascript:a.oo(400);");
+	a.add(401, 400, "Basic",               	"javascript:go('wireless/basic.shtml');");
+	a.add(402, 400, "Advanced",          	"javascript:go('wireless/advanced.shtml');");
+	a.add(403, 400, "Security",		"javascript:go('wireless/security.shtml');");
+	var wdsb = "<!--#exec cmd="web 2860 build wds"-->";
+	if (wdsb == "1")
+		a.add(404, 400, "WDS",                	"javascript:go('wireless/wds.shtml');");
+	var wscb = "<!--#exec cmd="web 2860 build wsc"-->";
+	if (wscb == "1")
+		a.add(405, 400, "WPS",			"javascript:go('wireless/wps.shtml');");
+	if (opmode == "3" || (opmode == "0" && apclib == "1" && apcli_en == "1"))
+		a.add(406, 400, "AP Client",     	"javascript:go('wireless/apcli.shtml');");
+	a.add(407, 400, "Station List",		"javascript:go('wireless/stainfo.shtml');");
+	a.add(408, 400, "Statistics",        	"javascript:go('wireless/apstatistics.shtml');");
+	//if (one_button_through_wall == "1")
+		//a.add(409, 400, "obtw",        	"javascript:go('wireless/one_button_through_wall.shtml');");
+	//a.add(409, 400, "Antenna Diversity",		"javascript:go('wireless/ant_diversity.shtml');");
+	//a.add(410, 400, "Mesh",     "javascript:go('wireless/mesh.shtml');");
+	//a.add(411, 400, "Hotspot",                 "javascript:go('wireless/hotspot.shtml');");
+}
+
+var rai = "<!--#exec cmd="web rtdev sys wif2_live"-->";
+if (rai == "1")
+{
+	a.add(500,   0, "Wireless2 Settings",   	"javascript:a.oo(500);");
+	a.add(501, 500, "Basic",               	"javascript:go('wifi2/basic.shtml');");
+	a.add(502, 500, "Advanced",          	"javascript:go('wifi2/advanced.shtml');");
+	a.add(503, 500, "Security",		"javascript:go('wifi2/security.shtml');");
+	if (wdsb == "1")
+		a.add(504, 500, "WDS",                	"javascript:go('wifi2/wds.shtml');");
+	if (wscb == "1")
+		a.add(505, 500, "WPS",			"javascript:go('wifi2/wps.shtml');");
+	var apclib = "<!--#exec cmd="web rtdev build apClient"-->";
+	var apcli_en = "<!--#exec cmd="web rtdev nvram apClient"-->";
+	if (opmode == "3" || (opmode == "0" && apclib == "1" && apcli_en == "1"))
+		a.add(506, 500, "AP Client",     	"javascript:go('wifi2/apcli.shtml');");
+	a.add(507, 500, "Station List",		"javascript:go('wifi2/stainfo.shtml');");
+	a.add(508, 500, "Statistics",        	"javascript:go('wifi2/apstatistics.shtml');");
+}
+
+if (opmode != "0") {
+	var pktfilterb = "<!--#exec cmd="web 2860 build pktFilter"-->";
+	if (pktfilterb == "0") {
+		a.add(700,   0, "NAT",              "javascript:a.oo(700);");
+	} else {
+		a.add(700,   0, "Firewall",			"javascript:a.oo(700);");
+		a.add(701, 700, "MAC/IP/Port Filtering",	"javascript:go('firewall/port_filtering.shtml');");
+		a.add(702, 700, "System Security",		"javascript:go('firewall/system_firewall.shtml');");
+		a.add(703, 700, "Content Filtering",		"javascript:go('firewall/content_filtering.shtml');");
+	}
+	a.add(704, 700, "Port Forwarding",		"javascript:go('firewall/port_forward.shtml');");
+	a.add(706, 700, "port trigger",          	"javascript:go('firewall/port_trigger.shtml');");
+	a.add(705, 700, "DMZ",				"javascript:go('firewall/DMZ.shtml');");
+}
+
+var webcamb = "<!--#exec cmd="web 2860 build webcam"-->";
+var printersrvb = "<!--#exec cmd="web 2860 build printersrv"-->";
+var itunesb = "<!--#exec cmd="web 2860 build itunes"-->";
+var mediab = "<!--#exec cmd="web 2860 build media"-->";
+var voip = "<!--#exec cmd="web 2860 build voip"-->";
+ 
+
+
+
+var usbappb = 1*webcamb | 1*printersrvb | 1*itunesb | 1*mediab;
+if (usbappb == 1)
+{
+	a.add(800,   0, "USB",				"javascript:a.oo(800);");
+	if (webcamb == "1")
+		a.add(801, 800, "WebCamera",		"javascript:go('usb/UVCwebcam.shtml');");
+	if (printersrvb = "1")
+		a.add(802, 800, "PrinterServer",	"javascript:go('usb/P910NDprintersrv.shtml');");
+	if (itunesb == "1")
+		a.add(804, 800, "iTunesServer",		"javascript:go('usb/iTunesServer.shtml');");
+	if (mediab == "1")
+		a.add(805, 800, "MediaServer",		"javascript:go('usb/USHAREmediasrv.shtml');");
+}
+if(voip == 1)
+{
+	//alert("voip");
+	var lin_number = "<!--#exec cmd="web config2 nvram SC_SYS_CFG_MAX_LINE"-->";
+	var acc_number = "<!--#exec cmd="web config2 nvram SC_SYS_CFG_MAX_ACCT"-->";
+	a.add(950, 0, "VoIP",			        "javascript:a.oo(950);");
+	a.add(960, 950, "Account1",			        "javascript:a.oo(960);");
+	a.add(961, 960, "VoIP Status ",			"javascript:go('voip/voip_status.shtml');");
+	a.add(962, 960, "VoIP Server ",			"javascript:go('voip/voip_server.shtml');");
+	a.add(963, 960, "VoIP User ",			"javascript:go('voip/voip_user.shtml');");	
+	a.add(964, 960, "VoIP Feature",			"javascript:go('voip/voip_feature.shtml');");	
+	a.add(965, 960, "VoIP Dialing",			"javascript:go('voip/voip_dialing.shtml');");	
+	a.add(966, 960, "VoIP Speed Dial",			"javascript:go('voip/voip_speed_dial.shtml');");
+	a.add(967, 960, "VoIP FAX",			"javascript:go('voip/voip_fax.shtml');");			
+	a.add(968, 960, "VoIP RTP",			"javascript:go('voip/voip_rtp.shtml');");	
+	if (acc_number == 2 || acc_number == 3 || acc_number == 4){
+	  a.add(990, 950, "Account2",			        "javascript:a.oo(990);");	
+		a.add(991, 990, "VoIP Status ",			"javascript:go('voip/voip_status2.shtml');");
+		a.add(992, 990, "VoIP Server ",			"javascript:go('voip/voip_server2.shtml');");
+		a.add(993, 990, "VoIP User ",			"javascript:go('voip/voip_user2.shtml');");	
+		a.add(994, 990, "VoIP Feature",			"javascript:go('voip/voip_feature2.shtml');");	
+		a.add(995, 990, "VoIP Dialing",			"javascript:go('voip/voip_dialing2.shtml');");	
+		a.add(996, 990, "VoIP Speed Dial",			"javascript:go('voip/voip_speed_dial2.shtml');");
+		a.add(997, 990, "VoIP FAX",			"javascript:go('voip/voip_fax2.shtml');");			
+		a.add(998, 990, "VoIP RTP",			"javascript:go('voip/voip_rtp2.shtml');");		
+  }
+	
+	a.add(970, 950, "General",			        "javascript:a.oo(970);");
+	a.add(971, 970, "VoIP System ",			"javascript:go('voip/voip_system.shtml');");
+	a.add(972, 970, "VoIP Media ",			"javascript:go('voip/voip_media.shtml');");
+	a.add(973, 970, "VoIP QoS",			"javascript:go('voip/voip_qos.shtml');");		
+	a.add(974, 970, "VoIP Provision",			"javascript:go('voip/voip_provision.shtml');");			
+		
+	a.add(980, 950, "Line1",			        "javascript:a.oo(980);");
+	a.add(981, 980, "VoIP Phone",			"javascript:go('voip/voip_phone.shtml');");
+	a.add(982, 980, "VoIP Voice",			"javascript:go('voip/voip_voice.shtml');");
+	a.add(983, 980, "VoIP Profile",			"javascript:go('voip/voip_profile.shtml');");
+	if (lin_number == 2 || lin_number == 3 || lin_number == 4){
+		a.add(1000, 950, "Line2",			        "javascript:a.oo(1000);");
+		a.add(1001, 1000, "VoIP Phone",			"javascript:go('voip/voip_phone2.shtml');");
+		a.add(1002, 1000, "VoIP Voice",			"javascript:go('voip/voip_voice2.shtml');");
+		a.add(1003, 1000, "VoIP Profile",			"javascript:go('voip/voip_profile2.shtml');");	
+  }
+	
+	
+	
+	a.add(984, 950, "TR069",			"javascript:go('voip/tr069.shtml');");	
+}
+var nasb = "<!--#exec cmd="web 2860 build nas"-->";
+if (nasb == "1")
+{
+	a.add(850,   0, "NAS",           		"javascript:a.oo(850);");
+	a.add(851, 850, "Disk Management",		"javascript:go('nas/disk.shtml');");
+	var ftpb = "<!--#exec cmd="web 2860 build ftp"-->";
+	if (ftpb == "1")
+		a.add(852, 850, "FTP Server",		"javascript:go('nas/ftpsrv.shtml');");
+	var smbb = "<!--#exec cmd="web 2860 build samba"-->";
+	if (smbb == "1")
+		a.add(853, 850, "SAMBA Server",		"javascript:go('nas/smbsrv.shtml');");
+}
+a.add(900,   0, "Administration",        "javascript:a.oo(900);");
+a.add(901, 900, "Management",            "javascript:go('adm/management.shtml');");
+a.add(902, 900, "Upload Firmware",       "javascript:go('adm/upload_firmware.shtml');");
+a.add(903, 900, "Settings Management",   "javascript:go('adm/settings.shtml');");
+a.add(904, 900, "Status",                "javascript:go('adm/status.shtml');");
+a.add(905, 900, "Statistics",            "javascript:go('adm/statistic.shtml');");
+a.add(906, 900, "System Command",        "javascript:go('adm/system_command.shtml');");
+var syslogb = "<!--#exec cmd="web 2860 build syslog"-->";
+if (syslogb == "1")
+	a.add(908, 900, "System Log",            "javascript:go('adm/syslog.shtml');");
+a.add(907, 900, "SDK History",           "javascript:go('cgi-bin/history.sh');");
+
+document.write(a);
+</script>
+
+</body>
+
+</html>

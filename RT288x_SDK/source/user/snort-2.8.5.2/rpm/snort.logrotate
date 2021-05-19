@@ -1,0 +1,14 @@
+# /etc/logrotate.d/snort
+# $Id: //WIFI_SOC/MP/SDK_4_3_0_0/RT288x_SDK/source/user/snort-2.8.5.2/rpm/snort.logrotate#1 $
+
+/var/log/snort/alert /var/log/snort/*log /var/log/snort/*/alert /var/log/snort/*/*log  {
+    daily
+    rotate 7
+    missingok
+    compress
+    sharedscripts
+    postrotate
+	/etc/init.d/snortd restart 1>/dev/null || true
+    endscript
+}
+

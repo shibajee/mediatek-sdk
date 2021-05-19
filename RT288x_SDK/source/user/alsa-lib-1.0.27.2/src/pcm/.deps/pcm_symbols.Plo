@@ -1,0 +1,6 @@
+pcm_symbols.lo pcm_symbols.o: pcm_symbols.c ../../include/config.h \
+  pcm_symbols_list.c
+
+../../include/config.h:
+
+pcm_symbols_list.c:

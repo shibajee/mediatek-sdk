@@ -1,0 +1,67 @@
+<!-- Copyright 2004, Ralink Technology Corporation All Rights Reserved. -->
+<html>
+<head>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="/style/normal_ws.css" type="text/css">
+<title>System Log</title>
+</head>
+
+<script language="JavaScript" type="text/javascript">
+function updateLog()
+{
+	var str = "<!--#exec cmd="web 2860 sys syslog"-->";
+
+	if (str == "-1") 
+		document.getElementById("syslog").value = "Not support.\n(Busybox->\n  System Logging Utilitie ->\n    syslogd\n    Circular Buffer\n    logread"
+	else
+		document.getElementById("syslog").value = str;
+}
+
+function pageInit()
+{
+	updateLog();
+}
+
+function clearlogclick()
+{
+	document.getElementById("syslog").value = "";
+	return ture;
+}
+
+function refreshlogclick()
+{
+	updateLog();
+	return true;
+}
+
+</script>
+
+<body onload="pageInit()">
+<table class="body"><tr><td>
+<h1 id="syslogTitle">System Log</h1>
+<p id="syslogIntroduction"> Syslog: </p>
+
+<form method="post" name ="SubmitClearLog" action="/cgi-bin/adm.cgi">
+<input type=hidden name=page value=clearlog>
+	<input type="button" value="Refresh" id="syslogSysLogRefresh" name="refreshlog" onclick="refreshlogclick();">
+	<input type="submit" value="Clear" id="syslogSysLogClear" name="clearlog" onclick="clearlogclick();">
+</form>
+
+<!-- ================= System log ================= -->
+<table border="1" cellpadding="2" cellspacing="1" width="95%">
+<tbody>
+<tr>
+	<td class="title"colspan="2" id="syslogSysLog">System Log: </td>
+</tr>
+<tr><td>
+		<textarea style=font-size:9pt name="syslog" id="syslog" cols="80" rows="50" wrap="off" readonly="1">
+		</textarea>
+	</td>
+</tr>
+</table>
+
+
+<br>
+</td></tr></table>
+</body></html>

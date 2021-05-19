@@ -1,0 +1,178 @@
+<!-- Copyright 2004, Ralink Technology Corporation All Rights Reserved. -->
+<html>
+<head>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="/style/normal_ws.css" type="text/css">
+<title>Local Area Network (LAN) Settings</title>
+</head>
+
+<script type="text/javascript" src="/shareFun.js"></script>
+<script language="JavaScript" type="text/javascript">
+	
+
+var vad2 = "<!--#exec cmd="web config2 nvram SC_LINE_2_VAD"-->";
+var lec2 = "<!--#exec cmd="web config2 nvram SC_LINE_2_LEC"-->";
+var drc2 = "<!--#exec cmd="web config2 nvram SC_LINE_2_DRC"-->";
+
+
+
+
+function checkValue(val)
+{
+	var f = document.forms[0];	
+
+	document.voip_status.page.value = val;
+
+	if (val == 0) // connect
+	{
+		//document.nfc_operation.NFC_Disable.disabled = false;
+		//document.nfc_operation.NFC_Enable.disabled = true;
+		document.voip_status.connect_status.value = 0;
+	}
+	else if (val == 1) // disconnect
+	{
+		//document.nfc_operation.NFC_Disable.disabled = true;
+		//document.nfc_operation.NFC_Enable.disabled = false;
+		document.voip_status.connect_status.value = 1;
+	}
+
+	//f.submit();
+
+	//setTimeout('window.close()', 1000);
+
+	return true;
+}	
+function initValue()
+{
+  
+  		if(vad2 == "0"){
+			document.voip_voice2.voice_active_detector2.options.selectedIndex = 0;
+		}else if(vad2 == "1"){
+    	document.voip_voice2.voice_active_detector2.options.selectedIndex = 1;
+    }    
+ 
+   	if(lec2 == "0"){
+			document.voip_voice2.line_echo_cancell2.options.selectedIndex = 0;
+		}else if(lec2 == "1"){
+    	document.voip_voice2.line_echo_cancell2.options.selectedIndex = 1;
+    }else if(lec2 == "2"){
+    	document.voip_voice2.line_echo_cancell2.options.selectedIndex = 2;
+    }else if(lec2 == "3"){
+    	document.voip_voice2.line_echo_cancell2.options.selectedIndex = 3;
+    }          
+  		if(drc2 == "0"){
+			document.voip_voice2.drc2.options.selectedIndex = 0;
+		}else if(drc2 == "1"){
+    	document.voip_voice2.drc2.options.selectedIndex = 1;
+    }   
+
+}
+
+
+
+
+</script>
+
+<body onLoad="initValue()">
+<table class="body"><tr><td>
+
+<h1 id="lTitle">VoIP Voice 2</h1>
+<p id="lIntroduction"></p>
+<hr />
+
+<form method=post name="voip_voice2" action="/cgi-bin/voip.cgi" onSubmit="return CheckValue()">
+<input type=hidden name=page value=voip_voice2>
+<table width="95%" border="1" cellpadding="2" cellspacing="1">
+	
+
+
+
+<tr>
+  <td class="title" colspan="2" id="vadid">VAD</td>
+</tr>
+
+
+<tr>
+	<td class="head" id="voice_active_detectorid">
+		Voice Active Detector
+	</td>
+	<td>
+	<select name="voice_active_detector2" size="1">
+	<option value=0 id="disable">Disable</option>
+	<option value=1 id="slence">Silence Suppression - Codec Specific CN</option>
+	</select>
+	</td>
+</tr>
+
+
+<tr>
+  <td class="title" colspan="2" id="lecid">LEC</td>
+</tr>
+
+
+<tr>
+	<td class="head" id="line_echo_cancellid">
+		Line Echo Canceller Tall Length
+	</td>
+	<td>
+	<select name="line_echo_cancell2" size="1">
+	<option value=0 id="disable">Disable</option>
+	<option value=1 id="16">16 msec</option>
+	<option value=2 id="32">32 msec</option>
+	<option value=3 id="48">48 msec</option> 
+	</select>default:48ms
+	</td>
+</tr>
+
+
+<tr>
+  <td class="title" colspan="2" id="drcid">DRC</td>
+</tr>
+
+<tr>
+	<td class="head" id="line_echo_cancellid">
+		DRC
+	</td>
+	<td>
+	<select name="drc2" size="1">
+	<option value=0 id="disable">Disable</option>
+	<option value=1 id="enable">Enable</option>
+
+	</select>
+	</td>
+</tr>
+
+
+
+
+
+
+
+
+
+</table>
+
+
+<table width="95%" cellpadding="2" cellspacing="1">
+<tr align="center">
+  <td>
+    <input type=submit  name="Save" style="{width:120px;}" value="Save" id="Save" ;>&nbsp;&nbsp;
+    <input type=reset  name="Cancel" style="{width:120px;}" value="Cancel" id="Cancel" ;>
+  </td>
+
+</tr>
+
+</table>
+
+
+
+
+
+
+</form>
+
+</td></tr></table>
+</body>
+</html>
+

@@ -1,0 +1,296 @@
+<!-- Copyright 2004, Ralink Technology Corporation All Rights Reserved. -->
+<html>
+<head>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="/style/normal_ws.css" type="text/css">
+<title>IPv6 Settings</title>
+</head>
+
+<script type="text/javascript" src="/shareFun.js"></script>
+<script language="JavaScript" type="text/javascript">
+var ipv66rdb = "<!--#exec cmd="web 2860 build ipv6rd"-->";
+var ipv6dsb = "<!--#exec cmd="web 2860 build ipv6dslite"-->";
+
+function SwitchOpMode()
+{
+	display("none", "v6StaticTable");
+	document.ipv6_cfg.ipv6_lan_ipaddr.disabled = true;
+	document.ipv6_cfg.ipv6_lan_prefix_len.disabled = true;
+	document.ipv6_cfg.ipv6_wan_ipaddr.disabled = true;
+	document.ipv6_cfg.ipv6_wan_prefix_len.disabled = true;
+	document.ipv6_cfg.ipv6_static_gw.disabled = true;
+	display("none", "v66rdTable");
+	document.ipv6_cfg.ipv6_6rd_prefix.disabled = true;
+	document.ipv6_cfg.ipv6_6rd_prefix_len.disabled = true;
+	document.ipv6_cfg.ipv6_6rd_border_ipaddr.disabled = true;
+	display("none", "v6DSTable");
+	document.ipv6_cfg.ipv6_ds_wan_ipaddr.disabled = true;
+	document.ipv6_cfg.ipv6_ds_aftr_ipaddr.disabled = true;
+	document.ipv6_cfg.ipv6_ds_gw_ipaddr.disabled = true;
+
+	if (document.ipv6_cfg.ipv6_opmode.options.selectedIndex == 1) {
+		display("table", "v6StaticTable");
+		document.ipv6_cfg.ipv6_lan_ipaddr.disabled = false;
+		document.ipv6_cfg.ipv6_lan_prefix_len.disabled = false;
+		document.ipv6_cfg.ipv6_wan_ipaddr.disabled = false;
+		document.ipv6_cfg.ipv6_wan_prefix_len.disabled = false;
+		document.ipv6_cfg.ipv6_static_gw.disabled = false;
+	} else if (ipv66rdb == "1" && document.ipv6_cfg.ipv6_opmode.options.selectedIndex == 2) {
+		display("table", "v66rdTable");
+		document.ipv6_cfg.ipv6_6rd_prefix.disabled = false;
+		document.ipv6_cfg.ipv6_6rd_prefix_len.disabled = false;
+		document.ipv6_cfg.ipv6_6rd_border_ipaddr.disabled = false;
+	} else if (document.ipv6_cfg.ipv6_opmode.options.selectedIndex == document.ipv6_cfg.ipv6_opmode.options.length-1) {
+		display("table", "v6DSTable");
+		document.ipv6_cfg.ipv6_ds_wan_ipaddr.disabled = false;
+		document.ipv6_cfg.ipv6_ds_aftr_ipaddr.disabled = false;
+		document.ipv6_cfg.ipv6_ds_gw_ipaddr.disabled = false;
+	}
+}
+
+function initValue()
+{
+	var opmode = "<!--#exec cmd="web 2860 nvram IPv6OpMode"-->";
+	var opmode_len = document.ipv6_cfg.ipv6_opmode.options.length;
+
+	if (ipv66rdb == "1") {
+		document.ipv6_cfg.ipv6_opmode.options[2] = new Option("Tunneling Connection (6RD)", "2");
+		opmode_len++;
+	}
+	if (ipv6dsb == "1") {
+		document.ipv6_cfg.ipv6_opmode.options[opmode_len] = new Option("Tunneling Connection (DS-Lite)", "3");
+		opmode_len++;
+	}
+
+	if (opmode == "1")
+		document.ipv6_cfg.ipv6_opmode.options.selectedIndex = 1;
+	else if (opmode == "2")
+		document.ipv6_cfg.ipv6_opmode.options.selectedIndex = 2;
+	else if (opmode == "3")
+		document.ipv6_cfg.ipv6_opmode.options.selectedIndex = opmode_len-1;
+
+	SwitchOpMode();
+
+	if (opmode == "1") {
+		document.ipv6_cfg.ipv6_lan_ipaddr.value = "<!--#exec cmd="web 2860 nvram IPv6IPAddr"-->";
+		document.ipv6_cfg.ipv6_lan_prefix_len.value = "<!--#exec cmd="web 2860 nvram IPv6PrefixLen"-->";
+		document.ipv6_cfg.ipv6_wan_ipaddr.value = "<!--#exec cmd="web 2860 nvram IPv6WANIPAddr"-->";
+		document.ipv6_cfg.ipv6_wan_prefix_len.value = "<!--#exec cmd="web 2860 nvram IPv6WANPrefixLen"-->";
+		document.ipv6_cfg.ipv6_static_gw.value = "<!--#exec cmd="web 2860 nvram IPv6GWAddr"-->";
+	} else if (opmode == "2") {
+		document.ipv6_cfg.ipv6_6rd_prefix.value = "<!--#exec cmd="web 2860 nvram IPv6IPAddr"-->";
+		document.ipv6_cfg.ipv6_6rd_prefix_len.value = "<!--#exec cmd="web 2860 nvram IPv6PrefixLen"-->";
+		document.ipv6_cfg.ipv6_6rd_border_ipaddr.value = "<!--#exec cmd="web 2860 nvram IPv6SrvAddr"-->";
+	} else if (opmode == "3") {
+		document.ipv6_cfg.ipv6_ds_wan_ipaddr.value = "<!--#exec cmd="web 2860 nvram IPv6IPAddr"-->";
+		document.ipv6_cfg.ipv6_ds_aftr_ipaddr.value = "<!--#exec cmd="web 2860 nvram IPv6SrvAddr"-->";
+		document.ipv6_cfg.ipv6_ds_gw_ipaddr.value = "<!--#exec cmd="web 2860 nvram IPv6GWAddr"-->";
+	}
+}
+
+function checkIpv6Addr(ip_addr, len)
+{
+	var ip_item = new Array();
+	ip_item = ip_addr.split(":");
+	for (var i=0; i<ip_item.length; i++) {
+		if (parseInt(ip_item[i], 16) == "NaN") {
+			alert('It should be a [0-F] number.');
+			return false;
+		}
+	}
+
+	return true;
+}
+
+function CheckValue()
+{
+	if (document.ipv6_cfg.ipv6_opmode.value == "1") {
+		if (document.ipv6_cfg.ipv6_lan_ipaddr.value == "" &&
+		    document.ipv6_cfg.ipv6_wan_ipaddr.value == "") {
+			alert("please fill LAN/WAN IPv6 Address!");
+			return false;
+		}
+		if (document.ipv6_cfg.ipv6_lan_ipaddr.value != "") {
+			if (!checkIpv6Addr(document.ipv6_cfg.ipv6_lan_ipaddr.value, 128)) {
+				alert("invalid IPv6 IP address!");
+				document.ipv6_cfg.ipv6_lan_ipaddr.focus();
+				document.ipv6_cfg.ipv6_lan_ipaddr.select();
+				return false;
+			}
+			if (document.ipv6_cfg.ipv6_lan_prefix_len.value == "" || 
+			    document.ipv6_cfg.ipv6_lan_prefix_len.value > 128 || 
+			    document.ipv6_cfg.ipv6_lan_prefix_len.value < 0) {
+				alert("invalid prefix length!");
+				document.ipv6_cfg.ipv6_lan_prefix_len.focus();
+				document.ipv6_cfg.ipv6_lan_prefix_len.select();
+				return false;
+			}
+		}
+		if (document.ipv6_cfg.ipv6_wan_ipaddr.value != "") {
+			if (!checkIpv6Addr(document.ipv6_cfg.ipv6_wan_ipaddr.value, 128)) {
+				alert("invalid IPv6 IP address!");
+				document.ipv6_cfg.ipv6_wan_ipaddr.focus();
+				document.ipv6_cfg.ipv6_wan_ipaddr.select();
+				return false;
+			}
+			if (document.ipv6_cfg.ipv6_wan_prefix_len.value == "" ||
+			    document.ipv6_cfg.ipv6_wan_prefix_len.value > 128 || 
+			    document.ipv6_cfg.ipv6_wan_prefix_len.value < 0) {
+				alert("invalid prefix length!");
+				document.ipv6_cfg.ipv6_wan_prefix_len.focus();
+				document.ipv6_cfg.ipv6_wan_prefix_len.select();
+				return false;
+			}
+		}
+		if (document.ipv6_cfg.ipv6_static_gw.value != "" &&
+		    (!checkIpv6Addr(document.ipv6_cfg.ipv6_static_gw.value, 128))) {
+			alert("invalid IPv6 IP address!");
+			document.ipv6_cfg.ipv6_static_gw.focus();
+			document.ipv6_cfg.ipv6_static_gw.select();
+			return false;
+		}
+	} else if (document.ipv6_cfg.ipv6_opmode.value == "2") {
+		if (document.ipv6_cfg.ipv6_6rd_prefix.value == "" ||
+		    document.ipv6_cfg.ipv6_6rd_prefix_len.value == "" ||
+		    document.ipv6_cfg.ipv6_6rd_border_ipaddr.value == "") {
+			alert("please fill all fields!");
+			return false;
+		}
+		if (!checkIpv6Addr(document.ipv6_cfg.ipv6_6rd_prefix.value, 32)) {
+			alert("invalid IPv6 IP address!");
+			document.ipv6_cfg.ipv6_6rd_prefix.focus();
+			document.ipv6_cfg.ipv6_6rd_prefix.select();
+			return false;
+		}
+		if (document.ipv6_cfg.ipv6_6rd_prefix_len.value > 32 || 
+		    document.ipv6_cfg.ipv6_6rd_prefix_len.value < 0) {
+			alert("invalid prefix length!");
+			document.ipv6_cfg.ipv6_6rd_prefix_len.focus();
+			document.ipv6_cfg.ipv6_6rd_prefix_len.select();
+			return false;
+		}
+		if (!checkIpv4Addr(document.ipv6_cfg.ipv6_6rd_border_ipaddr.value, false)) {
+			alert("invalid IPv4 ip address!");
+			document.ipv6_cfg.ipv6_6rd_border_ipaddr.focus();
+			document.ipv6_cfg.ipv6_6rd_border_ipaddr.select();
+			return false;
+		}
+	} else if (document.ipv6_cfg.ipv6_opmode.value == "3") {
+		if (document.ipv6_cfg.ipv6_ds_wan_ipaddr.value == "" ||
+		    document.ipv6_cfg.ipv6_ds_aftr_ipaddr.value == "" ||
+		    document.ipv6_cfg.ipv6_ds_gw_ipaddr.value == "") {
+			alert("please fill all fields!");
+			return false;
+		}
+		if (!checkIpv6Addr(document.ipv6_cfg.ipv6_ds_wan_ipaddr.value, 128)) {
+			alert("invalid IPv6 ip address!");
+			document.ipv6_cfg.ipv6_ds_wan_ipaddr.focus();
+			document.ipv6_cfg.ipv6_ds_wan_ipaddr.select();
+			return false;
+		}
+		if (!checkIpv6Addr(document.ipv6_cfg.ipv6_ds_aftr_ipaddr.value, 128)) {
+			alert("invalid IPv6 ip address!");
+			document.ipv6_cfg.ipv6_ds_aftr_ipaddr.focus();
+			document.ipv6_cfg.ipv6_ds_aftr_ipaddr.select();
+			return false;
+		}
+		if (!checkIpv6Addr(document.ipv6_cfg.ipv6_ds_gw_ipaddr.value, 128)) { 
+			alert("invalid ipv6 ip address!");
+			document.ipv6_cfg.ipv6_ds_gw_ipaddr.focus();
+			document.ipv6_cfg.ipv6_ds_gw_ipaddr.select();
+			return false;
+		}
+	}
+	
+	return true;
+}
+</script>
+
+<body onLoad="initValue()">
+<table class="body"><tr><td>
+
+<h1 id="lTitle">
+<p id="lIntroduction">IPv6 Setup</p>
+</h1>
+<hr />
+
+<form method=post name="ipv6_cfg" action="/cgi-bin/internet.cgi" onSubmit="return CheckValue()">
+<input type=hidden name=page value=ipv6>
+<table width="95%" border="1" cellpadding="2" cellspacing="1">
+<tr>
+  <td class="title" colspan="2" id="v6ConnType">IPv6 Connection Type</td>
+</tr>
+<tr>
+  <td class="head" id="v6OpMode">IPv6 Operation Mode</td>
+  <td>
+    <select name="ipv6_opmode" size="1" onChange="SwitchOpMode()">
+      <option value="0" id="v6Disable">Disable</option>
+      <option value="1" id="v6Static">Static IP Connection</option>
+    </select>
+  </td>
+</tr>
+</table>
+<!-- STATIC IP --!>
+<table width="95%" id="v6StaticTable" border="1" bordercolor="#9babbd" cellpadding="3" cellspacing="1" hspace="2" vspace="2" width="540" style="visibility: hidden;">
+<tr>
+  <td class="title" colspan="2" id="v6StaticIPSetup">IPv6 Static IP Setup</td>
+</tr>
+<tr>
+  <td class="head" id="v6StaticIPAddr">LAN IPv6 Address / Subnet Prefix Length</td>
+  <td><input name="ipv6_lan_ipaddr" maxlength=39 size=27> / <input name="ipv6_lan_prefix_len" maxlength=3 size=2></td>
+</tr>
+<tr>
+  <td class="head" id="v6StaticIPAddr">WAN IPv6 Address / Subnet Prefix Length</td>
+  <td><input name="ipv6_wan_ipaddr" maxlength=39 size=27> / <input name="ipv6_wan_prefix_len" maxlength=3 size=2></td>
+</tr>
+<tr>
+  <td class="head" id="v6StaticGW">Default Gateway</td>
+  <td><input name="ipv6_static_gw" maxlength=39 size=27></td>
+</tr>
+</table>
+<!-- 6RD --!>
+<table width="95%" id="v66rdTable" border="1" bordercolor="#9babbd" cellpadding="3" cellspacing="1" hspace="2" vspace="2" width="540" style="visibility: hidden;">
+<tr>
+  <td class="title" colspan="2" id="v66rdSetup">Tunneling Connection (6RD) Setup</td>
+</tr>
+<tr>
+  <td class="head" id="v66rdPrefix">ISP 6rd Prefix / Prefix Length</td>
+  <td><input name="ipv6_6rd_prefix" maxlength=9 size=7> / <input name="ipv6_6rd_prefix_len" maxlength=3 size=2></td>
+</tr>
+<tr>
+  <td class="head" id="v66rdBorderIPAddr">ISP Border Relay IPv4 Address</td>
+  <td><input name="ipv6_6rd_border_ipaddr" maxlength=15 size=13></td>
+</tr>
+</table>
+<!-- DS-Lite --!>
+<table width="95%" id="v6DSTable" border="1" bordercolor="#9babbd" cellpadding="3" cellspacing="1" hspace="2" vspace="2" width="540" style="visibility: hidden;">
+<tr>
+  <td class="title" colspan="2" id="v6DSSetup">Tunneling Connection (DS-Lite) Setup</td>
+</tr>
+<tr>
+  <td class="head" id="v6DSLocalIPAddr"> WAN IPv6 Address </td>
+  <td><input name="ipv6_ds_wan_ipaddr" maxlength=39 size=27></td>
+</tr>
+<tr>
+  <td class="head" id="v6DSAFTRIPAddr"> AFTR Server IPv6 Address</td>
+  <td><input name="ipv6_ds_aftr_ipaddr" maxlength=39 size=27></td>
+</tr>
+<tr>
+  <td class="head" id="v6DSGWIPAddr"> Gateway IPv6 Address </td>
+  <td><input name="ipv6_ds_gw_ipaddr" maxlength=39 size=27></td>
+</tr>
+</table>
+<table width="95%" cellpadding="2" cellspacing="1">
+<tr align="center">
+  <td>
+    <input type=submit style="{width:120px;}" value="Apply" id="v6Apply">&nbsp;&nbsp;
+    <input type=reset  style="{width:120px;}" value="Cancel" id="v6Cancel">
+  </td>
+</tr>
+</table>
+</form>
+</td></tr></table>
+</body>
+</html>
+

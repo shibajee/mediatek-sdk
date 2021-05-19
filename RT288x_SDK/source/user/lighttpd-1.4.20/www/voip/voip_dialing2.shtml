@@ -1,0 +1,91 @@
+<!-- Copyright 2004, Ralink Technology Corporation All Rights Reserved. -->
+<html>
+<head>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="/style/normal_ws.css" type="text/css">
+<title>Local Area Network (LAN) Settings</title>
+</head>
+
+<script type="text/javascript" src="/shareFun.js"></script>
+<script language="JavaScript" type="text/javascript">
+	
+
+function checkValue(val)
+{
+
+
+	return true;
+}	
+function initValue()
+{
+
+	
+
+
+}
+
+
+
+
+</script>
+
+<body onLoad="initValue()">
+<table class="body"><tr><td>
+
+<h1 id="lTitle">VoIP Dialing 2</h1>
+<p id="lIntroduction"></p>
+<hr />
+
+<form method=post name="voip_dialing2" action="/cgi-bin/voip.cgi" onSubmit="return CheckValue()">
+<input type=hidden name=page value=voip_dialing2>
+<table width="95%" border="1" cellpadding="2" cellspacing="1">
+<tr>
+  <td class="title" colspan="2" id="general_dialing_settings">General Dialing Settings</td>
+</tr>
+
+
+
+
+
+
+
+<tr>
+  <td class="head" id="timer_digit_id">Inter-digit Timeout</td>
+  <td><input name="timer_digit2" maxlength=15 value="<!--#exec cmd="web config2 nvram SC_ACCT_2_TIMER_INTER_DIGIT"-->" >seconds(1-5, default:3)</td>
+</tr>
+
+<tr>
+  <td class="head" id="timer_first_digit_id">First-digit Timeout</td>
+  <td><input name="timer_first_digit2" maxlength=15 value="<!--#exec cmd="web config2 nvram SC_ACCT_2_TIMER_FIRST_DIGIT"-->" >seconds(5-30, default:15)</td>
+</tr>
+
+
+
+
+
+</table>
+
+
+<table width="95%" cellpadding="2" cellspacing="1">
+<tr align="center">
+  <td>
+    <input type=submit  name="Save" style="{width:120px;}" value="Save" id="Save" ;>&nbsp;&nbsp;
+    <input type=reset  name="Cancel" style="{width:120px;}" value="Cancel" id="Cancel" ;>
+  </td>
+
+</tr>
+
+</table>
+
+
+
+
+
+
+</form>
+
+</td></tr></table>
+</body>
+</html>
+

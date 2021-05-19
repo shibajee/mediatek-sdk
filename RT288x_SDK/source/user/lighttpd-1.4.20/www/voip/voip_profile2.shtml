@@ -1,0 +1,123 @@
+<!-- Copyright 2004, Ralink Technology Corporation All Rights Reserved. -->
+<html>
+<head>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="/style/normal_ws.css" type="text/css">
+<title>Local Area Network (LAN) Settings</title>
+</head>
+
+<script type="text/javascript" src="/shareFun.js"></script>
+<script language="JavaScript" type="text/javascript">
+	
+
+var country2 = "<!--#exec cmd="web config2 nvram SC_LINE_2_REGION"-->";
+
+
+
+
+
+function checkValue(val)
+{
+	var f = document.forms[0];	
+
+	document.voip_status.page.value = val;
+
+	if (val == 0) // connect
+	{
+		//document.nfc_operation.NFC_Disable.disabled = false;
+		//document.nfc_operation.NFC_Enable.disabled = true;
+		document.voip_status.connect_status.value = 0;
+	}
+	else if (val == 1) // disconnect
+	{
+		//document.nfc_operation.NFC_Disable.disabled = true;
+		//document.nfc_operation.NFC_Enable.disabled = false;
+		document.voip_status.connect_status.value = 1;
+	}
+
+	//f.submit();
+
+	//setTimeout('window.close()', 1000);
+
+	return true;
+}	
+function initValue()
+{
+  
+  	if(country2 == "0"){
+			document.voip_profile2.country_profile2.options.selectedIndex = 0;
+		}else if(country2 == "1"){
+    	document.voip_profile2.country_profile2.options.selectedIndex = 1;
+    }    
+ 
+
+
+}
+
+
+
+
+</script>
+
+<body onLoad="initValue()">
+<table class="body"><tr><td>
+
+<h1 id="lTitle">VoIP Voice 2</h1>
+<p id="lIntroduction"></p>
+<hr />
+
+<form method=post name="voip_profile2" action="/cgi-bin/voip.cgi" onSubmit="return CheckValue()">
+<input type=hidden name=page value=voip_profile2>
+<table width="95%" border="1" cellpadding="2" cellspacing="1">
+	
+
+
+
+<tr>
+  <td class="title" colspan="2" id="country_profileid">Country Profile</td>
+</tr>
+
+
+
+
+<tr>
+	<td class="head" id="country_profileid">
+		Country Profile
+	</td>
+	<td>
+	<select name="country_profile2" size="1">
+	<option value=0 id="customize">Customize</option>
+	<option value=1 id="usa">USA</option>
+	</select>
+	</td>
+</tr>
+
+
+
+
+</table>
+
+
+<table width="95%" cellpadding="2" cellspacing="1">
+<tr align="center">
+  <td>
+    <input type=submit  name="Save" style="{width:120px;}" value="Save" id="Save" ;>&nbsp;&nbsp;
+    <input type=reset  name="Cancel" style="{width:120px;}" value="Cancel" id="Cancel" ;>
+  </td>
+
+</tr>
+
+</table>
+
+
+
+
+
+
+</form>
+
+</td></tr></table>
+</body>
+</html>
+

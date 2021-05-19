@@ -1,0 +1,197 @@
+<!-- Copyright 2004, Ralink Technology Corporation All Rights Reserved. -->
+<html>
+<head>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="/style/normal_ws.css" type="text/css">
+<title>SAMBA Settings</title>
+</head>
+
+<script type="text/javascript" src="/shareFun.js"></script>
+<script language="JavaScript" type="text/javascript">
+
+var smbenabled = "<!--#exec cmd="web 2860 nvram SmbEnabled"-->";
+var smbwg = "<!--#exec cmd="web 2860 nvram HostName"-->";
+var smbnetbios = "<!--#exec cmd="web 2860 nvram SmbNetBIOS"-->";
+var dir_count = 0;
+
+function initValue()
+{
+
+	// alert(smbenabled);
+
+	document.storage_smb.smb_workgroup.disabled = true;
+	document.storage_smb.smb_netbios.disabled = true;
+
+	if (smbenabled == "1")
+	{
+		// alert("SAMBA E");
+		document.storage_smb.smb_enabled[0].checked = true;
+		document.storage_smb.smb_workgroup.disabled = false;
+		document.storage_smb.smb_workgroup.value = smbwg;
+		document.storage_smb.smb_netbios.disabled = false;
+		document.storage_smb.smb_netbios.value = smbnetbios;
+	}
+	else
+	{
+		// alert("SAMBA D");
+		document.storage_smb.smb_enabled[1].checked = true;
+	}
+}
+
+function CheckSelect()
+{
+	// alert("dir_count: "+dir_count);
+	if (dir_count <= 0)
+	{
+		alert("No any option can be choosed!");
+		return false;
+	}
+	else if (dir_count == 1)
+	{
+		if (document.storage_smb.smb_dir.checked == false)	
+		{
+			alert("please select one option!");
+			return false;
+		}
+		document.storage_smb.selectIndex.value = 0;
+		document.storage_smb.selectDir.value = document.storage_smb.smb_dir.value;
+		document.storage_smb.selectPermit.value = document.storage_smb.smb_dir_permit.value;
+		document.storage_smb.selectPath.value = document.storage_smb.smb_dir_path.value;
+	}
+	else
+	{
+		for(i=0;i<dir_count;i++)
+		{
+			if (document.storage_smb.smb_dir[i].checked == true)
+			{
+				document.storage_smb.selectIndex.value = i;
+				document.storage_smb.selectDir.value = document.storage_smb.smb_dir[i].value;
+				document.storage_smb.selectPermit.value = document.storage_smb.smb_dir_permit[i].value;
+				document.storage_smb.selectPath.value = document.storage_smb.smb_dir_path[i].value;
+				break;
+			}
+		}
+		if (i == dir_count)
+		{
+			alert("please select one option!");
+			return false;
+		}
+	}
+
+	return true;
+}
+
+function CheckValue()
+{
+	if (document.storage_smb.smb_enabled[0].checked == true)
+	{
+		if (document.storage_smb.smb_workgroup.value == "")
+		{
+			alert('Please specify SAMBA Workgroup');
+			document.storage_smb.smb_workgroup.focus();
+			document.storage_smb.smb_workgroup.select();
+			return false;
+		}
+		else if (document.storage_smb.smb_workgroup.value.indexOf(" ") >= 0)
+		{
+			alert('Don\'t enter Blank Space in this feild');
+			document.storage_smb.smb_workgroup.focus();
+			document.storage_smb.smb_workgroup.select();
+			return false;
+		}
+
+		if (document.storage_smb.smb_netbios.value == "")
+		{
+			alert('Please specify SAMBA NetBIOS Name');
+			document.storage_smb.smb_netbios.focus();
+			document.storage_smb.smb_netbios.select();
+			return false;
+		}
+		else if (document.storage_smb.smb_netbios.value.indexOf(" ") >= 0)
+		{
+			alert('Don\'t enter Blank Space in this feild');
+			document.storage_smb.smb_netbios.focus();
+			document.storage_smb.smb_netbios.select();
+			return false;
+		}
+	}
+
+	return true;
+}
+
+function smb_enable_switch()
+{
+	if (document.storage_smb.smb_enabled[1].checked == true)
+	{
+		document.storage_smb.smb_workgroup.disabled = true;
+		document.storage_smb.smb_netbios.disabled = true;
+	}
+	else
+	{
+		document.storage_smb.smb_workgroup.disabled = false;
+		document.storage_smb.smb_netbios.disabled = false;
+	}
+}
+
+function submit_apply()
+{
+	if (CheckValue())
+		document.storage_smb.submit();
+}
+
+</script>
+
+<body onLoad="initValue()">
+<table class="body"><tr><td>
+<h1 id="smbTitle">SAMBA Settings </h1>
+<p id="smbIntroduction"></p>
+<hr />
+
+<form method=post name=storage_smb action="/cgi-bin/nas.cgi">
+<input type=hidden name=page value=smb>
+<input type=hidden name=selectIndex value="">
+<input type=hidden name=selectDir value="">
+<input type=hidden name=selectPermit value="">
+<input type=hidden name=selectPath value="">
+<input type=hidden name=hiddenButton value="">
+<table width="540" border="1" cellspacing="1" cellpadding="3" vspace="2" hspace="2" bordercolor="#9BABBD">
+  <tr> 
+    <td class="title" colspan="2" id="smbSrvSet">SAMBA Server Setup</td>
+  </tr>
+  <tr> 
+    <td class="head" id="smbSrv">SAMBA Server</td>
+    <td>
+      <input type=radio name=smb_enabled value="1" onClick="smb_enable_switch()"><font id="smbSrvEnable">Enable</font>&nbsp;
+      <input type=radio name=smb_enabled value="0" onClick="smb_enable_switch()" checked><font id="smbSrvDisable">Disable</font>
+    </td>
+  </tr>
+  <tr>
+    <td class="head" id="smbSrvWG">Workgroup</td>
+    <td>
+      <input type=text name=smb_workgroup size=16 maxlength=16 value="ralink">
+    </td>
+  </tr>
+  <tr>
+    <td class="head" id="smbSrvNetBIOS">NetBIOS Name</td>
+    <td>
+      <input type=text name=smb_netbios size=16 maxlength=16 value="RalinkSoC">
+    </td>
+  </tr>
+</table>
+
+<hr />
+<table width = "540" border = "0" cellpadding = "2" cellspacing = "1">
+  <tr align="center">
+    <td>
+      <input type=button style="{width:120px;}" value="Apply" id="adddirApply" onClick="submit_apply()"> &nbsp; &nbsp;
+      <input type=reset  style="{width:120px;}" value="Cancel" id="adddirCancel" onClick="window.close()">
+    </td>
+  </tr>
+</table>
+<br />
+</form>
+
+</td></tr></table>
+</body>
+</html>

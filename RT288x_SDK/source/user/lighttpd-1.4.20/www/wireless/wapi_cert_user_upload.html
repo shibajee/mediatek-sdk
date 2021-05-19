@@ -1,0 +1,49 @@
+<!-- Copyright 2004, Ralink Technology Corporation All Rights Reserved. -->
+<html>
+<head>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="Expires" content="-1">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="/style/normal_ws.css" type="text/css">
+<title>Wireless WAPI User Certificate Upload</title>
+</head>
+
+<script type="text/javascript" src="/shareFun.js"></script>
+<script language="JavaScript" type="text/javascript">
+
+function submit_apply()
+{
+	document.wapi_cert_user_upload.submit();
+	window.close();
+}
+</script>
+
+<body>
+<form method="post" name="wapi_cert_user_upload" action="/cgi-bin/upload_wapi_user_cert.cgi" enctype="multipart/form-data">
+<table width="540" border="1" cellpadding="2" cellspacing="1">
+  <tr>
+    <td class="title" colspan="2" id="WapiCertTitle">Upload Certificate</td>
+  </tr>
+  <tr>
+    <td class="head" id="WapiCertUserTitle">WAPI User Certificate</td>
+    <td>
+      <input type="file" name="wapi_user_cert_file" maxlength="256">
+    </td>
+  </tr>
+</table>
+<br />
+<table width = "540" border = "0" cellpadding = "2" cellspacing = "1">
+  <tr align="center">
+    <td >
+      <input type="button" style="{width:120px;}" value="Apply" id="WapiCertApply" onClick="submit_apply()">
+      <input type="reset" style="{width:120px;}" value="Reset" id="WapicertReset">
+    </td>
+  </tr>
+</table>
+</form>
+</body>
+<head>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="-1">
+</head>
+</html>

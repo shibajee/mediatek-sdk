@@ -1,0 +1,185 @@
+<!-- Copyright 2004, Ralink Technology Corporation All Rights Reserved. -->
+<html>
+<head>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="/style/normal_ws.css" type="text/css">
+<title>Local Area Network (LAN) Settings</title>
+</head>
+
+<script type="text/javascript" src="/shareFun.js"></script>
+<script language="JavaScript" type="text/javascript">
+	
+	
+var speed_enable2 = "<!--#exec cmd="web config2 nvram SC_ACCT_2_SD_ENABLE"-->";
+var speed_ac_enable2 = "<!--#exec cmd="web config2 nvram SC_ACCT_2_SD_AC_ENABLE"-->";
+	
+
+function checkValue(val)
+{
+
+
+	return true;
+}	
+function initValue()
+{
+
+		if(speed_enable2 == "0"){
+			document.voip_speed_dial2.speedEnable2.options.selectedIndex = 0;
+		}else if(speed_enable2 == "1"){
+    	document.voip_speed_dial2.speedEnable2.options.selectedIndex = 1;
+    }		
+		if(speed_ac_enable2 == "0"){
+			document.voip_speed_dial2.dial_activeEnabled2.options.selectedIndex = 0;
+		}else if(speed_ac_enable2 == "1"){
+    	document.voip_speed_dial2.dial_activeEnabled2.options.selectedIndex = 1;
+    }		
+
+}
+
+function disableTextField (field)
+{
+  if(document.all || document.getElementById)
+    field.disabled = true;
+  else {
+    field.oldOnFocus = field.onfocus;
+    field.onfocus = skip;
+  }
+}
+
+function enableTextField (field)
+{
+  if(document.all || document.getElementById)
+    field.disabled = false;
+  else {
+    field.onfocus = field.oldOnFocus;
+  }
+}
+
+
+
+</script>
+
+<body onLoad="initValue()">
+<table class="body"><tr><td>
+
+<h1 id="lTitle">VoIP Speed Dial 2</h1>
+<p id="lIntroduction"></p>
+<hr />
+
+<form method=post name="voip_speed_dial2" action="/cgi-bin/voip.cgi" onSubmit="return CheckValue()">
+<input type=hidden name=page value=voip_speed_dial2>
+<table width="95%" border="1" cellpadding="2" cellspacing="1">
+<tr>
+  <td class="title" colspan="2" id="general_dialing_settings">Speed Dial Status</td>
+</tr>
+
+<tr>
+	<td class="head" id="speedEnable">
+		Enable/Disable
+	</td>
+	<td>
+	<select name="speedEnable2" size="1">
+	<option value=0 id="dialDisable">Disable</option>
+	<option value=1 id="dialEnable">Enable</option>
+	</select>
+	</td>
+</tr>
+
+<tr>
+  <td class="title" colspan="2" id="general_dialing_settings">Speed Dial Rules</td>
+</tr>
+
+<tr>
+	<td class="head" id="dialactive">Active
+	</td>
+	<td>
+	<select name="dial_activeEnabled2" size="1">
+		<option value=0 id="dialActiveDisable">Disable</option>
+    <option value=1 id="dialActiveEnable">Enable</option>
+    </select>
+    </td>
+</tr>
+
+
+
+
+<tr>
+	<td class="head" id="dialShortNumberid">
+		Short Sumber
+	</td>
+	<td>
+  		<input type="text" size="5" name="dialShortNumber"> 
+	</td>
+</tr>
+
+<tr>
+	<td class="head" id="dialRealtNumberid">
+		Real Sumber
+	</td>
+	<td>
+  		<input type="text" size="5" name="dialrealNumber2"> 
+	</td>
+</tr>
+
+<tr>
+	<td class="head" id="dialNoteid">
+		Note
+	</td>
+	<td>
+  		<input type="text" size="5" name="dialNote2"> 
+	</td>
+</tr>
+
+
+</table>
+
+
+
+<table width="95%" cellpadding="2" cellspacing="1">
+<tr align="center">
+  <td>
+    <input type=submit  name="Save" style="{width:120px;}" value="Save" id="Save" ;>&nbsp;&nbsp;
+    <input type=reset  name="Cancel" style="{width:120px;}" value="Cancel" id="Cancel" ;>
+  </td>
+
+</tr>
+
+</table>
+
+</form>
+
+
+
+<br>
+<hr />
+<!--  delete rules -->
+<form action="/cgi-bin/voip.cgi" method=POST name="dialRuleDelete2">
+<input type=hidden name=page value=dialRuleDelete2>
+<table width="400" border="1" cellpadding="2" cellspacing="1">	
+	<tr>
+		<td class="title" colspan="6" id="speedDialRuleids">Speed Dial Rule</td>
+	</tr>
+
+	<tr>
+		<td id="dialNo"> No.</td>
+		<td align=center id="dialActive"> Active</td>
+		<td align=center id="dialShortNumber"> Short Number</td>
+		<td align=center id="dialRealNumber"> Real Number</td>
+		<td align=center id="dialNote"> Note</td>
+	</tr>
+		<!--#exec cmd="web 2860 voip voipDialRule2"-->
+</table>
+<br>
+
+<input type="submit" value="Delete Selected" id="dialruledelteid" name="deleteDialRule2" onClick="return deleteClick()">&nbsp;&nbsp;
+<input type="reset" value="Reset" id="currentPortReset" name="reset2">
+</form>
+
+<br>
+
+
+</td></tr></table>
+</body>
+</html>
+

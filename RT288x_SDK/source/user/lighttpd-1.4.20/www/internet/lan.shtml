@@ -1,0 +1,546 @@
+<!-- Copyright 2004, Ralink Technology Corporation All Rights Reserved. -->
+<html>
+<head>
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="/style/normal_ws.css" type="text/css">
+<title>Local Area Network (LAN) Settings</title>
+</head>
+
+<script type="text/javascript" src="/shareFun.js"></script>
+<script language="JavaScript" type="text/javascript">
+var lan2 = "<!--#exec cmd="web 2860 nvram Lan2Enabled"-->";
+var secs;
+var timerID = null;
+var timerRunning = false;
+
+function StartTheTimer(){
+	if (secs==0){
+		TimeoutReload(5);
+		//window.location.reload();
+		window.location.href=window.location.href;	//reload page
+    }else{
+        self.status = secs
+        secs = secs - 1
+        timerRunning = true
+        timerID = self.setTimeout("StartTheTimer()", 1000)
+    }
+}
+
+function TimeoutReload(timeout)
+{
+	secs = timeout;
+	if(timerRunning)
+		clearTimeout(timerID)
+	timerRunning = false
+	StartTheTimer();	
+}
+
+function dhcpTypeSwitch()
+{
+	display("none", "start");
+	document.lanCfg.dhcpStart.disabled = true;
+	display("none", "end");
+	document.lanCfg.dhcpEnd.disabled = true;
+	display("none", "mask");
+	document.lanCfg.dhcpMask.disabled = true;
+	display("none", "pridns");
+	document.lanCfg.dhcpPriDns.disabled = true;
+	display("none", "secdns");
+	document.lanCfg.dhcpSecDns.disabled = true;
+	display("none", "gateway");
+	document.lanCfg.dhcpGateway.disabled = true;
+	display("none", "lease");
+	document.lanCfg.dhcpLease.disabled = true;
+	display("none", "staticlease1");
+	document.lanCfg.dhcpStatic1Mac.disabled = true;
+	document.lanCfg.dhcpStatic1Ip.disabled = true;
+	display("none", "staticlease2");
+	document.lanCfg.dhcpStatic2Mac.disabled = true;
+	document.lanCfg.dhcpStatic2Ip.disabled = true;
+	display("none", "staticlease3");
+	document.lanCfg.dhcpStatic3Mac.disabled = true;
+	document.lanCfg.dhcpStatic3Ip.disabled = true;
+	if (document.lanCfg.lanDhcpType.options.selectedIndex == 1)
+	{
+		var tmpStr;
+		var tmpArray = new Array();
+		display("table-row", "start");
+		document.lanCfg.dhcpStart.disabled = false;
+		display("table-row", "end");
+		document.lanCfg.dhcpEnd.disabled = false;
+		display("table-row", "mask");
+		document.lanCfg.dhcpMask.disabled = false;
+		display("table-row", "pridns");
+		document.lanCfg.dhcpPriDns.disabled = false;
+		display("table-row", "secdns");
+		document.lanCfg.dhcpSecDns.disabled = false;
+		display("table-row", "gateway");
+		document.lanCfg.dhcpGateway.disabled = false;
+		display("table-row", "lease");
+		document.lanCfg.dhcpLease.disabled = false;
+		display("table-row", "staticlease1");
+		document.lanCfg.dhcpStatic1Mac.disabled = false;
+		document.lanCfg.dhcpStatic1Ip.disabled = false;
+		display("table-row", "staticlease2");
+		document.lanCfg.dhcpStatic2Mac.disabled = false;
+		document.lanCfg.dhcpStatic2Ip.disabled = false;
+		display("table-row", "staticlease3");
+		document.lanCfg.dhcpStatic3Mac.disabled = false;
+		document.lanCfg.dhcpStatic3Ip.disabled = false;
+		tmpStr = "<!--#exec cmd="web 2860 nvram dhcpStatic1"-->";
+		if (tmpStr != "") {
+			tmpArray = tmpStr.split(";");
+			document.lanCfg.dhcpStatic1Mac.value = tmpArray[0];
+			document.lanCfg.dhcpStatic1Ip.value = tmpArray[1];
+		}
+		tmpStr = "<!--#exec cmd="web 2860 nvram dhcpStatic2"-->";
+		if (tmpStr != "") {
+			tmpArray = tmpStr.split(";");
+			document.lanCfg.dhcpStatic2Mac.value = tmpArray[0];
+			document.lanCfg.dhcpStatic2Ip.value = tmpArray[1];
+		}
+		tmpStr = "<!--#exec cmd="web 2860 nvram dhcpStatic3"-->";
+		if (tmpStr != "") {
+			tmpArray = tmpStr.split(";");
+			document.lanCfg.dhcpStatic3Mac.value = tmpArray[0];
+			document.lanCfg.dhcpStatic3Ip.value = tmpArray[1];
+		}
+	}
+}
+
+function initValue()
+{
+	var opmode = "<!--#exec cmd="web 2860 nvram OperationMode"-->";
+	var dhcp = "<!--#exec cmd="web 2860 nvram dhcpEnabled"-->";
+	var stp = "<!--#exec cmd="web 2860 nvram stpEnabled"-->";
+	var lltd = "<!--#exec cmd="web 2860 nvram lltdEnabled"-->";
+	var igmp = "<!--#exec cmd="web 2860 nvram igmpEnabled"-->";
+	var upnp = "<!--#exec cmd="web 2860 nvram upnpEnabled"-->";
+	var radvd = "<!--#exec cmd="web 2860 nvram radvdEnabled"-->";
+	var pppoe = "<!--#exec cmd="web 2860 nvram pppoeREnabled"-->";
+	var dns = "<!--#exec cmd="web 2860 nvram dnsPEnabled"-->";
+	var wan = "<!--#exec cmd="web 2860 nvram wanConnectionMode"-->";
+	var hostnameb = "<!--#exec cmd="web 2860 build hostName"-->";
+	var lltdb = "<!--#exec cmd="web 2860 build lltd"-->";
+	var igmpb = "<!--#exec cmd="web 2860 build igmpProxy"-->";
+	var upnpb = "<!--#exec cmd="web 2860 build upnp"-->";
+	var radvdb = "<!--#exec cmd="web 2860 build radvd"-->";
+	var pppoeb = "<!--#exec cmd="web 2860 build pppoeRelay"-->";
+	var dnsp = "<!--#exec cmd="web 2860 build dnsMasq"-->";
+
+	if (hostnameb == "0")
+		display("none", "div_hostname");
+	else
+		document.lanCfg.hostname.value = "<!--#exec cmd="web 2860 nvram HostName"-->";
+
+	if (lan2 == "1")
+	{
+		var lan2_ip = "<!--#exec cmd="web 2860 nvram lan2_ipaddr"-->";
+		var lan2_nm = "<!--#exec cmd="web 2860 nvram lan2_netmask"-->";
+
+		document.lanCfg.lan2enabled[0].checked = true;
+		document.lanCfg.lan2Ip.disabled = false;
+		document.lanCfg.lan2Ip.value = lan2_ip;
+		document.lanCfg.lan2Netmask.disabled = false;
+		document.lanCfg.lan2Netmask.value = lan2_nm;
+	}
+	else
+	{
+		document.lanCfg.lan2enabled[1].checked = true;
+		document.lanCfg.lan2Ip.disabled = true;
+		document.lanCfg.lan2Netmask.disabled = true;
+	}
+
+
+	document.lanCfg.lanDhcpType.options.selectedIndex = 1*dhcp;
+	dhcpTypeSwitch();
+	document.lanCfg.stpEnbl.options.selectedIndex = 1*stp;
+	document.lanCfg.lltdEnbl.options.selectedIndex = 1*lltd;
+	document.lanCfg.igmpEnbl.options.selectedIndex = 1*igmp;
+	document.lanCfg.upnpEnbl.options.selectedIndex = 1*upnp;
+	document.lanCfg.radvdEnbl.options.selectedIndex = 1*radvd;
+	document.lanCfg.pppoeREnbl.options.selectedIndex = 1*pppoe;
+	document.lanCfg.dnspEnbl.options.selectedIndex = 1*dns;
+
+	//gateway, dns only allow to configure at bridge mode
+	if (opmode != "0") {
+		display("none", "brGateway");
+		display("none", "brPriDns");
+		display("none", "brSecDns");
+	}
+
+	/* ppp0 is not a disabled interface anymore..
+	if (wan == "PPPOE" || wan == "L2TP" || wan == "PPTP") {
+		display("none", "igmpProxy");
+	}
+	else {
+		display("table-row", "igmpProxy");
+	}
+	*/
+
+	if (lltdb == "0") {
+		display("none", "lltd");
+		document.lanCfg.lltdEnbl.options.selectedIndex = 0;
+	}
+	if (igmpb == "0") {
+		display("none", "igmpProxy");
+		document.lanCfg.igmpEnbl.options.selectedIndex = 0;
+	}
+	if (upnpb == "0") {
+		display("none", "upnp");
+		document.lanCfg.upnpEnbl.options.selectedIndex = 0;
+	}
+	if (radvdb == "0") {
+		display("none", "radvd");
+		document.lanCfg.radvdEnbl.options.selectedIndex = 0;
+	}
+	if (pppoeb == "0") {
+		display("none", "pppoerelay");
+		document.lanCfg.pppoeREnbl.options.selectedIndex = 0;
+	}
+	if (dnsp == "0") {
+		display("none", "dnsproxy");
+		document.lanCfg.dnspEnbl.options.selectedIndex = 0;
+	}
+}
+
+function CheckValue()
+{
+	if (document.lanCfg.hostname.value.indexOf(" ") >= 0)
+	{
+		alert('Don\'t enter Blank Space in this feild');
+		document.lanCfg.hostname.focus();
+		document.lanCfg.hostname.select();
+		return false;
+	}
+	if (!checkIpAddr(document.lanCfg.lanIp, false))
+		return false;
+	if (!checkIpAddr(document.lanCfg.lanNetmask, true))
+		return false;
+	if (document.lanCfg.lan2enabled[0].checked == true)
+	{
+		if (!checkIpAddr(document.lanCfg.lan2Ip, false))
+			return false;
+		if (!checkIpAddr(document.lanCfg.lan2Netmask, true))
+			return false;
+	}
+	if (document.lanCfg.lanGateway.value != "")
+		if (!checkIpAddr(document.lanCfg.lanGateway, false))
+			return false;
+	if (document.lanCfg.lanPriDns.value != "")
+		if (!checkIpAddr(document.lanCfg.lanPriDns, false))
+			return false;
+	if (document.lanCfg.lanSecDns.value != "")
+		if (!checkIpAddr(document.lanCfg.lanSecDns, false))
+			return false;
+	if (document.lanCfg.lanDhcpType.options.selectedIndex == 1) {
+		if (!checkIpAddr(document.lanCfg.dhcpStart, false))
+			return false;
+		if (!checkIpAddr(document.lanCfg.dhcpEnd, false))
+			return false;
+		if (!checkIpAddr(document.lanCfg.dhcpMask, true))
+			return false;
+		if (document.lanCfg.dhcpPriDns.value != "")
+			if (!checkIpAddr(document.lanCfg.dhcpPriDns, false))
+				return false;
+		if (document.lanCfg.dhcpSecDns.value != "")
+			if (!checkIpAddr(document.lanCfg.dhcpSecDns, false))
+				return false;
+		if (!checkIpAddr(document.lanCfg.dhcpGateway, false))
+			return false;
+		if (document.lanCfg.dhcpStatic1Mac.value != "") {
+			var re = /[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}/;
+			if (!re.test(document.lanCfg.dhcpStatic1Mac.value)) {
+				alert("Please fill the MAC Address in correct format! (XX:XX:XX:XX:XX:XX)");
+				document.lanCfg.dhcpStatic1Mac.focus();
+				return false;
+			}
+			if (!checkIpAddr(document.lanCfg.dhcpStatic1Ip, false))
+				return false;
+			document.lanCfg.dhcpStatic1.value = document.lanCfg.dhcpStatic1Mac.value + ';' + document.lanCfg.dhcpStatic1Ip.value;
+		}
+		if (document.lanCfg.dhcpStatic2Mac.value != "") {
+			var re = /[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}/;
+			if (!re.test(document.lanCfg.dhcpStatic2Mac.value)) {
+				alert("Please fill the MAC Address in correct format! (XX:XX:XX:XX:XX:XX)");
+				document.lanCfg.dhcpStatic2Mac.focus();
+				return false;
+			}
+			if (!checkIpAddr(document.lanCfg.dhcpStatic2Ip, false))
+				return false;
+			document.lanCfg.dhcpStatic2.value = document.lanCfg.dhcpStatic2Mac.value + ';' + document.lanCfg.dhcpStatic2Ip.value;
+		}
+		if (document.lanCfg.dhcpStatic3Mac.value != "") {
+			var re = /[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}/;
+			if (!re.test(document.lanCfg.dhcpStatic3Mac.value)) {
+				alert("Please fill the MAC Address in correct format! (XX:XX:XX:XX:XX:XX)");
+				document.lanCfg.dhcpStatic3Mac.focus();
+				return false;
+			}
+			if (!checkIpAddr(document.lanCfg.dhcpStatic3Ip, false))
+				return false;
+			document.lanCfg.dhcpStatic3.value = document.lanCfg.dhcpStatic3Mac.value + ';' + document.lanCfg.dhcpStatic3Ip.value;
+		}
+	}
+	return true;
+}
+
+function lan2_enable_switch()
+{
+	if (document.lanCfg.lan2enabled[1].checked == true)
+	{
+		document.lanCfg.lan2Ip.disabled = true;
+		document.lanCfg.lan2Netmask.disabled = true;
+	}
+	else
+	{
+		document.lanCfg.lan2Ip.disabled = false;
+		document.lanCfg.lan2Netmask.disabled = false;
+	}
+}
+
+var oldIp;
+function recIpCfg()
+{
+	oldIp = document.lanCfg.lanIp.value;
+}
+
+/*
+ * Try to modify dhcp server configurations:
+ *   dhcp start/end ip address to the same as new lan ip address
+ */
+function modDhcpCfg()
+{
+	var i, j;
+	var mask = document.lanCfg.lanNetmask.value;
+	var newNet = document.lanCfg.lanIp.value;
+
+	//support simple subnet mask only
+	if (mask == "255.255.255.0")
+		mask = 3;
+	else if (mask == "255.255.0.0")
+		mask = 2;
+	else if (mask == "255.0.0.0")
+		mask = 1;
+	else
+		return;
+
+	//get the old subnet
+	for (i=0, j=0; i<oldIp.length; i++) {
+		if (oldIp.charAt(i) == '.') {
+			j++;
+			if (j != mask)
+				continue;
+			oldIp = oldIp.substring(0, i);
+			break;
+		}
+	}
+
+	//get the new subnet
+	for (i=0, j=0; i<newNet.length; i++) {
+		if (newNet.charAt(i) == '.') {
+			j++;
+			if (j != mask)
+				continue;
+			newNet = newNet.substring(0, i);
+			break;
+		}
+	}
+
+	document.lanCfg.dhcpStart.value = document.lanCfg.dhcpStart.value.replace(oldIp, newNet);
+	document.lanCfg.dhcpEnd.value = document.lanCfg.dhcpEnd.value.replace(oldIp, newNet);
+	document.lanCfg.dhcpGateway.value = document.lanCfg.lanIp.value;
+}
+</script>
+
+<body onLoad="initValue()">
+<table class="body"><tr><td>
+
+<h1 id="lTitle"></h1>
+<p id="lIntroduction"></p>
+<hr />
+
+<form method=post name="lanCfg" action="/cgi-bin/internet.cgi" onSubmit="return CheckValue()">
+<input type=hidden name=page value=lan>
+<table width="95%" border="1" cellpadding="2" cellspacing="1">
+<tr>
+  <td class="title" colspan="2" id="lSetup">LAN Interface Setup</td>
+</tr>
+<tr id="div_hostname">
+  <td class="head" id="lHostname">Hostname</td>
+  <td><input name="hostname" maxlength=16 value=""></td>
+</tr>
+<tr>
+  <td class="head" id="lIp">IP Address</td>
+  <td><input name="lanIp" maxlength=15 value="<!--#exec cmd="web 2860 sys lanIpAddr"-->" onFocus="recIpCfg()" onBlur="modDhcpCfg()"></td>
+</tr>
+<tr>
+  <td class="head" id="lNetmask">Subnet Mask</td>
+  <td><input name="lanNetmask" maxlength=15 value="<!--#exec cmd="web 2860 sys lanNetmask"-->"></td>
+</tr>
+<tr>
+  <td class="head" id="lLan2">LAN2</td>
+  <td>
+    <input type="radio" name="lan2enabled" value="1" onclick="lan2_enable_switch()"><font id="lLan2Enable">Enablei</font>&nbsp;
+    <input type="radio" name="lan2enabled" value="0" onClick="lan2_enable_switch()" checked><font id="lLan2Disable">Disable</font>
+  </td>
+</tr>
+<tr>
+  <td class="head" id="lLan2Ip">LAN2 IP Address</td>
+  <td><input name="lan2Ip" maxlength=15 value=""></td>
+</tr>
+<tr>
+  <td class="head" id="lLan2Netmask">LAN2 Subnet Mask</td>
+  <td><input name="lan2Netmask" maxlength=15 value=""></td>
+</tr>
+<tr id="brGateway">
+  <td class="head" id="lGateway">Default Gateway</td>
+  <td><input name="lanGateway" maxlength=15 value="<!--#exec cmd="web 2860 sys wanGateway"-->"></td>
+</tr>
+<tr id="brPriDns">
+  <td class="head" id="lPriDns">Primary DNS Server</td>
+  <td><input name="lanPriDns" maxlength=15 value="<!--#exec cmd="web 2860 sys dns1"-->"></td>
+</tr>
+<tr id="brSecDns">
+  <td class="head" id="lSecDns">Secondary DNS Server</td>
+  <td><input name="lanSecDns" maxlength=15 value="<!--#exec cmd="web 2860 sys dns2"-->"></td>
+</tr>
+<tr>
+  <td class="head" id="lMac">MAC Address</td>
+  <td><!--#exec cmd="web 2860 sys wanMacAddr"--></td>
+</tr>
+<tr>
+  <td class="head" id="lDhcpType">DHCP Type</td>
+  <td>
+    <select name="lanDhcpType" size="1" onChange="dhcpTypeSwitch();">
+      <option value="DISABLE" id="lDhcpTypeD">Disable</option>
+      <option value="SERVER" id="lDhcpTypeS">Server</option>
+    </select>
+  </td>
+</tr>
+<tr id="start">
+  <td class="head" id="lDhcpStart" align="right">DHCP Start IP</td>
+  <td><input name="dhcpStart" maxlength=15 value="<!--#exec cmd="web 2860 nvram dhcpStart"-->"></td>
+</tr>
+<tr id="end">
+  <td class="head" id="lDhcpEnd" align="right">DHCP End IP</td>
+  <td><input name="dhcpEnd" maxlength=15 value="<!--#exec cmd="web 2860 nvram dhcpEnd"-->"></td>
+</tr>
+<tr id="mask">
+  <td class="head" id="lDhcpNetmask" align="right">DHCP Subnet Mask</td>
+  <td><input name="dhcpMask" maxlength=15 value="<!--#exec cmd="web 2860 nvram dhcpMask"-->"></td>
+</tr>
+<tr id="pridns">
+  <td class="head" id="lDhcpPriDns" align="right">DHCP Primary DNS</td>
+  <td><input name="dhcpPriDns" maxlength=15 value="<!--#exec cmd="web 2860 nvram dhcpPriDns"-->"></td>
+</tr>
+<tr id="secdns">
+  <td class="head" id="lDhcpSecDns" align="right">DHCP Secondary DNS</td>
+  <td><input name="dhcpSecDns" maxlength=15 value="<!--#exec cmd="web 2860 nvram dhcpSecDns"-->"></td>
+</tr>
+<tr id="gateway">
+  <td class="head" id="lDhcpGateway" align="right">DHCP Default Gateway</td>
+  <td><input name="dhcpGateway" maxlength=15 value="<!--#exec cmd="web 2860 nvram dhcpGateway"-->"></td>
+</tr>
+<tr id="lease">
+  <td class="head" id="lDhcpLease" align="right">DHCP Lease Time</td>
+  <td><input name="dhcpLease" maxlength=8 value="<!--#exec cmd="web 2860 nvram dhcpLease"-->"></td>
+</tr>
+<tr id="staticlease1">
+  <td class="head" id="lDhcpStatic1" align="right">Statically Assigned</td>
+  <td><input type=hidden name=dhcpStatic1 value="">
+      MAC: <input name="dhcpStatic1Mac" maxlength=17 value=""><br />
+      IP: <input name="dhcpStatic1Ip" maxlength=15 value=""></td>
+</tr>
+<tr id="staticlease2">
+  <td class="head" id="lDhcpStatic2" align="right">Statically Assigned</td>
+  <td><input type=hidden name=dhcpStatic2 value="">
+      MAC: <input name="dhcpStatic2Mac" maxlength=17 value=""><br />
+      IP: <input name="dhcpStatic2Ip" maxlength=15 value=""></td>
+</tr>
+<tr id="staticlease3">
+  <td class="head" id="lDhcpStatic3" align="right">Statically Assigned</td>
+  <td><input type=hidden name=dhcpStatic3 value="">
+      MAC: <input name="dhcpStatic3Mac" maxlength=17 value=""><br />
+      IP: <input name="dhcpStatic3Ip" maxlength=15 value=""></td>
+</tr>
+<tr>
+  <td class="head" id="lStp">802.1d Spanning Tree</td>
+  <td>
+    <select name="stpEnbl" size="1">
+      <option value="0" id="lStpD">Disable</option>
+      <option value="1" id="lStpE">Enable</option>
+    </select>
+  </td>
+</tr>
+<tr id="lltd">
+  <td class="head" id="lLltd">LLTD</td>
+  <td>
+    <select name="lltdEnbl" size="1">
+      <option value="0" id="lLltdD">Disable</option>
+      <option value="1" id="lLltdE">Enable</option>
+    </select>
+  </td>
+</tr>
+<tr id="igmpProxy">
+  <td class="head" id="lIgmpp">IGMP proxy</td>
+  <td>
+    <select name="igmpEnbl" size="1">
+      <option value="0" id="lIgmppD">Disable</option>
+      <option value="1" id="lIgmppE">Enable</option>
+    </select>
+  </td>
+</tr>
+<tr id="upnp">
+  <td class="head" id="lUpnp">UPNP</td>
+  <td>
+    <select name="upnpEnbl" size="1">
+      <option value="0" id="lUpnpD">Disable</option>
+      <option value="1" id="lUpnpE">Enable</option>
+    </select>
+  </td>
+</tr>
+<tr id="radvd">
+  <td class="head" id="lRadvd">Router Advertisement</td>
+  <td>
+    <select name="radvdEnbl" size="1">
+      <option value="0" id="lRadvdD">Disable</option>
+      <option value="1" id="lRadvdE">Enable</option>
+    </select>
+  </td>
+</tr>
+<tr id="pppoerelay">
+  <td class="head" id="lPppoer">PPPOE relay</td>
+  <td>
+    <select name="pppoeREnbl" size="1">
+      <option value="0" id="lPppoerD">Disable</option>
+      <option value="1" id="lPppoerE">Enable</option>
+    </select>
+  </td>
+</tr>
+<tr id="dnsproxy">
+  <td class="head" id="lDnsp">DNS proxy</td>
+  <td>
+    <select name="dnspEnbl" size="1">
+      <option value="0" id="lDnspD">Disable</option>
+      <option value="1" id="lDnspE">Enable</option>
+    </select>
+  </td>
+</tr>
+</table>
+
+<table width="95%" cellpadding="2" cellspacing="1">
+<tr align="center">
+  <td>
+    <input type=submit style="{width:120px;}" value="Apply" id="lApply"  onClick="TimeoutReload(20)">&nbsp;&nbsp;
+    <input type=reset  style="{width:120px;}" value="Cancel" id="lCancel" onClick="window.location.reload()">
+  </td>
+</tr>
+</table>
+</form>
+
+</td></tr></table>
+</body>
+</html>
+

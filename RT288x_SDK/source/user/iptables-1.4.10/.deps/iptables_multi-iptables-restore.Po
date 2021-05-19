@@ -1,0 +1,279 @@
+iptables_multi-iptables-restore.o: iptables-restore.c \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/getopt.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/getopt.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/features.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/uClibc_config.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/sys/cdefs.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/sys/errno.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/errno.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/errno.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/linux/errno.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/asm/errno.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/asm-generic/errno-base.h \
+ /opt/buildroot-gcc463/usr/lib/gcc/mipsel-unknown-linux-uclibc/4.6.3/include/stdbool.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/string.h \
+ /opt/buildroot-gcc463/usr/lib/gcc/mipsel-unknown-linux-uclibc/4.6.3/include/stddef.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/stdio.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/types.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/wordsize.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/typesizes.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/pthreadtypes.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/endian.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/endian.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/byteswap.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/byteswap.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/byteswap-common.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/sgidefs.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/uClibc_stdio.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/wchar.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/wchar.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/uClibc_mutex.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/pthread.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/sched.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/time.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/sched.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/time.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/uClibc_clk_tck.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/signal.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/sigset.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/setjmp.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/uClibc_pthread.h \
+ /opt/buildroot-gcc463/usr/lib/gcc/mipsel-unknown-linux-uclibc/4.6.3/include/stdarg.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/stdio_lim.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/stdlib.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/sys/types.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/sys/select.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/select.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/sys/sysmacros.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/alloca.h \
+ include/iptables.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/netinet/ip.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/netinet/in.h \
+ /opt/buildroot-gcc463/usr/lib/gcc/mipsel-unknown-linux-uclibc/4.6.3/include/stdint.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/stdint.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/sys/socket.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/sys/uio.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/uio.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/socket.h \
+ /opt/buildroot-gcc463/usr/lib/gcc/mipsel-unknown-linux-uclibc/4.6.3/include-fixed/limits.h \
+ /opt/buildroot-gcc463/usr/lib/gcc/mipsel-unknown-linux-uclibc/4.6.3/include-fixed/syslimits.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/limits.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/posix1_lim.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/local_lim.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/linux/limits.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/uClibc_local_lim.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/posix2_lim.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/sockaddr.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/asm/socket.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/asm/sockios.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/asm/ioctl.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/asm-generic/ioctl.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/in.h \
+ include/xtables.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/net/if.h \
+ include/linux/types.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/asm/types.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/asm-generic/int-ll64.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/asm/bitsperlong.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/asm-generic/bitsperlong.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/linux/posix_types.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/linux/stddef.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/asm/posix_types.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/asm/sgidefs.h \
+ include/linux/netfilter.h include/linux/netfilter/x_tables.h \
+ include/linux/kernel.h include/libiptc/libiptc.h \
+ include/libiptc/ipt_kernel_headers.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/netinet/ip_icmp.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/netinet/tcp.h \
+ /opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/netinet/udp.h \
+ include/linux/netfilter_ipv4/ip_tables.h include/linux/netfilter_ipv4.h \
+ include/linux/netfilter/xt_tcpudp.h include/iptables/internal.h \
+ iptables-multi.h
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/getopt.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/getopt.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/features.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/uClibc_config.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/sys/cdefs.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/sys/errno.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/errno.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/errno.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/linux/errno.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/asm/errno.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/asm-generic/errno-base.h:
+
+/opt/buildroot-gcc463/usr/lib/gcc/mipsel-unknown-linux-uclibc/4.6.3/include/stdbool.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/string.h:
+
+/opt/buildroot-gcc463/usr/lib/gcc/mipsel-unknown-linux-uclibc/4.6.3/include/stddef.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/stdio.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/types.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/wordsize.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/typesizes.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/pthreadtypes.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/endian.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/endian.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/byteswap.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/byteswap.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/byteswap-common.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/sgidefs.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/uClibc_stdio.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/wchar.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/wchar.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/uClibc_mutex.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/pthread.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/sched.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/time.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/sched.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/time.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/uClibc_clk_tck.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/signal.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/sigset.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/setjmp.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/uClibc_pthread.h:
+
+/opt/buildroot-gcc463/usr/lib/gcc/mipsel-unknown-linux-uclibc/4.6.3/include/stdarg.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/stdio_lim.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/stdlib.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/sys/types.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/sys/select.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/select.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/sys/sysmacros.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/alloca.h:
+
+include/iptables.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/netinet/ip.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/netinet/in.h:
+
+/opt/buildroot-gcc463/usr/lib/gcc/mipsel-unknown-linux-uclibc/4.6.3/include/stdint.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/stdint.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/sys/socket.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/sys/uio.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/uio.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/socket.h:
+
+/opt/buildroot-gcc463/usr/lib/gcc/mipsel-unknown-linux-uclibc/4.6.3/include-fixed/limits.h:
+
+/opt/buildroot-gcc463/usr/lib/gcc/mipsel-unknown-linux-uclibc/4.6.3/include-fixed/syslimits.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/limits.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/posix1_lim.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/local_lim.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/linux/limits.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/uClibc_local_lim.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/posix2_lim.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/sockaddr.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/asm/socket.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/asm/sockios.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/asm/ioctl.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/asm-generic/ioctl.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/bits/in.h:
+
+include/xtables.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/net/if.h:
+
+include/linux/types.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/asm/types.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/asm-generic/int-ll64.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/asm/bitsperlong.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/asm-generic/bitsperlong.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/linux/posix_types.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/linux/stddef.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/asm/posix_types.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/asm/sgidefs.h:
+
+include/linux/netfilter.h:
+
+include/linux/netfilter/x_tables.h:
+
+include/linux/kernel.h:
+
+include/libiptc/libiptc.h:
+
+include/libiptc/ipt_kernel_headers.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/netinet/ip_icmp.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/netinet/tcp.h:
+
+/opt/buildroot-gcc463/usr/mipsel-unknown-linux-uclibc/sysroot/usr/include/netinet/udp.h:
+
+include/linux/netfilter_ipv4/ip_tables.h:
+
+include/linux/netfilter_ipv4.h:
+
+include/linux/netfilter/xt_tcpudp.h:
+
+include/iptables/internal.h:
+
+iptables-multi.h:

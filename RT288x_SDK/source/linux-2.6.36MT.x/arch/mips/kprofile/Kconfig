@@ -1,0 +1,4 @@
+config KPROFILE
+       bool "Kprofile"
+       depends on MIPS_TC3262
+       help
